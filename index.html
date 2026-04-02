@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Navigator - 在线工具集 | Log 文件浏览器 | 正则表达式生成器</title>
+    <meta name="description" content="免费在线工具集 - 提供 Log 文件浏览器和正则表达式生成器。Log 文件浏览器支持 40+ 种编码、语法高亮、正则过滤；正则表达式生成器可自动生成正则模式。纯本地运行，保护隐私。">
+    <meta name="keywords" content="工具集，Log 文件查看器，日志查看器，正则表达式生成器，regex generator，log viewer，在线工具，编码转换，语法高亮，正则过滤">
+    <meta name="author" content="main@autogo.top">
+    <meta name="description" lang="en" content="Free online tools - Log File Browser with 40+ encodings, syntax highlighting, regex filtering; Regex Generator automatically generates patterns. Local execution, privacy protected.">
+    <meta name="description" lang="ru" content="Бесплатные онлайн инструменты - Браузер логов с поддержкой 40+ кодировок, подсветкой синтаксиса; Генератор регулярных выражений. Локальная работа.">
+    <meta name="description" lang="ja" content="無料オンラインツール - 40+ 種エンコーディング対応のログファイルブラウザ、正規表現ジェネレーター。ローカル実行、プライバシー保護。">
+    <meta name="description" lang="ko" content="무료 온라인 도구 - 40+ 인코딩 지원 로그 파일 브라우저，정규식 생성기. 로컬 실행，개인정보 보호.">
+    <meta name="description" lang="fr" content="Outils en ligne gratuits - Navigateur de logs avec 40+ encodages; Générateur d'expressions régulières. Exécution locale, vie privée protégée.">
+    <meta name="description" lang="de" content="Kostenlose Online-Tools - Log-Datei-Browser mit 40+ Encodings; Regex-Generator. Lokale Ausführung, Datenschutz.">
+    <meta name="description" lang="es" content="Herramientas en línea gratuitas - Navegador de logs con 40+ codificaciones; Generador regex. Ejecución local, privacidad protegida.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN, en, ru, ja, ko, fr, de, es">
+    <link rel="canonical" href="https://tool.autogo.top/">
+    <link rel="alternate" hreflang="zh-CN" href="https://tool.autogo.top/?lang=zh-CN">
+    <link rel="alternate" hreflang="en" href="https://tool.autogo.top/?lang=en">
+    <link rel="alternate" hreflang="ru" href="https://tool.autogo.top/?lang=ru">
+    <link rel="alternate" hreflang="ja" href="https://tool.autogo.top/?lang=ja">
+    <link rel="alternate" hreflang="ko" href="https://tool.autogo.top/?lang=ko">
+    <link rel="alternate" hreflang="fr" href="https://tool.autogo.top/?lang=fr">
+    <link rel="alternate" hreflang="de" href="https://tool.autogo.top/?lang=de">
+    <link rel="alternate" hreflang="es" href="https://tool.autogo.top/?lang=es">
+    <link rel="alternate" hreflang="x-default" href="https://tool.autogo.top/">
+    <meta property="og:title" content="Tools Navigator - 在线工具集">
+    <meta property="og:description" content="免费在线工具集 - Log 文件浏览器和正则表达式生成器，纯本地运行，保护隐私">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="ko_KR">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="es_ES">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4a9eff;
+            --primary-hover: #3a8eef;
+            --bg-color: #1e1e1e;
+            --card-bg: #252526;
+            --card-hover: #2a2d2e;
+            --text-color: #d4d4d4;
+            --text-secondary: #808080;
+            --border-color: #454545;
+            --scrollbar-bg: #1e1e1e;
+            --scrollbar-thumb: #424242;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 头部样式 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .language-selector label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .language-selector select {
+            padding: 0.4rem 0.8rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        .language-selector select:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* 主内容区域 */
+        main {
+            flex: 1;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-section h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .welcome-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* 工具卡片网格 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .tool-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .tool-card:hover {
+            background-color: var(--card-hover);
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(74, 158, 255, 0.15);
+        }
+
+        .tool-card-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .tool-card-content {
+            flex: 1;
+        }
+
+        .tool-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .tool-card-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .tool-card-arrow {
+            align-self: flex-end;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover .tool-card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .footer-license {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .footer-contact {
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .welcome-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "952de367ac0b4b6cbdf40ccd98b69859"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+    <header>
+        <h1 data-i18n="headerTitle">🛠️ Tools</h1>
+        <div class="language-selector">
+            <label for="languageSelect" data-i18n="languageLabel">语言:</label>
+            <select id="languageSelect">
+                <option value="zh-CN">简体中文</option>
+                <option value="en">English</option>
+                <option value="ru">Русский</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome-section">
+            <h2 data-i18n="welcomeTitle">欢迎使用工具集</h2>
+            <p data-i18n="welcomeDesc">选择下方的工具开始使用</p>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid">
+            <!-- 工具卡片将通过 JavaScript 动态生成 -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Tools Navigator. 
+                <a class="footer-license" href="https://github.com/leyun886/tools" target="_blank" rel="noopener noreferrer" data-i18n="footerRepo">GitHub Repository</a> | 
+                <span data-i18n="footerLicenseText">Licensed under MIT</span> 
+            </p>
+            
+                
+            
+            <div class="footer-contact">
+                <span>📧 </span><a href="mailto:main@autogo.top">main@autogo.top</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== 工具配置 ====================
+        // 添加新工具时，只需在此数组中添加新项
+        const tools = [
+            {
+                id: 'log_viewer',
+                icon: '📄',
+                nameKey: 'toolLogViewer',
+                descKey: 'toolLogViewerDesc',
+                url: './log_viewer/'
+            },
+            {
+                id: 'regex_generator',
+                icon: '🔤',
+                nameKey: 'toolRegexGenerator',
+                descKey: 'toolRegexGeneratorDesc',
+                url: './regex_generator/'
+            }
+            // 添加新工具示例:
+            // {
+            //     id: 'new_tool',
+            //     icon: '🔧',
+            //     nameKey: 'toolNewTool',
+            //     descKey: 'toolNewToolDesc',
+            //     url: './new_tool/'
+            // }
+        ];
+
+        // ==================== 多语言翻译 ====================
+        const translations = {
+            'zh-CN': {
+                headerTitle: '🛠️ Tools',
+                languageLabel: '语言:',
+                welcomeTitle: '欢迎使用工具集',
+                welcomeDesc: '选择下方的工具开始使用',
+                
+                footerRepo: 'GitHub 仓库',
+                footerLicenseText: 'MIT 许可',
+                toolLogViewer: 'Log 文件浏览器',
+                toolLogViewerDesc: '快速、强大的日志文件查看工具，支持多种编码、语法高亮、正则过滤等功能',
+                toolRegexGenerator: '正则表达式生成器',
+                toolRegexGeneratorDesc: '通过示例字符串自动生成正则表达式，支持多语言界面'
+            },
+            'en': {
+                headerTitle: '🛠️ Tools',
+                languageLabel: 'Language:',
+                welcomeTitle: 'Welcome to Tools',
+                welcomeDesc: 'Select a tool below to get started',
+                
+                footerRepo: 'GitHub Repository',
+                footerLicenseText: 'Licensed under MIT',
+                toolLogViewer: 'Log File Browser',
+                toolLogViewerDesc: 'Fast and powerful log file viewer with multi-encoding support, syntax highlighting, and regex filtering',
+                toolRegexGenerator: 'Regex Generator',
+                toolRegexGeneratorDesc: 'Automatically generate regex patterns from example strings with multi-language support'
+            },
+            'ru': {
+                headerTitle: '🛠️ Инструменты',
+                languageLabel: 'Язык:',
+                welcomeTitle: 'Добро пожаловать',
+                welcomeDesc: 'Выберите инструмент ниже для начала работы',
+                
+                footerRepo: 'Репозиторий GitHub',
+                footerLicenseText: 'Лицензия MIT',
+                toolLogViewer: 'Браузер логов',
+                toolLogViewerDesc: 'Быстрый и мощный просмотрщик логов с поддержкой кодировок, подсветкой синтаксиса и regex фильтрацией',
+                toolRegexGenerator: 'Генератор регулярных выражений',
+                toolRegexGeneratorDesc: 'Автоматическая генерация регулярных выражений из примеров с поддержкой нескольких языков'
+            },
+            'ja': {
+                headerTitle: '🛠️ ツール',
+                languageLabel: '言語:',
+                welcomeTitle: 'ツール集へようこそ',
+                welcomeDesc: '下のツールを選択して開始してください',
+                
+                footerRepo: 'GitHub リポジトリ',
+                footerLicenseText: 'MIT ライセンス',
+                toolLogViewer: 'ログファイルブラウザ',
+                toolLogViewerDesc: 'マルチエンコーディング対応、シンタックスハイライト、正規表現フィルタリングを備えた高速で強力なログファイルビューア',
+                toolRegexGenerator: '正規表現ジェネレーター',
+                toolRegexGeneratorDesc: 'サンプル文字列から自動的に正規表現を生成する多言語対応ツール'
+            },
+            'ko': {
+                headerTitle: '🛠️ 도구',
+                languageLabel: '언어:',
+                welcomeTitle: '도구 모음에 오신 것을 환영합니다',
+                welcomeDesc: '아래 도구를 선택하여 시작하세요',
+                
+                footerRepo: 'GitHub 저장소',
+                footerLicenseText: 'MIT 라이선스',
+                toolLogViewer: '로그 파일 브라우저',
+                toolLogViewerDesc: '다중 인코딩 지원, 구문 강조, 정규식 필터링을 제공하는 빠르고 강력한 로그 파일 뷰어',
+                toolRegexGenerator: '정규식 생성기',
+                toolRegexGeneratorDesc: '예시 문자열에서 자동으로 정규식을 생성하는 다국어 지원 도구'
+            },
+            'fr': {
+                headerTitle: '🛠️ Outils',
+                languageLabel: 'Langue:',
+                welcomeTitle: 'Bienvenue dans Tools',
+                welcomeDesc: 'Sélectionnez un outil ci-dessous pour commencer',
+                
+                footerRepo: 'Dépôt GitHub',
+                footerLicenseText: 'Licence MIT',
+                toolLogViewer: 'Navigateur de fichiers log',
+                toolLogViewerDesc: 'Visionneuse de fichiers log rapide et puissante avec support multi-encodage, coloration syntaxique et filtrage regex',
+                toolRegexGenerator: 'Générateur de regex',
+                toolRegexGeneratorDesc: 'Génération automatique de motifs regex à partir d\'exemples avec support multi-langues'
+            },
+            'de': {
+                headerTitle: '🛠️ Tools',
+                languageLabel: 'Sprache:',
+                welcomeTitle: 'Willkommen bei Tools',
+                welcomeDesc: 'Wählen Sie ein Tool unten aus, um zu beginnen',
+                
+                footerRepo: 'GitHub-Repository',
+                footerLicenseText: 'MIT-Lizenz',
+                toolLogViewer: 'Log-Datei-Browser',
+                toolLogViewerDesc: 'Schneller und leistungsstarker Log-Datei-Betrachter mit Multi-Encoding-Unterstützung, Syntax-Highlighting und Regex-Filterung',
+                toolRegexGenerator: 'Regex-Generator',
+                toolRegexGeneratorDesc: 'Automatische Generierung von Regex-Mustern aus Beispielstrings mit mehrsprachiger Unterstützung'
+            },
+            'es': {
+                headerTitle: '🛠️ Herramientas',
+                languageLabel: 'Idioma:',
+                welcomeTitle: 'Bienvenido a Tools',
+                welcomeDesc: 'Seleccione una herramienta a continuación para comenzar',
+                
+                footerRepo: 'Repositorio GitHub',
+                footerLicenseText: 'Licencia MIT',
+                toolLogViewer: 'Navegador de archivos de registro',
+                toolLogViewerDesc: 'Visor de archivos de registro rápido y potente con soporte multi-codificación, resaltado de sintaxis y filtrado regex',
+                toolRegexGenerator: 'Generador de regex',
+                toolRegexGeneratorDesc: 'Generación automática de patrones regex a partir de ejemplos con soporte multi-idiomas'
+            }
+        };
+
+        // ==================== 当前语言 ====================
+        let currentLanguage = 'zh-CN';
+
+        // ==================== 渲染工具卡片 ====================
+        function renderTools() {
+            const grid = document.getElementById('toolsGrid');
+            grid.innerHTML = '';
+
+            tools.forEach(tool => {
+                const card = document.createElement('a');
+                card.className = 'tool-card';
+                card.href = tool.url;
+
+                card.innerHTML = `
+                    <div class="tool-card-icon">${tool.icon}</div>
+                    <div class="tool-card-content">
+                        <h3 class="tool-card-title" data-i18n="${tool.nameKey}">${t(tool.nameKey)}</h3>
+                        <p class="tool-card-desc" data-i18n="${tool.descKey}">${t(tool.descKey)}</p>
+                    </div>
+                    <div class="tool-card-arrow">→</div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // ==================== 翻译函数 ====================
+        function t(key) {
+            const lang = translations[currentLanguage];
+            if (lang && lang[key]) {
+                return lang[key];
+            }
+            // 回退到中文
+            return translations['zh-CN'][key] || key;
+        }
+
+        // ==================== 应用翻译 ====================
+        function applyTranslations() {
+            // 翻译所有带有 data-i18n 属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = t(key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+
+            // 保存语言偏好
+            localStorage.setItem('preferredLanguage', currentLanguage);
+        }
+
+        // ==================== 初始化 ====================
+        function init() {
+            // 加载保存的语言偏好
+            const savedLanguage = localStorage.getItem('preferredLanguage');
+            if (savedLanguage && translations[savedLanguage]) {
+                currentLanguage = savedLanguage;
+                document.getElementById('languageSelect').value = savedLanguage;
+            }
+
+            // 渲染工具卡片
+            renderTools();
+
+            // 应用翻译
+            applyTranslations();
+
+            // 语言选择器事件监听
+            document.getElementById('languageSelect').addEventListener('change', (e) => {
+                currentLanguage = e.target.value;
+                applyTranslations();
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

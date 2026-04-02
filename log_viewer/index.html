@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log 文件浏览器 - 在线日志查看工具 | 支持 UTF-8/GBK 等 40+ 编码</title>
+    <meta name="description" content="免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，自动滚动。纯本地运行，日志文件不上传服务器，保护隐私。">
+    <meta name="keywords" content="log 文件查看器，日志查看器，log viewer，日志文件浏览器，utf-8 查看器，gbk 查看器，编码转换，语法高亮，正则过滤，在线日志工具">
+    <meta name="author" content="main@autogo.top">
+    <meta name="description" lang="en" content="Free Log File Browser - Support 40+ encodings (UTF-8, GBK, Big5), syntax highlighting, regex filter, line folding. Local execution, logs not uploaded, privacy protected.">
+    <meta name="description" lang="ru" content="Бесплатный браузер логов - Поддержка 40+ кодировок (UTF-8, GBK, Big5), подсветка синтаксиса, regex фильтр. Локальная работа, логи не загружаются.">
+    <meta name="description" lang="ja" content="無料ログファイルブラウザ - 40+ エンコーディング対応（UTF-8、GBK、Big5）、シンタックスハイライト、正規表現フィルター。ローカル実行、ログアップロードなし。">
+    <meta name="description" lang="ko" content="무료 로그 파일 브라우저 - 40+ 인코딩 지원 (UTF-8, GBK, Big5), 구문 강조，정규식 필터. 로컬 실행，로그 업로드 없음.">
+    <meta name="description" lang="fr" content="Navigateur de logs gratuit - Support 40+ encodages (UTF-8, GBK, Big5), coloration syntaxique, filtrage regex. Exécution locale, logs non uploadés.">
+    <meta name="description" lang="de" content="Kostenloser Log-Datei-Browser - 40+ Encodings (UTF-8, GBK, Big5), Syntax-Highlighting, Regex-Filterung. Lokale Ausführung, Logs nicht hochgeladen.">
+    <meta name="description" lang="es" content="Navegador de logs gratuito - Soporta 40+ codificaciones (UTF-8, GBK, Big5), resaltado de sintaxis, filtrado regex. Ejecución local, logs no subidos.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN, en, ru, ja, ko, fr, de, es">
+    <link rel="canonical" href="https://tool.autogo.top/log_viewer/">
+    <link rel="alternate" hreflang="zh-CN" href="https://tool.autogo.top/log_viewer/?lang=zh-CN">
+    <link rel="alternate" hreflang="en" href="https://tool.autogo.top/log_viewer/?lang=en">
+    <link rel="alternate" hreflang="ru" href="https://tool.autogo.top/log_viewer/?lang=ru">
+    <link rel="alternate" hreflang="ja" href="https://tool.autogo.top/log_viewer/?lang=ja">
+    <link rel="alternate" hreflang="ko" href="https://tool.autogo.top/log_viewer/?lang=ko">
+    <link rel="alternate" hreflang="fr" href="https://tool.autogo.top/log_viewer/?lang=fr">
+    <link rel="alternate" hreflang="de" href="https://tool.autogo.top/log_viewer/?lang=de">
+    <link rel="alternate" hreflang="es" href="https://tool.autogo.top/log_viewer/?lang=es">
+    <link rel="alternate" hreflang="x-default" href="https://tool.autogo.top/log_viewer/">
+    <meta property="og:title" content="Log 文件浏览器 - 在线日志查看工具">
+    <meta property="og:description" content="支持 40+ 编码、语法高亮、正则过滤的 Log 文件浏览器，纯本地运行，保护隐私">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="ko_KR">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="es_ES">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4a9eff;
+            --primary-hover: #3a8eef;
+            --bg-color: #1e1e1e;
+            --sidebar-bg: #252526;
+            --toolbar-bg: #333333;
+            --content-bg: #1e1e1e;
+            --text-color: #d4d4d4;
+            --border-color: #454545;
+            --line-number-bg: #2d2d2d;
+            --line-number-color: #858585;
+            --hover-bg: #2a2d2e;
+            --selected-bg: #37373d;
+            --scrollbar-bg: #1e1e1e;
+            --scrollbar-thumb: #424242;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 介绍页样式 */
+        .intro-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d30 100%);
+        }
+
+        .intro-page h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .intro-page .subtitle {
+            font-size: 1.2rem;
+            color: #808080;
+            margin-bottom: 3rem;
+        }
+
+        .intro-page .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        .intro-page .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--sidebar-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .intro-page .feature-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .intro-page .feature-text {
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .intro-page .open-btn {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .intro-page .open-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+        }
+
+        .intro-page .open-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .intro-page .drop-zone {
+            margin-top: 2rem;
+            padding: 2rem 4rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            color: #808080;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .intro-page .drop-zone.drag-over {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 158, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* 日志查看器样式 */
+        .log-viewer {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .log-viewer.active {
+            display: flex;
+        }
+
+        /* 工具栏 */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--toolbar-bg);
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-right: 1rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .toolbar-group:last-child {
+            border-right: none;
+        }
+
+        .toolbar label {
+            font-size: 0.85rem;
+            color: #808080;
+        }
+
+        .toolbar select,
+        .toolbar input[type="text"] {
+            padding: 0.4rem 0.6rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            min-width: 120px;
+        }
+
+        .toolbar select:focus,
+        .toolbar input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .toolbar input[type="text"] {
+            width: 200px;
+        }
+
+        .toolbar button {
+            padding: 0.4rem 0.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .toolbar button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .toolbar button.secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+        }
+
+        .toolbar button.secondary:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .toolbar .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .toolbar input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        /* 日志内容区域 */
+        .log-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .log-container {
+            flex: 1;
+            overflow: auto;
+            background-color: var(--content-bg);
+        }
+
+        .log-lines {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .log-line {
+            display: table-row;
+        }
+
+        .log-line:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .log-line.selected {
+            background-color: var(--selected-bg);
+        }
+
+        .log-line.hidden {
+            display: none;
+        }
+
+        .log-line-number {
+            display: table-cell;
+            width: 60px;
+            padding: 2px 8px;
+            background-color: var(--line-number-bg);
+            color: var(--line-number-color);
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .log-line-text {
+            display: table-cell;
+            padding: 2px 8px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* 折叠按钮 */
+        .fold-toggle {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            line-height: 14px;
+            background-color: var(--border-color);
+            color: var(--text-color);
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 10px;
+            user-select: none;
+        }
+
+        .fold-toggle:hover {
+            background-color: var(--primary-color);
+        }
+
+        .fold-count {
+            color: #808080;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 折叠内容 */
+        .folded-content {
+            display: none;
+        }
+
+        .folded-content.expanded {
+            display: table-row;
+        }
+
+        /* 语法高亮 */
+        .highlight-timestamp {
+            color: #569cd6;
+        }
+
+        .highlight-error {
+            color: #f44747;
+            font-weight: bold;
+        }
+
+        .highlight-warn {
+            color: #cca700;
+            font-weight: bold;
+        }
+
+        .highlight-info {
+            color: #4ec9b0;
+            font-weight: bold;
+        }
+
+        .highlight-debug {
+            color: #4ec9b0;
+        }
+
+        .highlight-trace {
+            color: #808080;
+        }
+
+        .highlight-fatal {
+            color: #d75a5a;
+            font-weight: bold;
+        }
+
+        .highlight-stack {
+            color: #808080;
+            font-style: italic;
+        }
+
+        .highlight-thread {
+            color: #c586c0;
+        }
+
+        .highlight-class {
+            color: #4ec9b0;
+        }
+
+        .highlight-keyword {
+            color: #569cd6;
+        }
+
+        .highlight-string {
+            color: #ce9178;
+        }
+
+        .highlight-number {
+            color: #b5cea8;
+        }
+
+        .highlight-ip {
+            color: #dcdcaa;
+        }
+
+        /* 搜索高亮 */
+        .search-highlight {
+            background-color: #613214;
+            border-radius: 2px;
+        }
+
+        .search-highlight.current {
+            background-color: #9c6a2a;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.4rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .status-left,
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* 模态框 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background-color: var(--sidebar-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            min-width: 500px;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* 高亮规则列表 */
+        .rule-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background-color: var(--bg-color);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-item input[type="text"] {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .rule-item input[type="color"] {
+            width: 40px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: none;
+        }
+
+        .rule-item button {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .rule-item button.delete {
+            background-color: #f44747;
+        }
+
+        .rule-item button.delete:hover {
+            background-color: #d73a3a;
+        }
+
+        /* 表单组 */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #808080;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* 预设规则 */
+        .preset-rules {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preset-btn {
+            padding: 0.4rem 0.8rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 行修复设置 */
+        .repair-settings {
+            margin-bottom: 1rem;
+        }
+
+        .repair-settings .form-group {
+            margin-bottom: 0.5rem;
+        }
+
+        /* 导出设置 */
+        .export-options {
+            margin-bottom: 1rem;
+        }
+
+        .export-options .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .radio-group input[type="radio"] {
+            flex-shrink: 0;
+        }
+
+        /* 语言切换 */
+        .language-selector {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+
+        .language-selector select {
+            padding: 0.4rem 0.6rem;
+            background-color: var(--sidebar-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* 加载指示器 */
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: #808080;
+        }
+
+        /* 文件信息 */
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #808080;
+            font-size: 0.85rem;
+        }
+
+        .file-name {
+            color: var(--text-color);
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* 介绍页页脚 */
+        .intro-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .intro-footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .intro-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .intro-footer a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .intro-footer .footer-license {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .intro-footer .footer-contact {
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "952de367ac0b4b6cbdf40ccd98b69859"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+    <!-- 介绍页 -->
+    <div class="intro-page" id="introPage">
+        <h1 data-i18n="introTitle">📄 Log 文件浏览器</h1>
+        <p class="subtitle" data-i18n="introSubtitle">快速、强大的日志文件查看工具</p>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🔤</span>
+                <span class="feature-text" data-i18n="featureEncoding">支持 40+ 种编码格式</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🎨</span>
+                <span class="feature-text" data-i18n="featureHighlight">语法高亮与自定义规则</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔍</span>
+                <span class="feature-text" data-i18n="featureSearch">搜索与正则过滤</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📊</span>
+                <span class="feature-text" data-i18n="featureFold">行折叠与行修复</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📥</span>
+                <span class="feature-text" data-i18n="featureExport">过滤结果导出</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⬇️</span>
+                <span class="feature-text" data-i18n="featureScroll">自动滚动到底部</span>
+            </div>
+        </div>
+
+        <button class="open-btn" id="openFileBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+            <span data-i18n="openFile">打开文件</span>
+        </button>
+        <input type="file" id="fileInput" accept=".log,.txt,.json,.xml,.csv" style="display: none;">
+
+        <div class="drop-zone" id="dropZone">
+            <p data-i18n="dropZone">或将文件拖拽到此处打开</p>
+        </div>
+        
+        <footer class="intro-footer">
+            <div class="footer-content">
+                <p>© 2026 Log File Browser.
+                 <a class="footer-license" href="https://github.com/leyun886/tools" target="_blank" rel="noopener noreferrer" data-i18n="footerRepo">GitHub Repository</a> | 
+                <span data-i18n="footerLicenseText">Licensed under MIT</span> 
+                </p>
+                <div class="footer-contact">
+                    <span>📧 </span><a href="mailto:main@autogo.top">main@autogo.top</a>
+                </div>
+            </div>
+        </footer>
+        <div class="privacy-notice" style="margin-top: 2rem; padding: 1rem 2rem; background-color: var(--sidebar-bg); border-radius: 8px; border: 1px solid var(--border-color); max-width: 600px; text-align: center;">
+            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 0.95rem;" data-i18n="privacyTitle">🔒 隐私与数据保护声明</h4>
+            <p style="color: #808080; font-size: 0.85rem; line-height: 1.6;">
+                <span data-i18n="privacyLine1">本工具为纯本地应用，所有操作均在您的浏览器中完成。</span><br>
+                • <span data-i18n="privacyLine2">您打开的日志文件<strong>不会上传到任何服务器</strong></span><br>
+                • <span data-i18n="privacyLine3">文件内容<strong>仅保存在内存中</strong>，刷新页面即清除</span><br>
+                • <span data-i18n="privacyLine4">高亮规则等用户偏好设置<strong>仅存储于本地 localStorage</strong></span><br>
+                • <span data-i18n="privacyLine5">我们<strong>不收集、不存储、不上传</strong>任何用户数据</span>
+            </p>
+            <p style="color: #666; font-size: 0.8rem; margin-top: 0.5rem;" data-i18n="privacyNote">
+                您可以放心使用本工具处理敏感日志数据
+            </p>
+        </div>
+    </div>
+
+    <!-- 日志查看器 -->
+    <div class="log-viewer" id="logViewer">
+        <!-- 工具栏 -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <button class="secondary" id="backBtn" data-i18n="back" title="返回首页">
+                    ← 返回
+                </button>
+                <button class="secondary" id="reopenBtn" data-i18n="reopen" title="重新打开文件">
+                    📂 打开
+                </button>
+                <div class="file-info">
+                    <span class="file-name" id="fileName" data-i18n="noFile">未选择文件</span>
+                </div>
+            </div>
+
+            <div class="toolbar-group">
+                <label for="encodingSelect" data-i18n="encoding">编码:</label>
+                <select id="encodingSelect">
+                    <optgroup label="Unicode" data-i18n-optgroup="encUnicode">
+                        <option value="utf-8">UTF-8</option>
+                        <option value="utf-8-bom">UTF-8 with BOM</option>
+                        <option value="utf-16">UTF-16</option>
+                        <option value="utf-16le">UTF-16LE</option>
+                        <option value="utf-16be">UTF-16BE</option>
+                        <option value="utf-32">UTF-32</option>
+                        <option value="utf-32le">UTF-32LE</option>
+                        <option value="utf-32be">UTF-32BE</option>
+                    </optgroup>
+                    <optgroup label="中文" data-i18n-optgroup="encChinese">
+                        <option value="gbk">GBK</option>
+                        <option value="gb2312">GB2312</option>
+                        <option value="gb18030">GB18030</option>
+                        <option value="big5">Big5</option>
+                        <option value="big5-hkscs">Big5-HKSCS</option>
+                    </optgroup>
+                    <optgroup label="日文" data-i18n-optgroup="encJapanese">
+                        <option value="shift_jis">Shift_JIS</option>
+                        <option value="euc-jp">EUC-JP</option>
+                        <option value="iso-2022-jp">ISO-2022-JP</option>
+                    </optgroup>
+                    <optgroup label="韩文" data-i18n-optgroup="encKorean">
+                        <option value="euc-kr">EUC-KR</option>
+                        <option value="iso-2022-kr">ISO-2022-KR</option>
+                        <option value="johab">Johab</option>
+                    </optgroup>
+                    <optgroup label="西欧" data-i18n-optgroup="encWestern">
+                        <option value="iso-8859-1">ISO-8859-1</option>
+                        <option value="iso-8859-2">ISO-8859-2</option>
+                        <option value="iso-8859-3">ISO-8859-3</option>
+                        <option value="iso-8859-4">ISO-8859-4</option>
+                        <option value="iso-8859-5">ISO-8859-5</option>
+                        <option value="iso-8859-6">ISO-8859-6</option>
+                        <option value="iso-8859-7">ISO-8859-7</option>
+                        <option value="iso-8859-8">ISO-8859-8</option>
+                        <option value="iso-8859-9">ISO-8859-9</option>
+                        <option value="iso-8859-10">ISO-8859-10</option>
+                        <option value="iso-8859-13">ISO-8859-13</option>
+                        <option value="iso-8859-14">ISO-8859-14</option>
+                        <option value="iso-8859-15">ISO-8859-15</option>
+                        <option value="iso-8859-16">ISO-8859-16</option>
+                        <option value="windows-1250">Windows-1250</option>
+                        <option value="windows-1251">Windows-1251</option>
+                        <option value="windows-1252">Windows-1252</option>
+                        <option value="windows-1253">Windows-1253</option>
+                        <option value="windows-1254">Windows-1254</option>
+                        <option value="windows-1255">Windows-1255</option>
+                        <option value="windows-1256">Windows-1256</option>
+                        <option value="windows-1257">Windows-1257</option>
+                        <option value="windows-874">Windows-874</option>
+                    </optgroup>
+                    <optgroup label="其他" data-i18n-optgroup="encOther">
+                        <option value="koi8-r">KOI8-R</option>
+                        <option value="koi8-u">KOI8-U</option>
+                        <option value="macroman">MacRoman</option>
+                        <option value="ibm850">IBM850</option>
+                        <option value="ibm437">IBM437</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="toolbar-group">
+                <input type="text" id="searchInput" data-i18n="search" placeholder="搜索... (Ctrl+F)">
+                <button class="secondary" id="searchBtn" title="搜索">🔍</button>
+                <button class="secondary" id="searchPrev" title="上一个结果">◀</button>
+                <button class="secondary" id="searchNext" title="下一个结果">▶</button>
+                <span id="searchCount" style="font-size: 0.85rem; color: #808080; min-width: 80px;"></span>
+            </div>
+
+            <div class="toolbar-group">
+                <input type="text" id="filterInput" data-i18n="filter" placeholder="正则过滤...">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="regexFilter">
+                    <span data-i18n="regex">正则</span>
+                </label>
+                <button class="secondary" id="filterBtn" data-i18n="filterBtn" title="应用过滤">过滤</button>
+            </div>
+
+            <div class="toolbar-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="autoScroll">
+                    <span data-i18n="autoScroll">自动滚动</span>
+                </label>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="secondary" id="repairBtn" data-i18n="repair" title="行修复设置">🔧 行修复</button>
+                <button class="secondary" id="highlightBtn" data-i18n="highlight" title="高亮规则设置">🎨 高亮</button>
+                <button class="secondary" id="exportBtn" data-i18n="export" title="导出日志">📥 导出</button>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="secondary" id="regexGeneratorBtn" title="正则表达式生成器" onclick="openRegexGenerator()">🔮 生成正则</button>
+            </div>
+        </div>
+
+        <!-- 日志内容 -->
+        <div class="log-content">
+            <div class="log-container" id="logContainer">
+                <div class="log-lines" id="logLines"></div>
+            </div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <div class="loading-text" data-i18n="loading">加载中...</div>
+            </div>
+        </div>
+
+        <!-- 状态栏 -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="totalLines"><span data-i18n="totalLines">总行数：</span><span id="totalLinesValue">0</span></span>
+                <span id="filteredLines"><span data-i18n="display">显示：</span><span id="filteredLinesValue">0</span></span>
+            </div>
+            <div class="status-right">
+                <span id="filterStatus"></span>
+                <span id="encodingStatus">UTF-8</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 高亮规则模态框 -->
+    <div class="modal-overlay" id="highlightModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 data-i18n="highlightTitle">语法高亮规则</h3>
+                <button class="modal-close" id="closeHighlightModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="preset-rules">
+                    <button class="preset-btn" data-preset="default" data-i18n="presetDefault">默认</button>
+                    <button class="preset-btn" data-preset="springboot">Spring Boot</button>
+                    <button class="preset-btn" data-preset="log4j">Log4j</button>
+                    <button class="preset-btn" data-preset="nginx">Nginx</button>
+                    <button class="preset-btn" data-preset="tomcat">Tomcat</button>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n="ruleName">规则名称</label>
+                        <input type="text" id="ruleName" data-i18n="ruleName" placeholder="例如：时间戳">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="rulePattern">正则表达式</label>
+                        <input type="text" id="rulePattern" data-i18n="rulePattern" placeholder="例如：\\d{4}-\\d{2}-\\d{2}">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="ruleColor">颜色</label>
+                        <input type="color" id="ruleColor" value="#569cd6">
+                    </div>
+                </div>
+                <button id="addRuleBtn" data-i18n="addRule">添加规则</button>
+                <div class="rule-list" id="ruleList" style="margin-top: 1rem;"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" id="exportRulesBtn" data-i18n="exportRules">导出规则</button>
+                <button class="secondary" id="importRulesBtn" data-i18n="importRules">导入规则</button>
+                <button id="saveHighlightBtn" data-i18n="save">保存</button>
+            </div>
+            <input type="file" id="importRulesFile" accept=".json" style="display: none;">
+        </div>
+    </div>
+
+    <!-- 行修复模态框 -->
+    <div class="modal-overlay" id="repairModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 data-i18n="repairTitle">行修复设置</h3>
+                <button class="modal-close" id="closeRepairModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="repair-settings">
+                    <p style="color: #808080; margin-bottom: 1rem;" data-i18n="repairDesc">
+                        当日志行被换行符分割时，使用行开头正则表达式来识别并合并属于同一行的内容。
+                    </p>
+                    <div class="form-group">
+                        <label data-i18n="repairPattern">行开头正则表达式</label>
+                        <input type="text" id="repairPattern" data-i18n="repairPatternPlaceholder" placeholder="例如：^\d{4}-\d{2}-\d{2} 或 ^\["
+                               value="^\d{4}-\d{2}-\d{2}">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="repairNote">说明</label>
+                        <p style="color: #808080; font-size: 0.85rem;" data-i18n="repairNote">
+                            匹配此正则的行将被视为新行的开始，不匹配的行将合并到前一行。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" id="resetRepairBtn" data-i18n="reset">重置</button>
+                <button id="applyRepairBtn" data-i18n="apply">应用</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导出模态框 -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 data-i18n="exportTitle">导出日志</h3>
+                <button class="modal-close" id="closeExportModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="form-group">
+                        <label data-i18n="exportRange">导出范围</label>
+                        <select id="exportRange">
+                            <option value="all" data-i18n="exportAll">全部日志</option>
+                            <option value="filtered" data-i18n="exportFiltered">仅过滤后的日志</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="exportEncoding">导出编码</label>
+                        <select id="exportEncoding">
+                            <option value="utf-8">UTF-8</option>
+                            <option value="utf-8-bom">UTF-8 with BOM</option>
+                            <option value="gbk">GBK</option>
+                            <option value="gb2312">GB2312</option>
+                            <option value="big5">Big5</option>
+                            <option value="shift_jis">Shift_JIS</option>
+                            <option value="iso-8859-1">ISO-8859-1</option>
+                            <option value="windows-1252">Windows-1252</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="exportFilename">文件名</label>
+                        <input type="text" id="exportFilename" placeholder="log_export.txt" value="log_export.txt">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" id="cancelExportBtn" data-i18n="cancel">取消</button>
+                <button id="confirmExportBtn" data-i18n="export">导出</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <select id="languageSelect">
+            <option value="zh-CN">简体中文</option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <script>
+        // ==================== 多语言支持 ====================
+        const translations = {
+            'zh-CN': {
+                // 介绍页
+                introTitle: '📄 Log 文件浏览器',
+                introSubtitle: '快速、强大的日志文件查看工具',
+                featureEncoding: '支持 40+ 种编码格式',
+                featureHighlight: '语法高亮与自定义规则',
+                featureSearch: '搜索与正则过滤',
+                featureFold: '行折叠与行修复',
+                featureExport: '过滤结果导出',
+                featureScroll: '自动滚动到底部',
+                openFile: '打开文件',
+                dropZone: '或将文件拖拽到此处打开',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: '中文',
+                encJapanese: '日文',
+                encKorean: '韩文',
+                encWestern: '西欧',
+                encOther: '其他',
+                // 工具栏
+                back: '← 返回',
+                reopen: '📂 打开',
+                encoding: '编码:',
+                search: '搜索... (Ctrl+F)',
+                filter: '正则过滤...',
+                regex: '正则',
+                filterBtn: '过滤',
+                autoScroll: '自动滚动',
+                repair: '🔧 行修复',
+                highlight: '🎨 高亮',
+                export: '📥 导出',
+                // 状态栏
+                totalLines: '总行数：',
+                display: '显示：',
+                filtered: '已过滤 (',
+                hidden: '行隐藏)',
+                // 高亮模态框
+                highlightTitle: '语法高亮规则',
+                ruleName: '规则名称',
+                rulePattern: '正则表达式',
+                ruleColor: '颜色',
+                addRule: '添加规则',
+                exportRules: '导出规则',
+                importRules: '导入规则',
+                save: '保存',
+                presetDefault: '默认',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: '行修复设置',
+                repairDesc: '当日志行被换行符分割时，使用行开头正则表达式来识别并合并属于同一行的内容。',
+                repairPattern: '行开头正则表达式',
+                repairPatternPlaceholder: '例如：^\\d{4}-\\d{2}-\\d{2} 或 ^\\[',
+                repairNote: '匹配此正则的行将被视为新行的开始，不匹配的行将合并到前一行。',
+                reset: '重置',
+                apply: '应用',
+                // 导出模态框
+                exportTitle: '导出日志',
+                exportRange: '导出范围',
+                exportAll: '全部日志',
+                exportFiltered: '仅过滤后的日志',
+                exportEncoding: '导出编码',
+                exportFilename: '文件名',
+                cancel: '取消',
+                exportBtn: '导出',
+                // 加载
+                loading: '加载中...',
+                // 文件
+                noFile: '未选择文件',
+                delete: '删除',
+                // 隐私声明
+                privacyTitle: '🔒 隐私与数据保护声明',
+                privacyLine1: '本工具为纯本地应用，所有操作均在您的浏览器中完成。',
+                privacyLine2: '您打开的日志文件<strong>不会上传到任何服务器</strong>',
+                privacyLine3: '文件内容<strong>仅保存在内存中</strong>，刷新页面即清除',
+                privacyLine4: '高亮规则等用户偏好设置<strong>仅存储于本地 localStorage</strong>',
+                privacyLine5: '我们<strong>不收集、不存储、不上传</strong>任何用户数据',
+                privacyNote: '您可以放心使用本工具处理敏感日志数据',
+                
+                footerRepo: 'GitHub 仓库',
+                footerLicenseText: 'MIT 许可'
+            },
+            'en': {
+                // 介绍页
+                introTitle: '📄 Log File Browser',
+                introSubtitle: 'Fast and powerful log file viewer',
+                featureEncoding: 'Support 40+ encodings',
+                featureHighlight: 'Syntax highlighting & custom rules',
+                featureSearch: 'Search & regex filter',
+                featureFold: 'Line folding & repair',
+                featureExport: 'Export filtered results',
+                featureScroll: 'Auto scroll to bottom',
+                openFile: 'Open File',
+                dropZone: 'Or drop file here to open',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: 'Chinese',
+                encJapanese: 'Japanese',
+                encKorean: 'Korean',
+                encWestern: 'Western European',
+                encOther: 'Other',
+                // 工具栏
+                back: '← Back',
+                reopen: '📂 Open',
+                encoding: 'Encoding:',
+                search: 'Search... (Ctrl+F)',
+                filter: 'Regex filter...',
+                regex: 'Regex',
+                filterBtn: 'Filter',
+                autoScroll: 'Auto Scroll',
+                repair: '🔧 Line Repair',
+                highlight: '🎨 Highlight',
+                export: '📥 Export',
+                // 状态栏
+                totalLines: 'Total Lines: ',
+                display: 'Displaying: ',
+                filtered: 'Filtered (',
+                hidden: ' lines hidden)',
+                // 高亮模态框
+                highlightTitle: 'Syntax Highlight Rules',
+                ruleName: 'Rule Name',
+                rulePattern: 'Regex Pattern',
+                ruleColor: 'Color',
+                addRule: 'Add Rule',
+                exportRules: 'Export Rules',
+                importRules: 'Import Rules',
+                save: 'Save',
+                presetDefault: 'Default',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: 'Line Repair Settings',
+                repairDesc: 'When log lines are split by line breaks, use line-start regex to identify and merge lines belonging together.',
+                repairPattern: 'Line Start Regex',
+                repairPatternPlaceholder: 'e.g., ^\\d{4}-\\d{2}-\\d{2} or ^\\[',
+                repairNote: 'Lines matching this regex will be treated as new line starts, non-matching lines will be merged to the previous line.',
+                reset: 'Reset',
+                apply: 'Apply',
+                // 导出模态框
+                exportTitle: 'Export Log',
+                exportRange: 'Export Range',
+                exportAll: 'All Logs',
+                exportFiltered: 'Filtered Logs Only',
+                exportEncoding: 'Export Encoding',
+                exportFilename: 'Filename',
+                cancel: 'Cancel',
+                exportBtn: 'Export',
+                // 加载
+                loading: 'Loading...',
+                // 文件
+                noFile: 'No file selected',
+                delete: 'Delete',
+                // 隐私声明
+                privacyTitle: '🔒 Privacy & Data Protection Statement',
+                privacyLine1: 'This tool is a pure local application, all operations are performed in your browser.',
+                privacyLine2: 'Log files you open <strong>are not uploaded to any server</strong>',
+                privacyLine3: 'File content is <strong>stored in memory only</strong>, cleared on page refresh',
+                privacyLine4: 'User preferences such as highlight rules are <strong>stored only in local localStorage</strong>',
+                privacyLine5: 'We <strong>do not collect, store, or upload</strong> any user data',
+                privacyNote: 'You can use this tool with confidence to process sensitive log data',
+                
+                footerRepo: 'GitHub Repository',
+                footerLicenseText: 'Licensed under MIT'
+            },
+            'ru': {
+                // 介绍页
+                introTitle: '📄 Браузер лог-файлов',
+                introSubtitle: 'Быстрый и мощный просмотрщик логов',
+                featureEncoding: 'Поддержка 40+ кодировок',
+                featureHighlight: 'Подсветка синтаксиса',
+                featureSearch: 'Поиск и фильтр regex',
+                featureFold: 'Сворачивание строк',
+                featureExport: 'Экспорт фильтрованных',
+                featureScroll: 'Автопрокрутка вниз',
+                openFile: 'Открыть файл',
+                dropZone: 'Или перетащите файл сюда',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: 'Китайские',
+                encJapanese: 'Японские',
+                encKorean: 'Корейские',
+                encWestern: 'Западно-европейские',
+                encOther: 'Другие',
+                // 工具栏
+                back: '← Назад',
+                reopen: '📂 Открыть',
+                encoding: 'Кодировка:',
+                search: 'Поиск... (Ctrl+F)',
+                filter: 'Фильтр regex...',
+                regex: 'Regex',
+                filterBtn: 'Фильтр',
+                autoScroll: 'Автопрокрутка',
+                repair: '🔧 Исправление',
+                highlight: '🎨 Подсветка',
+                export: '📥 Экспорт',
+                // 状态栏
+                totalLines: 'Всего строк: ',
+                display: 'Отображено: ',
+                filtered: 'Отфильтровано (',
+                hidden: ' строк скрыто)',
+                // 高亮模态框
+                highlightTitle: 'Правила подсветки',
+                ruleName: 'Имя правила',
+                rulePattern: 'Regex шаблон',
+                ruleColor: 'Цвет',
+                addRule: 'Добавить',
+                exportRules: 'Экспорт',
+                importRules: 'Импорт',
+                save: 'Сохранить',
+                presetDefault: 'По умолчанию',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: 'Настройки исправления',
+                repairDesc: 'При разделении строк используйте regex для объединения.',
+                repairPattern: 'Regex начала строки',
+                repairPatternPlaceholder: 'например: ^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: 'Строки, соответствующие regex, будут началом новой строки.',
+                reset: 'Сброс',
+                apply: 'Применить',
+                // 导出模态框
+                exportTitle: 'Экспорт лога',
+                exportRange: 'Диапазон',
+                exportAll: 'Все логи',
+                exportFiltered: 'Только фильтрованные',
+                exportEncoding: 'Кодировка',
+                exportFilename: 'Имя файла',
+                cancel: 'Отмена',
+                exportBtn: 'Экспорт',
+                // 加载
+                loading: 'Загрузка...',
+                // 文件
+                noFile: 'Файл не выбран',
+                delete: 'Удалить',
+                // 隐私声明
+                privacyTitle: '🔒 Конфиденциальность и защита данных',
+                privacyLine1: 'Это приложение работает полностью локально в вашем браузере.',
+                privacyLine2: 'Файлы логов <strong>не загружаются на сервер</strong>',
+                privacyLine3: 'Содержимое <strong>хранится только в памяти</strong>, очищается при обновлении',
+                privacyLine4: 'Настройки <strong>хранятся только в localStorage</strong>',
+                privacyLine5: 'Мы <strong>не собираем, не храним и не передаем</strong> данные пользователей',
+                privacyNote: 'Вы можете безопасно использовать этот инструмент для обработки конфиденциальных данных',
+                
+                footerRepo: 'Репозиторий GitHub',
+                footerLicenseText: 'Лицензия MIT'
+            },
+            'ja': {
+                // 介绍页
+                introTitle: '📄 ログファイルブラウザ',
+                introSubtitle: '高速で強力なログファイルビューア',
+                featureEncoding: '40 以上のエンコーディングをサポート',
+                featureHighlight: 'シンタックスハイライト',
+                featureSearch: '検索と正規表現フィルター',
+                featureFold: '行の折りたたみ',
+                featureExport: 'フィルター結果のエクスポート',
+                featureScroll: '自動スクロール',
+                openFile: 'ファイルを開く',
+                dropZone: 'またはファイルをここにドラッグ',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: '中国語',
+                encJapanese: '日本語',
+                encKorean: '韓国語',
+                encWestern: '西欧',
+                encOther: 'その他',
+                // 工具栏
+                back: '← 戻る',
+                reopen: '📂 開く',
+                encoding: 'エンコーディング:',
+                search: '検索... (Ctrl+F)',
+                filter: '正規表現フィルター...',
+                regex: '正規表現',
+                filterBtn: 'フィルター',
+                autoScroll: '自動スクロール',
+                repair: '🔧 行修復',
+                highlight: '🎨 ハイライト',
+                export: '📥 エクスポート',
+                // 状态栏
+                totalLines: '総行数：',
+                display: '表示：',
+                filtered: 'フィルター済み (',
+                hidden: '行非表示)',
+                // 高亮模态框
+                highlightTitle: 'シンタックスハイライトルール',
+                ruleName: 'ルール名',
+                rulePattern: '正規表現パターン',
+                ruleColor: '色',
+                addRule: 'ルールを追加',
+                exportRules: 'ルールをエクスポート',
+                importRules: 'ルールをインポート',
+                save: '保存',
+                presetDefault: 'デフォルト',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: '行修復設定',
+                repairDesc: 'ログ行が改行で分割されている場合、正規表現で識別して結合します。',
+                repairPattern: '行頭正規表現',
+                repairPatternPlaceholder: '例：^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: 'この正規表現に一致する行が新しい行の開始となります。',
+                reset: 'リセット',
+                apply: '適用',
+                // 导出模态框
+                exportTitle: 'ログをエクスポート',
+                exportRange: 'エクスポート範囲',
+                exportAll: 'すべてのログ',
+                exportFiltered: 'フィルター後のログのみ',
+                exportEncoding: 'エンコーディング',
+                exportFilename: 'ファイル名',
+                cancel: 'キャンセル',
+                exportBtn: 'エクスポート',
+                // 加载
+                loading: '読み込み中...',
+                // 文件
+                noFile: 'ファイルが選択されていません',
+                delete: '削除',
+                // 隐私声明
+                privacyTitle: '🔒 プライバシーとデータ保護について',
+                privacyLine1: 'このツールは完全にローカルで動作し、すべての操作はブラウザ内で完結します。',
+                privacyLine2: '開いたログファイルは<strong>サーバーにアップロードされません</strong>',
+                privacyLine3: 'ファイルの内容は<strong>メモリ上にのみ保存</strong>され、ページ更新で消去されます',
+                privacyLine4: 'ハイライトルールなどの設定は<strong>ローカルの localStorage にのみ保存</strong>されます',
+                privacyLine5: '私たちはユーザーデータを<strong>収集・保存・アップロードしません</strong>',
+                privacyNote: '機密性の高いログデータの処理も安心してご利用いただけます',
+                
+                footerRepo: 'GitHub リポジトリ',
+                footerLicenseText: 'MIT ライセンス'
+            },
+            'ko': {
+                // 介绍页
+                introTitle: '📄 로그 파일 브라우저',
+                introSubtitle: '빠르고 강력한 로그 파일 뷰어',
+                featureEncoding: '40+ 인코딩 지원',
+                featureHighlight: '문법 강조 및 사용자 정의',
+                featureSearch: '검색 및 정규식 필터',
+                featureFold: '행 접기 및 복구',
+                featureExport: '필터 결과 내보내기',
+                featureScroll: '자동 스크롤',
+                openFile: '파일 열기',
+                dropZone: '또는 파일을 여기에 드래그',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: '중국어',
+                encJapanese: '일본어',
+                encKorean: '한국어',
+                encWestern: '서유럽',
+                encOther: '기타',
+                // 工具栏
+                back: '← 뒤로',
+                reopen: '📂 열기',
+                encoding: '인코딩:',
+                search: '검색... (Ctrl+F)',
+                filter: '정규식 필터...',
+                regex: '정규식',
+                filterBtn: '필터',
+                autoScroll: '자동 스크롤',
+                repair: '🔧 행 복구',
+                highlight: '🎨 강조',
+                export: '📥 내보내기',
+                // 状态栏
+                totalLines: '총 행:',
+                display: '표시:',
+                filtered: '필터됨 (',
+                hidden: '행 숨김)',
+                // 高亮模态框
+                highlightTitle: '문법 강조 규칙',
+                ruleName: '규칙 이름',
+                rulePattern: '정규식 패턴',
+                ruleColor: '색상',
+                addRule: '규칙 추가',
+                exportRules: '규칙 내보내기',
+                importRules: '규칙 가져오기',
+                save: '저장',
+                presetDefault: '기본',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: '행 복구 설정',
+                repairDesc: '로그 행이 줄바꿈으로 분할된 경우 정규식으로 식별하여 병합합니다.',
+                repairPattern: '행 시작 정규식',
+                repairPatternPlaceholder: '예: ^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: '이 정규식과 일치하는 행이 새 행의 시작이 됩니다.',
+                reset: '재설정',
+                apply: '적용',
+                // 导出模态框
+                exportTitle: '로그 내보내기',
+                exportRange: '내보내기 범위',
+                exportAll: '모든 로그',
+                exportFiltered: '필터된 로그만',
+                exportEncoding: '인코딩',
+                exportFilename: '파일 이름',
+                cancel: '취소',
+                exportBtn: '내보내기',
+                // 加载
+                loading: '로딩 중...',
+                // 文件
+                noFile: '파일이 선택되지 않았습니다',
+                delete: '삭제',
+                // 隐私声明
+                privacyTitle: '🔒 개인정보 및 데이터 보호 선언',
+                privacyLine1: '이 도구는 순전히 로컬 애플리케이션이며 모든 작업은 브라우저에서 수행됩니다.',
+                privacyLine2: '열은 로그 파일은 <strong>어떤 서버에도 업로드되지 않습니다</strong>',
+                privacyLine3: '파일 내용은 <strong>메모리에만 저장</strong>되며 페이지 새로고침 시 삭제됩니다',
+                privacyLine4: '하이라이트 규칙 등 사용자 설정은 <strong>로컬 localStorage 에만 저장</strong>됩니다',
+                privacyLine5: '우리는 사용자 데이터를 <strong>수집, 저장, 업로드하지 않습니다</strong>',
+                privacyNote: '민감한 로그 데이터를 처리할 때도 안심하고 사용할 수 있습니다',
+                
+                footerRepo: 'GitHub 저장소',
+                footerLicenseText: 'MIT 라이선스'
+            },
+            'fr': {
+                // 介绍页
+                introTitle: '📄 Navigateur de fichiers log',
+                introSubtitle: 'Visionneuse de logs rapide et puissante',
+                featureEncoding: 'Prise en charge de 40+ encodages',
+                featureHighlight: 'Surbrillance de syntaxe',
+                featureSearch: 'Recherche et filtre regex',
+                featureFold: 'Pliage de lignes',
+                featureExport: 'Export des résultats filtrés',
+                featureScroll: 'Défilement automatique',
+                openFile: 'Ouvrir un fichier',
+                dropZone: 'Ou glissez un fichier ici',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: 'Chinois',
+                encJapanese: 'Japonais',
+                encKorean: 'Coréen',
+                encWestern: 'Européen occidental',
+                encOther: 'Autre',
+                // 工具栏
+                back: '← Retour',
+                reopen: '📂 Ouvrir',
+                encoding: 'Encodage:',
+                search: 'Rechercher... (Ctrl+F)',
+                filter: 'Filtre regex...',
+                regex: 'Regex',
+                filterBtn: 'Filtrer',
+                autoScroll: 'Défilement auto',
+                repair: '🔧 Réparation',
+                highlight: '🎨 Surbrillance',
+                export: '📥 Exporter',
+                // 状态栏
+                totalLines: 'Total lignes: ',
+                display: 'Affichage: ',
+                filtered: 'Filtré (',
+                hidden: ' lignes masquées)',
+                // 高亮模态框
+                highlightTitle: 'Règles de surbrillance',
+                ruleName: 'Nom de la règle',
+                rulePattern: 'Motif regex',
+                ruleColor: 'Couleur',
+                addRule: 'Ajouter',
+                exportRules: 'Exporter',
+                importRules: 'Importer',
+                save: 'Enregistrer',
+                presetDefault: 'Défaut',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: 'Paramètres de réparation',
+                repairDesc: 'Utilisez regex pour identifier et fusionner les lignes divisées.',
+                repairPattern: 'Regex de début de ligne',
+                repairPatternPlaceholder: 'ex: ^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: 'Les lignes correspondant seront le début d\'une nouvelle ligne.',
+                reset: 'Réinitialiser',
+                apply: 'Appliquer',
+                // 导出模态框
+                exportTitle: 'Exporter le log',
+                exportRange: 'Plage d\'export',
+                exportAll: 'Tous les logs',
+                exportFiltered: 'Logs filtrés uniquement',
+                exportEncoding: 'Encodage',
+                exportFilename: 'Nom de fichier',
+                cancel: 'Annuler',
+                exportBtn: 'Exporter',
+                // 加载
+                loading: 'Chargement...',
+                // 文件
+                noFile: 'Aucun fichier sélectionné',
+                delete: 'Supprimer',
+                // 隐私声明
+                privacyTitle: '🔒 Déclaration de confidentialité',
+                privacyLine1: 'Cet outil est une application purement locale, toutes les opérations sont effectuées dans votre navigateur.',
+                privacyLine2: 'Les fichiers log que vous ouvrez <strong>ne sont pas téléchargés vers un serveur</strong>',
+                privacyLine3: 'Le contenu des fichiers est <strong>stocké uniquement en mémoire</strong>, effacé lors du rafraîchissement',
+                privacyLine4: 'Les préférences utilisateur sont <strong>stockées uniquement dans le localStorage local</strong>',
+                privacyLine5: 'Nous <strong>ne collectons, ne stockons, ne téléchargeons</strong> aucune donnée utilisateur',
+                privacyNote: 'Vous pouvez utiliser cet outil en toute confiance pour traiter des données log sensibles',
+                
+                footerRepo: 'Dépôt GitHub',
+                footerLicenseText: 'Licence MIT'
+            },
+            'de': {
+                // 介绍页
+                introTitle: '📄 Log-Datei-Browser',
+                introSubtitle: 'Schneller und leistungsstarker Log-Viewer',
+                featureEncoding: 'Unterstützt 40+ Kodierungen',
+                featureHighlight: 'Syntaxhervorhebung',
+                featureSearch: 'Suche und Regex-Filter',
+                featureFold: 'Zeilen einklappen',
+                featureExport: 'Export gefilterter Ergebnisse',
+                featureScroll: 'Automatisches Scrollen',
+                openFile: 'Datei öffnen',
+                dropZone: 'Oder Datei hierher ziehen',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: 'Chinesisch',
+                encJapanese: 'Japanisch',
+                encKorean: 'Koreanisch',
+                encWestern: 'Westeuropäisch',
+                encOther: 'Sonstige',
+                // 工具栏
+                back: '← Zurück',
+                reopen: '📂 Öffnen',
+                encoding: 'Kodierung:',
+                search: 'Suchen... (Strg+F)',
+                filter: 'Regex-Filter...',
+                regex: 'Regex',
+                filterBtn: 'Filter',
+                autoScroll: 'Auto-Scroll',
+                repair: '🔧 Reparatur',
+                highlight: '🎨 Hervorhebung',
+                export: '📥 Exportieren',
+                // 状态栏
+                totalLines: 'Gesamtzeilen: ',
+                display: 'Anzeige: ',
+                filtered: 'Gefiltert (',
+                hidden: ' Zeilen ausgeblendet)',
+                // 高亮模态框
+                highlightTitle: 'Syntaxhervorhebungsregeln',
+                ruleName: 'Regelname',
+                rulePattern: 'Regex-Muster',
+                ruleColor: 'Farbe',
+                addRule: 'Regel hinzufügen',
+                exportRules: 'Exportieren',
+                importRules: 'Importieren',
+                save: 'Speichern',
+                presetDefault: 'Standard',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: 'Reparatureinstellungen',
+                repairDesc: 'Verwenden Sie Regex, um geteilte Zeilen zu identifizieren und zusammenzuführen.',
+                repairPattern: 'Zeilenstart-Regex',
+                repairPatternPlaceholder: 'z.B. ^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: 'Zeilen, die diesem Regex entsprechen, werden als neuer Zeilenstart behandelt.',
+                reset: 'Zurücksetzen',
+                apply: 'Anwenden',
+                // 导出模态框
+                exportTitle: 'Log exportieren',
+                exportRange: 'Exportbereich',
+                exportAll: 'Alle Logs',
+                exportFiltered: 'Nur gefilterte Logs',
+                exportEncoding: 'Kodierung',
+                exportFilename: 'Dateiname',
+                cancel: 'Abbrechen',
+                exportBtn: 'Exportieren',
+                // 加载
+                loading: 'Laden...',
+                // 文件
+                noFile: 'Keine Datei ausgewählt',
+                delete: 'Löschen',
+                // 隐私声明
+                privacyTitle: '🔒 Datenschutz-Erklärung',
+                privacyLine1: 'Dieses Tool ist eine reine lokale Anwendung, alle Vorgänge erfolgen in Ihrem Browser.',
+                privacyLine2: 'Log-Dateien, die Sie öffnen, <strong>werden auf keinen Server hochgeladen</strong>',
+                privacyLine3: 'Dateiinhalte werden <strong>nur im Speicher gespeichert</strong>, beim Aktualisieren gelöscht',
+                privacyLine4: 'Benutzereinstellungen werden <strong>nur im lokalen localStorage gespeichert</strong>',
+                privacyLine5: 'Wir <strong>sammeln, speichern oder übertragen keine</strong> Benutzerdaten',
+                privacyNote: 'Sie können dieses Tool vertrauensvoll zur Verarbeitung sensibler Log-Daten verwenden',
+                
+                footerRepo: 'GitHub-Repository',
+                footerLicenseText: 'MIT-Lizenz'
+            },
+            'es': {
+                // 介绍页
+                introTitle: '📄 Navegador de archivos log',
+                introSubtitle: 'Visor de logs rápido y potente',
+                featureEncoding: 'Soporta 40+ codificaciones',
+                featureHighlight: 'Resaltado de sintaxis',
+                featureSearch: 'Búsqueda y filtro regex',
+                featureFold: 'Plegado de líneas',
+                featureExport: 'Exportar resultados filtrados',
+                featureScroll: 'Desplazamiento automático',
+                openFile: 'Abrir archivo',
+                dropZone: 'O arrastre un archivo aquí',
+                // 编码组
+                encUnicode: 'Unicode',
+                encChinese: 'Chino',
+                encJapanese: 'Japonés',
+                encKorean: 'Coreano',
+                encWestern: 'Europeo occidental',
+                encOther: 'Otros',
+                // 工具栏
+                back: '← Volver',
+                reopen: '📂 Abrir',
+                encoding: 'Codificación:',
+                search: 'Buscar... (Ctrl+F)',
+                filter: 'Filtro regex...',
+                regex: 'Regex',
+                filterBtn: 'Filtrar',
+                autoScroll: 'Auto-scroll',
+                repair: '🔧 Reparación',
+                highlight: '🎨 Resaltado',
+                export: '📥 Exportar',
+                // 状态栏
+                totalLines: 'Total líneas: ',
+                display: 'Mostrando: ',
+                filtered: 'Filtrado (',
+                hidden: ' líneas ocultas)',
+                // 高亮模态框
+                highlightTitle: 'Reglas de resaltado',
+                ruleName: 'Nombre de regla',
+                rulePattern: 'Patrón regex',
+                ruleColor: 'Color',
+                addRule: 'Añadir regla',
+                exportRules: 'Exportar',
+                importRules: 'Importar',
+                save: 'Guardar',
+                presetDefault: 'Predeterminado',
+                presetSpringboot: 'Spring Boot',
+                presetLog4j: 'Log4j',
+                presetNginx: 'Nginx',
+                presetTomcat: 'Tomcat',
+                // 行修复模态框
+                repairTitle: 'Configuración de reparación',
+                repairDesc: 'Use regex para identificar y fusionar líneas divididas.',
+                repairPattern: 'Regex de inicio de línea',
+                repairPatternPlaceholder: 'ej: ^\\d{4}-\\d{2}-\\d{2}',
+                repairNote: 'Las líneas que coincidan serán el inicio de una nueva línea.',
+                reset: 'Restablecer',
+                apply: 'Aplicar',
+                // 导出模态框
+                exportTitle: 'Exportar log',
+                exportRange: 'Rango de exportación',
+                exportAll: 'Todos los logs',
+                exportFiltered: 'Solo logs filtrados',
+                exportEncoding: 'Codificación',
+                exportFilename: 'Nombre de archivo',
+                cancel: 'Cancelar',
+                exportBtn: 'Exportar',
+                // 加载
+                loading: 'Cargando...',
+                // 文件
+                noFile: 'Ningún archivo seleccionado',
+                delete: 'Eliminar',
+                // 隐私声明
+                privacyTitle: '🔒 Declaración de privacidad y protección de datos',
+                privacyLine1: 'Esta herramienta es una aplicación puramente local, todas las operaciones se realizan en su navegador.',
+                privacyLine2: 'Los archivos de log que abre <strong>no se suben a ningún servidor</strong>',
+                privacyLine3: 'El contenido del archivo <strong>se almacena solo en la memoria</strong>, se borra al actualizar',
+                privacyLine4: 'Las preferencias del usuario <strong>se almacenan solo en el localStorage local</strong>',
+                privacyLine5: 'Nosotros <strong>no recopilamos, almacenamos ni subimos</strong> ningún dato de usuario',
+                privacyNote: 'Puede usar esta herramienta con confianza para procesar datos de log sensibles',
+                
+                footerRepo: 'Repositorio GitHub',
+                footerLicenseText: 'Licencia MIT'
+            }
+        };
+
+        // 当前语言
+        let currentLanguage = 'zh-CN';
+
+        // 翻译函数
+        function t(key) {
+            const lang = translations[currentLanguage];
+            if (lang && lang[key]) {
+                return lang[key];
+            }
+            // 回退到中文
+            return translations['zh-CN'][key] || key;
+        }
+
+        // 应用翻译
+        function applyTranslations() {
+            // 翻译所有带有 data-i18n 属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = t(key);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = translation;
+                } else {
+                    el.textContent = translation;
+                }
+            });
+
+            // 翻译标题
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                el.title = t(key);
+            });
+
+            // 翻译编码选择器的 optgroup 标签
+            document.querySelectorAll('[data-i18n-optgroup]').forEach(el => {
+                const key = el.getAttribute('data-i18n-optgroup');
+                const translation = t(key);
+                if (translation) {
+                    el.label = translation;
+                }
+            });
+
+            // 保存语言设置
+            localStorage.setItem('preferredLanguage', currentLanguage);
+        }
+
+        // ==================== 全局状态 ====================
+        const state = {
+            currentFile: null,
+            currentEncoding: 'utf-8',
+            rawContent: '',
+            lines: [],
+            filteredLines: [],
+            isFiltered: false,
+            autoScroll: false,
+            repairPattern: null,
+            highlightRules: [],
+            searchTerm: '',
+            searchMatches: [],
+            currentSearchIndex: -1
+        };
+
+        // ==================== 预设高亮规则 ====================
+        const PRESET_HIGHLIGHT_RULES = {
+            default: [
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2}[T\\s]\\d{2}:\\d{2}:\\d{2}[.,]\\d+', color: '#569cd6', class: 'highlight-timestamp' },
+                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', class: 'highlight-error' },
+                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', class: 'highlight-warn' },
+                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', class: 'highlight-info' },
+                { name: 'DEBUG', pattern: '\\bDEBUG\\b', color: '#4ec9b0', class: 'highlight-debug' },
+                { name: 'TRACE', pattern: '\\bTRACE\\b', color: '#808080', class: 'highlight-trace' },
+                { name: 'FATAL', pattern: '\\bFATAL\\b', color: '#d75a5a', class: 'highlight-fatal' },
+                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', class: 'highlight-stack' },
+                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', class: 'highlight-thread' }
+            ],
+            springboot: [
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', class: 'highlight-timestamp' },
+                { name: '应用名', pattern: '\\[([\\w-]+)\\]', color: '#c586c0', class: 'highlight-thread' },
+                { name: '线程名', pattern: '\\[([\\w.-]+)\\]', color: '#dcdcaa', class: 'highlight-thread' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\.(java|kt|groovy):\\d+', color: '#4ec9b0', class: 'highlight-class' },
+                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', class: 'highlight-error' },
+                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', class: 'highlight-warn' },
+                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', class: 'highlight-info' }
+            ],
+            log4j: [
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d+', color: '#569cd6', class: 'highlight-timestamp' },
+                { name: '日志级别', pattern: '\\b(FATAL|ERROR|WARN|INFO|DEBUG|TRACE)\\b', color: '#4ec9b0', class: 'highlight-info' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\s+-', color: '#4ec9b0', class: 'highlight-class' },
+                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', class: 'highlight-stack' }
+            ],
+            nginx: [
+                { name: 'IP 地址', pattern: '\\b(\\d{1,3}\\.){3}\\d{1,3}\\b', color: '#dcdcaa', class: 'highlight-ip' },
+                { name: '日期', pattern: '\\[\\d{2}/\\w{3}/\\d{4}:\\d{2}:\\d{2}:\\d{2}', color: '#569cd6', class: 'highlight-timestamp' },
+                { name: 'HTTP 方法', pattern: '\\b(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\b', color: '#569cd6', class: 'highlight-keyword' },
+                { name: '状态码', pattern: '\\b([1-5]\\d{2})\\b', color: '#b5cea8', class: 'highlight-number' },
+                { name: 'URL', pattern: '"(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+([^"]+)"', color: '#ce9178', class: 'highlight-string' }
+            ],
+            tomcat: [
+                { name: '时间戳', pattern: '\\d{2}-\\w{3}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', class: 'highlight-timestamp' },
+                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', class: 'highlight-thread' },
+                { name: '日志级别', pattern: '\\b(FINE|FINER|FINEST|INFO|WARNING|SEVERE)\\b', color: '#4ec9b0', class: 'highlight-info' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\s', color: '#4ec9b0', class: 'highlight-class' }
+            ]
+        };
+
+        // ==================== DOM 元素 ====================
+        const elements = {
+            introPage: document.getElementById('introPage'),
+            logViewer: document.getElementById('logViewer'),
+            fileInput: document.getElementById('fileInput'),
+            openFileBtn: document.getElementById('openFileBtn'),
+            dropZone: document.getElementById('dropZone'),
+            backBtn: document.getElementById('backBtn'),
+            reopenBtn: document.getElementById('reopenBtn'),
+            fileName: document.getElementById('fileName'),
+            encodingSelect: document.getElementById('encodingSelect'),
+            searchInput: document.getElementById('searchInput'),
+            searchBtn: document.getElementById('searchBtn'),
+            searchPrev: document.getElementById('searchPrev'),
+            searchNext: document.getElementById('searchNext'),
+            searchCount: document.getElementById('searchCount'),
+            filterInput: document.getElementById('filterInput'),
+            regexFilter: document.getElementById('regexFilter'),
+            filterBtn: document.getElementById('filterBtn'),
+            autoScroll: document.getElementById('autoScroll'),
+            repairBtn: document.getElementById('repairBtn'),
+            highlightBtn: document.getElementById('highlightBtn'),
+            exportBtn: document.getElementById('exportBtn'),
+            logContainer: document.getElementById('logContainer'),
+            logLines: document.getElementById('logLines'),
+            loading: document.getElementById('loading'),
+            totalLines: document.getElementById('totalLines'),
+            filteredLines: document.getElementById('filteredLines'),
+            filterStatus: document.getElementById('filterStatus'),
+            encodingStatus: document.getElementById('encodingStatus'),
+            // 高亮模态框
+            highlightModal: document.getElementById('highlightModal'),
+            closeHighlightModal: document.getElementById('closeHighlightModal'),
+            ruleName: document.getElementById('ruleName'),
+            rulePattern: document.getElementById('rulePattern'),
+            ruleColor: document.getElementById('ruleColor'),
+            addRuleBtn: document.getElementById('addRuleBtn'),
+            ruleList: document.getElementById('ruleList'),
+            saveHighlightBtn: document.getElementById('saveHighlightBtn'),
+            exportRulesBtn: document.getElementById('exportRulesBtn'),
+            importRulesBtn: document.getElementById('importRulesBtn'),
+            importRulesFile: document.getElementById('importRulesFile'),
+            // 行修复模态框
+            repairModal: document.getElementById('repairModal'),
+            closeRepairModal: document.getElementById('closeRepairModal'),
+            repairPattern: document.getElementById('repairPattern'),
+            resetRepairBtn: document.getElementById('resetRepairBtn'),
+            applyRepairBtn: document.getElementById('applyRepairBtn'),
+            // 导出模态框
+            exportModal: document.getElementById('exportModal'),
+            closeExportModal: document.getElementById('closeExportModal'),
+            cancelExportBtn: document.getElementById('cancelExportBtn'),
+            confirmExportBtn: document.getElementById('confirmExportBtn'),
+            exportFilename: document.getElementById('exportFilename'),
+            exportEncoding: document.getElementById('exportEncoding')
+        };
+
+        // ==================== 编码检测 ====================
+        function detectEncoding(arrayBuffer) {
+            const bytes = new Uint8Array(arrayBuffer);
+            
+            // 检查 BOM
+            if (bytes.length >= 3 && bytes[0] === 0xEF && bytes[1] === 0xBB && bytes[2] === 0xBF) {
+                return 'utf-8-bom';
+            }
+            if (bytes.length >= 2 && bytes[0] === 0xFE && bytes[1] === 0xFF) {
+                return 'utf-16be';
+            }
+            if (bytes.length >= 2 && bytes[0] === 0xFF && bytes[1] === 0xFE) {
+                return 'utf-16le';
+            }
+            if (bytes.length >= 4 && bytes[0] === 0x00 && bytes[1] === 0x00 && bytes[2] === 0xFE && bytes[3] === 0xFF) {
+                return 'utf-32be';
+            }
+            if (bytes.length >= 4 && bytes[0] === 0xFF && bytes[1] === 0xFE && bytes[2] === 0x00 && bytes[3] === 0x00) {
+                return 'utf-32le';
+            }
+
+            // 启发式检测
+            const encodings = ['utf-8', 'gbk', 'gb18030', 'big5', 'shift_jis', 'iso-8859-1'];
+            
+            for (const encoding of encodings) {
+                try {
+                    const decoder = new TextDecoder(encoding);
+                    const text = decoder.decode(bytes.slice(0, Math.min(10000, bytes.length)));
+                    
+                    // 检查是否有无效字符
+                    if (text.includes('\uFFFD')) {
+                        continue;
+                    }
+                    
+                    // 对于中文编码，检查是否有合理的中文字符
+                    if (encoding === 'gbk' || encoding === 'gb18030') {
+                        const chineseChars = text.match(/[\u4e00-\u9fff]/g);
+                        if (chineseChars && chineseChars.length > 0) {
+                            return encoding;
+                        }
+                    }
+                    
+                    // UTF-8 是最常见的，如果没有问题就返回
+                    if (encoding === 'utf-8') {
+                        return encoding;
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+
+            return 'utf-8';
+        }
+
+        function getEncodingForDecoder(encoding) {
+            const mapping = {
+                'utf-8-bom': 'utf-8',
+                'utf-16le': 'utf-16',
+                'utf-16be': 'utf-16',
+                'utf-32le': 'utf-32',
+                'utf-32be': 'utf-32'
+            };
+            return mapping[encoding] || encoding;
+        }
+
+        // ==================== 文件读取 ====================
+        async function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        async function handleFile(file) {
+            if (!file) return;
+
+            showLoading(true);
+            
+            try {
+                const arrayBuffer = await readFile(file);
+                const detectedEncoding = detectEncoding(arrayBuffer);
+                
+                state.currentFile = file;
+                state.currentEncoding = detectedEncoding;
+                elements.fileName.textContent = file.name;
+                elements.encodingSelect.value = detectedEncoding;
+                elements.encodingStatus.textContent = detectedEncoding.toUpperCase();
+
+                const decoder = new TextDecoder(getEncodingForDecoder(detectedEncoding));
+                state.rawContent = decoder.decode(arrayBuffer);
+
+                // 移除 BOM
+                if (state.rawContent.charCodeAt(0) === 0xFEFF) {
+                    state.rawContent = state.rawContent.slice(1);
+                }
+
+                // 应用行修复
+                processLines();
+                
+                // 渲染日志
+                renderLog();
+                
+                // 切换到日志查看器
+                showLogViewer();
+                
+                // 加载高亮规则
+                loadHighlightRules();
+                
+            } catch (error) {
+                console.error('读取文件失败:', error);
+                alert('读取文件失败：' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function processLines() {
+            let lines = state.rawContent.split(/\r?\n/);
+            
+            // 应用行修复
+            if (state.repairPattern) {
+                try {
+                    const regex = new RegExp(state.repairPattern);
+                    const repairedLines = [];
+                    let currentLine = '';
+                    let startIndex = 0;
+                    
+                    for (let i = 0; i < lines.length; i++) {
+                        const line = lines[i];
+                        if (regex.test(line) || currentLine === '') {
+                            if (currentLine !== '') {
+                                repairedLines.push({ line: currentLine, originalIndex: startIndex });
+                            }
+                            currentLine = line;
+                            startIndex = i;
+                        } else {
+                            currentLine += '\n' + line;
+                        }
+                    }
+                    
+                    if (currentLine !== '') {
+                        repairedLines.push({ line: currentLine, originalIndex: startIndex });
+                    }
+                    
+                    lines = repairedLines;
+                } catch (e) {
+                    console.error('行修复失败:', e);
+                }
+            } else {
+                // 转换为对象数组
+                lines = lines.map((line, index) => ({ line, originalIndex: index }));
+            }
+            
+            state.lines = lines;
+            state.filteredLines = lines;
+            state.isFiltered = false;
+        }
+
+        // ==================== 日志渲染 ====================
+        function renderLog() {
+            elements.logLines.innerHTML = '';
+            
+            const fragment = document.createDocumentFragment();
+            
+            // 无论是过滤还是非过滤模式，都使用对象数组
+            const linesToRender = state.isFiltered ? state.filteredLines : state.lines;
+            linesToRender.forEach((item) => {
+                const row = createLogRow(item.line, item.originalIndex);
+                fragment.appendChild(row);
+            });
+            
+            elements.logLines.appendChild(fragment);
+            updateStatus();
+        }
+        
+        // 创建日志行
+        function createLogRow(line, originalIndex) {
+            const row = document.createElement('div');
+            row.className = 'log-line';
+            row.dataset.index = originalIndex;
+            
+            // 检查是否是当前搜索匹配的行
+            const currentMatchIndex = state.searchMatches.indexOf(originalIndex);
+            if (currentMatchIndex === state.currentSearchIndex && state.currentSearchIndex >= 0) {
+                row.classList.add('selected');
+            }
+            
+            // 行号
+            const numberCell = document.createElement('div');
+            numberCell.className = 'log-line-number';
+            numberCell.textContent = originalIndex + 1;
+            
+            // 内容
+            const textCell = document.createElement('div');
+            textCell.className = 'log-line-text';
+            textCell.innerHTML = applyHighlight(line, originalIndex);
+            
+            // 检查是否是堆栈跟踪行，添加折叠功能
+            if (isStackTraceStart(line)) {
+                const foldToggle = document.createElement('span');
+                foldToggle.className = 'fold-toggle';
+                foldToggle.textContent = '▼';
+                foldToggle.onclick = () => toggleFold(row);
+                textCell.insertBefore(foldToggle, textCell.firstChild);
+            }
+            
+            row.appendChild(numberCell);
+            row.appendChild(textCell);
+            return row;
+        }
+
+        function isStackTraceStart(line) {
+            const patterns = [
+                /^\s*at\s+/i,
+                /^Caused by:/i,
+                /^Exception in thread/i,
+                /^\w+Exception:/i,
+                /^\w+Error:/i
+            ];
+            return patterns.some(p => p.test(line));
+        }
+
+        function toggleFold(row) {
+            const toggle = row.querySelector('.fold-toggle');
+            let nextRow = row.nextElementSibling;
+            let foldCount = 0;
+            const foldedRows = [];
+            
+            while (nextRow) {
+                const text = nextRow.querySelector('.log-line-text').textContent;
+                if (isStackTraceLine(text) || text.trim() === '') {
+                    foldedRows.push(nextRow);
+                    foldCount++;
+                    nextRow = nextRow.nextElementSibling;
+                } else {
+                    break;
+                }
+            }
+            
+            if (toggle.textContent === '▼') {
+                // 折叠
+                toggle.textContent = '▶';
+                foldedRows.forEach(r => {
+                    r.classList.add('folded-content');
+                });
+                
+                // 添加折叠计数
+                if (!row.querySelector('.fold-count')) {
+                    const countSpan = document.createElement('span');
+                    countSpan.className = 'fold-count';
+                    countSpan.textContent = `... (${foldCount} 行) ...`;
+                    toggle.after(countSpan);
+                }
+            } else {
+                // 展开
+                toggle.textContent = '▼';
+                foldedRows.forEach(r => {
+                    r.classList.remove('folded-content');
+                });
+                const countSpan = row.querySelector('.fold-count');
+                if (countSpan) {
+                    countSpan.remove();
+                }
+            }
+        }
+
+        function isStackTraceLine(line) {
+            const patterns = [
+                /^\s*at\s+/i,
+                /^\s*\.\.\./i,
+                /^\s*Caused by:/i,
+                /^\s*Suppressed:/i
+            ];
+            return patterns.some(p => p.test(line));
+        }
+
+        // ==================== 语法高亮 ====================
+        function applyHighlight(text, originalIndex) {
+            let result = escapeHtml(text);
+            
+            // 应用自定义高亮规则
+            for (const rule of state.highlightRules) {
+                try {
+                    const regex = new RegExp(rule.pattern, 'g');
+                    const replacement = `<span style="color: ${rule.color}">$&</span>`;
+                    result = result.replace(regex, replacement);
+                } catch (e) {
+                    console.error('高亮规则失败:', rule.name, e);
+                }
+            }
+            
+            // 应用搜索高亮
+            if (state.searchTerm) {
+                try {
+                    // 检查当前行是否是当前搜索匹配的行
+                    const isCurrentMatch = state.searchMatches.indexOf(originalIndex) === state.currentSearchIndex;
+                    
+                    if (isCurrentMatch) {
+                        // 当前匹配的行使用不同的高亮
+                        const searchRegex = new RegExp(escapeRegex(state.searchTerm), 'gi');
+                        result = result.replace(searchRegex, '<span class="search-highlight current">$&</span>');
+                    } else {
+                        // 其他匹配的行使用普通高亮
+                        const searchRegex = new RegExp(escapeRegex(state.searchTerm), 'gi');
+                        result = result.replace(searchRegex, '<span class="search-highlight">$&</span>');
+                    }
+                } catch (e) {
+                    // 忽略无效的正则
+                }
+            }
+            
+            return result;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // ==================== 高亮规则管理 ====================
+        function loadHighlightRules() {
+            const saved = localStorage.getItem('highlightRules');
+            if (saved) {
+                try {
+                    state.highlightRules = JSON.parse(saved);
+                } catch (e) {
+                    state.highlightRules = [...PRESET_HIGHLIGHT_RULES.default];
+                }
+            } else {
+                state.highlightRules = [...PRESET_HIGHLIGHT_RULES.default];
+            }
+            renderRuleList();
+        }
+
+        function renderRuleList() {
+            elements.ruleList.innerHTML = '';
+            
+            state.highlightRules.forEach((rule, index) => {
+                const item = document.createElement('div');
+                item.className = 'rule-item';
+                
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.value = rule.name;
+                nameInput.placeholder = '规则名称';
+                nameInput.onchange = (e) => {
+                    state.highlightRules[index].name = e.target.value;
+                };
+                
+                const patternInput = document.createElement('input');
+                patternInput.type = 'text';
+                patternInput.value = rule.pattern;
+                patternInput.placeholder = '正则表达式';
+                patternInput.onchange = (e) => {
+                    state.highlightRules[index].pattern = e.target.value;
+                };
+                
+                const colorInput = document.createElement('input');
+                colorInput.type = 'color';
+                colorInput.value = rule.color;
+                colorInput.onchange = (e) => {
+                    state.highlightRules[index].color = e.target.value;
+                };
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete';
+                deleteBtn.textContent = '删除';
+                deleteBtn.onclick = () => {
+                    state.highlightRules.splice(index, 1);
+                    renderRuleList();
+                };
+                
+                item.appendChild(nameInput);
+                item.appendChild(patternInput);
+                item.appendChild(colorInput);
+                item.appendChild(deleteBtn);
+                elements.ruleList.appendChild(item);
+            });
+        }
+
+        function applyPresetRules(presetName) {
+            const rules = PRESET_HIGHLIGHT_RULES[presetName];
+            if (rules) {
+                state.highlightRules = rules.map(r => ({ ...r }));
+                renderRuleList();
+            }
+        }
+
+        function saveHighlightRules() {
+            localStorage.setItem('highlightRules', JSON.stringify(state.highlightRules));
+            renderLog();
+        }
+
+        function exportHighlightRules() {
+            const data = JSON.stringify(state.highlightRules, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'highlight_rules.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importHighlightRules(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const rules = JSON.parse(e.target.result);
+                    state.highlightRules = rules;
+                    renderRuleList();
+                } catch (err) {
+                    alert('导入失败：无效的 JSON 文件');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // ==================== 搜索和过滤 ====================
+        function applyFilter() {
+            const filterText = elements.filterInput.value;
+            const isRegex = elements.regexFilter.checked;
+            
+            if (!filterText) {
+                state.filteredLines = [...state.lines];
+                state.isFiltered = false;
+            } else {
+                try {
+                    const regex = isRegex ? new RegExp(filterText) : createSimpleRegex(filterText);
+                    state.filteredLines = state.lines.filter(item => regex.test(item.line));
+                    state.isFiltered = true;
+                } catch (e) {
+                    alert('正则表达式无效：' + e.message);
+                    return;
+                }
+            }
+            
+            renderLog();
+        }
+
+        function createSimpleRegex(text) {
+            return new RegExp(escapeRegex(text), 'i');
+        }
+
+        function performSearch() {
+            state.searchTerm = elements.searchInput.value;
+            state.searchMatches = [];
+            state.currentSearchIndex = -1;
+            
+            if (state.searchTerm) {
+                const regex = new RegExp(escapeRegex(state.searchTerm), 'gi');
+                state.lines.forEach((item, index) => {
+                    if (regex.test(item.line)) {
+                        state.searchMatches.push(item.originalIndex);
+                    }
+                });
+                if (state.searchMatches.length > 0) {
+                    state.currentSearchIndex = 0;
+                    scrollToMatch(state.searchMatches[0]);
+                }
+            }
+            
+            updateSearchCount();
+            renderLog();
+            updateStatus();
+        }
+        
+        // 上一个搜索结果
+        function searchPrev() {
+            if (state.searchMatches.length === 0) return;
+            
+            state.currentSearchIndex--;
+            if (state.currentSearchIndex < 0) {
+                state.currentSearchIndex = state.searchMatches.length - 1;
+            }
+            scrollToMatch(state.searchMatches[state.currentSearchIndex]);
+            updateSearchCount();
+        }
+        
+        // 下一个搜索结果
+        function searchNext() {
+            if (state.searchMatches.length === 0) return;
+            
+            state.currentSearchIndex++;
+            if (state.currentSearchIndex >= state.searchMatches.length) {
+                state.currentSearchIndex = 0;
+            }
+            scrollToMatch(state.searchMatches[state.currentSearchIndex]);
+            updateSearchCount();
+        }
+        
+        // 更新搜索计数显示
+        function updateSearchCount() {
+            if (state.searchMatches.length === 0) {
+                elements.searchCount.textContent = '';
+            } else {
+                elements.searchCount.textContent = `${state.currentSearchIndex + 1} / ${state.searchMatches.length}`;
+            }
+        }
+
+        function scrollToMatch(index) {
+            const row = elements.logLines.querySelector(`[data-index="${index}"]`);
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // ==================== 导出功能 ====================
+        async function exportLog() {
+            const range = document.getElementById('exportRange').value;
+            const encoding = elements.exportEncoding.value;
+            const filename = elements.exportFilename.value || 'log_export.txt';
+            
+            let linesToExport = range === 'all' ? state.lines : state.filteredLines;
+            
+            // 从对象数组中提取纯文本
+            const textContent = linesToExport.map(item => item.line).join('\n');
+            
+            // 转换编码
+            let blob;
+            if (encoding === 'utf-8-bom') {
+                // 添加 BOM
+                const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+                const encoder = new TextEncoder();
+                const encoded = encoder.encode(textContent);
+                const combined = new Uint8Array(bom.length + encoded.length);
+                combined.set(bom);
+                combined.set(encoded, bom.length);
+                blob = new Blob([combined], { type: 'text/plain;charset=utf-8' });
+            } else {
+                const encoder = new TextEncoder();
+                const encoded = encoder.encode(textContent);
+                blob = new Blob([encoded], { type: 'text/plain;charset=utf-8' });
+            }
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            elements.exportModal.classList.remove('active');
+        }
+
+        // ==================== 状态更新 ====================
+        function updateStatus() {
+            const totalLinesValue = document.getElementById('totalLinesValue');
+            const filteredLinesValue = document.getElementById('filteredLinesValue');
+            
+            if (totalLinesValue) {
+                totalLinesValue.textContent = state.lines.length;
+            }
+            if (filteredLinesValue) {
+                filteredLinesValue.textContent = state.isFiltered ? state.filteredLines.length : state.lines.length;
+            }
+            
+            if (state.isFiltered) {
+                const hiddenCount = state.lines.length - state.filteredLines.length;
+                elements.filterStatus.textContent = `${t('filtered')}${hiddenCount}${t('hidden')}`;
+            } else {
+                elements.filterStatus.textContent = '';
+            }
+        }
+
+        function showLoading(show) {
+            elements.loading.classList.toggle('active', show);
+        }
+
+        function showLogViewer() {
+            elements.introPage.style.display = 'none';
+            elements.logViewer.classList.add('active');
+        }
+
+        function showIntroPage() {
+            elements.logViewer.classList.remove('active');
+            elements.introPage.style.display = 'flex';
+        }
+
+        // ==================== 事件绑定 ====================
+        function initEventListeners() {
+            // 打开文件
+            elements.openFileBtn.addEventListener('click', () => elements.fileInput.click());
+            elements.fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+            
+            // 拖拽
+            elements.dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                elements.dropZone.classList.add('drag-over');
+            });
+            
+            elements.dropZone.addEventListener('dragleave', () => {
+                elements.dropZone.classList.remove('drag-over');
+            });
+            
+            elements.dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                elements.dropZone.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file) handleFile(file);
+            });
+            
+            // 返回和重新打开
+            elements.backBtn.addEventListener('click', showIntroPage);
+            elements.reopenBtn.addEventListener('click', () => {
+                elements.fileInput.click();
+            });
+            
+            // 编码切换
+            elements.encodingSelect.addEventListener('change', async () => {
+                if (!state.currentFile) return;
+                
+                showLoading(true);
+                try {
+                    const arrayBuffer = await readFile(state.currentFile);
+                    const newEncoding = elements.encodingSelect.value;
+                    const decoder = new TextDecoder(getEncodingForDecoder(newEncoding));
+                    state.rawContent = decoder.decode(arrayBuffer);
+                    
+                    if (state.rawContent.charCodeAt(0) === 0xFEFF) {
+                        state.rawContent = state.rawContent.slice(1);
+                    }
+                    
+                    state.currentEncoding = newEncoding;
+                    elements.encodingStatus.textContent = newEncoding.toUpperCase();
+                    
+                    processLines();
+                    renderLog();
+                } catch (error) {
+                    console.error('切换编码失败:', error);
+                    alert('切换编码失败：' + error.message);
+                } finally {
+                    showLoading(false);
+                }
+            });
+            
+            // 搜索
+            elements.searchBtn.addEventListener('click', performSearch);
+            elements.searchPrev.addEventListener('click', searchPrev);
+            elements.searchNext.addEventListener('click', searchNext);
+            elements.searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // 过滤
+            elements.filterBtn.addEventListener('click', applyFilter);
+            elements.filterInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    applyFilter();
+                }
+            });
+            
+            // 自动滚动
+            elements.autoScroll.addEventListener('change', (e) => {
+                state.autoScroll = e.target.checked;
+                if (state.autoScroll) {
+                    elements.logContainer.scrollTop = elements.logContainer.scrollHeight;
+                }
+            });
+            
+            // 高亮规则
+            elements.highlightBtn.addEventListener('click', () => {
+                elements.highlightModal.classList.add('active');
+            });
+            
+            elements.closeHighlightModal.addEventListener('click', () => {
+                elements.highlightModal.classList.remove('active');
+            });
+            
+            elements.addRuleBtn.addEventListener('click', () => {
+                const name = elements.ruleName.value.trim();
+                const pattern = elements.rulePattern.value.trim();
+                const color = elements.ruleColor.value;
+                
+                if (!name || !pattern) {
+                    alert('请填写规则名称和正则表达式');
+                    return;
+                }
+                
+                try {
+                    new RegExp(pattern);
+                } catch (e) {
+                    alert('正则表达式无效：' + e.message);
+                    return;
+                }
+                
+                state.highlightRules.push({ name, pattern, color });
+                renderRuleList();
+                
+                elements.ruleName.value = '';
+                elements.rulePattern.value = '';
+            });
+            
+            elements.saveHighlightBtn.addEventListener('click', () => {
+                saveHighlightRules();
+                elements.highlightModal.classList.remove('active');
+            });
+            
+            elements.exportRulesBtn.addEventListener('click', exportHighlightRules);
+            
+            elements.importRulesBtn.addEventListener('click', () => {
+                elements.importRulesFile.click();
+            });
+            
+            elements.importRulesFile.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) importHighlightRules(file);
+            });
+            
+            // 预设规则
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const preset = btn.dataset.preset;
+                    applyPresetRules(preset);
+                });
+            });
+            
+            // 行修复
+            elements.repairBtn.addEventListener('click', () => {
+                elements.repairModal.classList.add('active');
+            });
+            
+            elements.closeRepairModal.addEventListener('click', () => {
+                elements.repairModal.classList.remove('active');
+            });
+            
+            elements.resetRepairBtn.addEventListener('click', () => {
+                elements.repairPattern.value = '^\\d{4}-\\d{2}-\\d{2}';
+            });
+            
+            elements.applyRepairBtn.addEventListener('click', () => {
+                const pattern = elements.repairPattern.value.trim();
+                if (pattern) {
+                    try {
+                        new RegExp(pattern);
+                        state.repairPattern = pattern;
+                        processLines();
+                        renderLog();
+                        elements.repairModal.classList.remove('active');
+                    } catch (e) {
+                        alert('正则表达式无效：' + e.message);
+                    }
+                } else {
+                    state.repairPattern = null;
+                    processLines();
+                    renderLog();
+                    elements.repairModal.classList.remove('active');
+                }
+            });
+            
+            // 导出
+            elements.exportBtn.addEventListener('click', () => {
+                elements.exportFilename.value = state.currentFile 
+                    ? state.currentFile.name.replace(/\.[^.]+$/, '') + '_export.txt'
+                    : 'log_export.txt';
+                elements.exportModal.classList.add('active');
+            });
+            
+            elements.closeExportModal.addEventListener('click', () => {
+                elements.exportModal.classList.remove('active');
+            });
+            
+            elements.cancelExportBtn.addEventListener('click', () => {
+                elements.exportModal.classList.remove('active');
+            });
+            
+            elements.confirmExportBtn.addEventListener('click', exportLog);
+            
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'f') {
+                    e.preventDefault();
+                    elements.searchInput.focus();
+                }
+            });
+
+            // 语言选择器
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                languageSelect.value = currentLanguage;
+                languageSelect.addEventListener('change', () => {
+                    currentLanguage = languageSelect.value;
+                    applyTranslations();
+                });
+            }
+            
+            // 滚动时暂停自动滚动
+            elements.logContainer.addEventListener('scroll', () => {
+                if (state.autoScroll) {
+                    const container = elements.logContainer;
+                    const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+                    if (!isAtBottom) {
+                        state.autoScroll = false;
+                        elements.autoScroll.checked = false;
+                    }
+                }
+            });
+        }
+
+        // ==================== 初始化 ====================
+        function init() {
+            // 检测并设置语言
+            detectLanguage();
+            // 应用翻译
+            applyTranslations();
+            // 初始化事件监听器
+            initEventListeners();
+            // 加载高亮规则
+            loadHighlightRules();
+        }
+
+        // 检测语言
+        function detectLanguage() {
+            // 首先尝试从 localStorage 获取
+            const saved = localStorage.getItem('preferredLanguage');
+            if (saved && translations[saved]) {
+                currentLanguage = saved;
+                return;
+            }
+
+            // 然后尝试浏览器语言
+            const browserLang = navigator.language || navigator.userLanguage;
+            const lang = browserLang.toLowerCase();
+
+            // 匹配支持的语言
+            if (lang.startsWith('zh-cn') || lang.startsWith('zh-sg')) {
+                currentLanguage = 'zh-CN';
+            } else if (lang.startsWith('zh')) {
+                currentLanguage = 'zh-CN'; // 其他中文变体也使用简体中文
+            } else if (lang.startsWith('en')) {
+                currentLanguage = 'en';
+            } else if (lang.startsWith('ru')) {
+                currentLanguage = 'ru';
+            } else if (lang.startsWith('ja')) {
+                currentLanguage = 'ja';
+            } else if (lang.startsWith('ko')) {
+                currentLanguage = 'ko';
+            } else if (lang.startsWith('fr')) {
+                currentLanguage = 'fr';
+            } else if (lang.startsWith('de')) {
+                currentLanguage = 'de';
+            } else if (lang.startsWith('es')) {
+                currentLanguage = 'es';
+            } else {
+                // 默认使用中文
+                currentLanguage = 'zh-CN';
+            }
+        }
+
+        // 打开正则表达式生成器
+        function openRegexGenerator() {
+            window.open('https://tool.autogo.top/regex_generator/', '_blank');
+        }
+
+        init();
+    </script>
+</body>
+</html>

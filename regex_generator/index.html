@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>正则表达式生成器 - 自动生成 Regex | 在线正则工具</title>
+    <meta name="description" content="免费正则表达式生成器 - 通过示例字符串自动生成正则表达式。支持多语言界面，实时测试匹配，模式说明。无需编写复杂正则，输入示例即可生成。">
+    <meta name="keywords" content="正则表达式生成器，regex generator，自动生成正则，在线正则工具，正则表达式测试，正则匹配，正则生成器">
+    <meta name="author" content="main@autogo.top">
+    <meta name="description" lang="en" content="Free Regex Generator - Automatically generate regex patterns from example strings. Multi-language UI, real-time testing, pattern explanation. No need to write complex regex.">
+    <meta name="description" lang="ru" content="Бесплатный генератор regex - Автоматически создает регулярные выражения из примеров. Многоязычный интерфейс, тестирование в реальном времени.">
+    <meta name="description" lang="ja" content="無料正規表現ジェネレーター - サンプル文字列から自動的に正規表現を生成。多言語 UI、リアルタイムテスト、パターン説明。">
+    <meta name="description" lang="ko" content="무료 정규식 생성기 - 예시 문자열에서 자동으로 정규식 생성. 다국어 UI, 실시간 테스트，패턴 설명.">
+    <meta name="description" lang="fr" content="Générateur regex gratuit - Génère automatiquement des expressions régulières à partir d'exemples. Interface multi-langues, test en temps réel.">
+    <meta name="description" lang="de" content="Kostenloser Regex-Generator - Erstellt automatisch reguläre Ausdrücke aus Beispielen. Mehrsprachige UI, Echtzeit-Testing.">
+    <meta name="description" lang="es" content="Generador regex gratuito - Genera automáticamente expresiones regulares desde ejemplos. Interfaz multi-idioma, test en tiempo real.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN, en, ru, ja, ko, fr, de, es">
+    <link rel="canonical" href="https://tool.autogo.top/regex_generator/">
+    <link rel="alternate" hreflang="zh-CN" href="https://tool.autogo.top/regex_generator/?lang=zh-CN">
+    <link rel="alternate" hreflang="en" href="https://tool.autogo.top/regex_generator/?lang=en">
+    <link rel="alternate" hreflang="ru" href="https://tool.autogo.top/regex_generator/?lang=ru">
+    <link rel="alternate" hreflang="ja" href="https://tool.autogo.top/regex_generator/?lang=ja">
+    <link rel="alternate" hreflang="ko" href="https://tool.autogo.top/regex_generator/?lang=ko">
+    <link rel="alternate" hreflang="fr" href="https://tool.autogo.top/regex_generator/?lang=fr">
+    <link rel="alternate" hreflang="de" href="https://tool.autogo.top/regex_generator/?lang=de">
+    <link rel="alternate" hreflang="es" href="https://tool.autogo.top/regex_generator/?lang=es">
+    <link rel="alternate" hreflang="x-default" href="https://tool.autogo.top/regex_generator/">
+    <meta property="og:title" content="正则表达式生成器 - 自动生成 Regex">
+    <meta property="og:description" content="通过示例字符串自动生成正则表达式的在线工具，支持多语言和实时测试">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="ko_KR">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="es_ES">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #4a9eff;
+            --primary-hover: #3a8eef;
+            --bg-color: #1e1e1e;
+            --sidebar-bg: #252526;
+            --toolbar-bg: #333333;
+            --content-bg: #1e1e1e;
+            --text-color: #d4d4d4;
+            --border-color: #454545;
+            --hover-bg: #2a2d2e;
+            --selected-bg: #37373d;
+            --success-color: #4ec9b0;
+            --error-color: #f14c4c;
+            --warning-color: #cca700;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 300;
+        }
+
+        .language-selector select {
+            background-color: var(--toolbar-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language-selector select:hover {
+            border-color: var(--primary-color);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background-color: var(--sidebar-bg);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-title::before {
+            content: '';
+            width: 3px;
+            height: 18px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        textarea {
+            width: 100%;
+            background-color: var(--content-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea::placeholder {
+            color: #6a6a6a;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--toolbar-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--primary-color);
+        }
+
+        .result-box {
+            background-color: var(--content-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-height: 80px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: var(--text-color);
+            resize: vertical;
+        }
+        
+        .result-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .pattern-list {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .pattern-item {
+            padding: 6px 10px;
+            background-color: var(--content-bg);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pattern-regex {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .pattern-desc {
+            color: #808080;
+        }
+
+        .match-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .match-success {
+            background-color: rgba(78, 201, 176, 0.15);
+            color: var(--success-color);
+        }
+
+        .match-fail {
+            background-color: rgba(241, 76, 76, 0.15);
+            color: var(--error-color);
+        }
+
+        .usage-tip {
+            background-color: rgba(204, 167, 0, 0.1);
+            border: 1px solid var(--warning-color);
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .usage-tip strong {
+            color: var(--warning-color);
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* 页脚样式 */
+        .page-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .page-footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .page-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .page-footer a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .page-footer .footer-license {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .page-footer .footer-contact {
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        .highlight {
+            background-color: rgba(74, 158, 255, 0.2);
+            border-radius: 2px;
+        }
+    </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "952de367ac0b4b6cbdf40ccd98b69859"}'></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title">正则表达式生成器</h1>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="zh-CN">简体中文</option>
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="usage-tip">
+            <strong id="usageTitle">使用说明：</strong>
+            <span id="usageContent">使用 {{...}} 包裹可能变化的内容，系统会自动分析并生成正则表达式</span>
+        </div>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="panel">
+                    <div class="panel-title" id="inputTitle">输入示例字符串</div>
+                    <textarea
+                        id="inputText"
+                        placeholder="支持使用 {{...}} 标记可变内容，例如：AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1"
+                    ></textarea>
+                    <div class="button-group" style="align-items: center;">
+                        <button class="btn-primary" id="generateBtn" onclick="generateRegex()">生成正则</button>
+                        <button class="btn-secondary" id="clearBtn" onclick="clearAll()">清空</button>
+                        <label class="checkbox-label" style="display: flex; align-items: center; gap: 6px; cursor: pointer; margin-left: auto;">
+                            <input type="checkbox" id="useAnchor" checked style="cursor: pointer;">
+                            <span id="useAnchorLabel" style="font-size: 13px; color: var(--text-color);">使用 ^ 和 $</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <div class="panel-title" id="testTitle">测试正则</div>
+                    <textarea 
+                        id="testText" 
+                        placeholder="输入测试字符串..."
+                        style="min-height: 80px;"
+                    ></textarea>
+                    <div class="button-group">
+                        <button class="btn-primary" id="testBtn" onclick="testRegex()">测试匹配</button>
+                    </div>
+                    <div id="matchResult"></div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="panel">
+                    <div class="panel-title" id="resultTitle">生成的正则表达式</div>
+                    <textarea
+                        id="resultBox"
+                        class="result-box"
+                        style="width: 100%; min-height: 80px; resize: vertical;"
+                    ></textarea>
+                    <div class="button-group">
+                        <button class="btn-primary" id="copyBtn" onclick="copyRegex()">复制</button>
+                    </div>
+                    <div class="pattern-list" id="patternList"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-content">
+                <p>© 2026 Regex Generator. 
+                <a class="footer-license" href="https://github.com/leyun886/tools" target="_blank" rel="noopener noreferrer" data-i18n="footerRepo">GitHub Repository</a> | 
+                <span data-i18n="footerLicenseText">Licensed under MIT</span> 
+                </p>
+                <div class="footer-contact">
+                    <span>📧 </span><a href="mailto:main@autogo.top">main@autogo.top</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 多语言翻译
+        const i18n = {
+            'zh-CN': {
+                title: '正则表达式生成器',
+                inputTitle: '输入示例字符串',
+                placeholder: '支持使用 {{...}} 标记可变内容，例如：AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: '生成正则',
+                clearBtn: '清空',
+                resultTitle: '生成的正则表达式',
+                copyBtn: '复制',
+                copied: '已复制！',
+                testTitle: '测试正则',
+                testPlaceholder: '输入测试字符串...',
+                testBtn: '测试匹配',
+                matchSuccess: '✓ 匹配成功',
+                matchFail: '✗ 匹配失败',
+                patternExplanation: '模式说明：',
+                usageTitle: '使用说明：',
+                usageContent: '使用 {{...}} 包裹可能变化的内容，系统会自动分析并生成正则表达式；使用 <{...}> 包裹需要保持原样的固定内容（不进行正则转换）。',
+                descLowercase: '小写字母',
+                contactLabel: '联系：',
+                quantifierTip: '提示：{n} 表示精确匹配 n 个字符。{n,m} 匹配 n 到 m 个字符。{n,} 匹配至少 n 个字符。+ 表示匹配一次或多次（贪婪），* 表示匹配零次或多次，? 表示匹配零次或一次。',
+                useAnchorLabel: '使用 ^ 和 $',
+                anchorTip: '^ 匹配字符串开头，$ 匹配字符串结尾。✓ 适用场景：验证整个字符串、精确匹配完整内容。✗ 不适用：在长文本中查找匹配项、匹配字符串的一部分。',
+                
+                footerRepo: 'GitHub 仓库',
+                footerLicenseText: 'MIT 许可'
+            },
+            'en': {
+                title: 'Regex Generator',
+                inputTitle: 'Input Example String',
+                placeholder: 'Use {{...}} to mark variable content, e.g.: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: 'Generate Regex',
+                clearBtn: 'Clear',
+                resultTitle: 'Generated Regex',
+                copyBtn: 'Copy',
+                copied: 'Copied!',
+                testTitle: 'Test Regex',
+                testPlaceholder: 'Input test string...',
+                testBtn: 'Test Match',
+                matchSuccess: '✓ Match success',
+                matchFail: '✗ Match failed',
+                patternExplanation: 'Pattern explanation:',
+                usageTitle: 'Usage:',
+                usageContent: 'Use {{...}} to wrap variable content for automatic regex generation; use <{...}> to wrap literal content that should not be converted.',
+                descLowercase: 'Lowercase letters',
+                contactLabel: 'Contact:',
+                quantifierTip: 'Tip: {n} means exactly n characters. {n,m} matches n to m characters. {n,} matches at least n characters. + matches one or more (greedy), * matches zero or more, ? matches zero or one.',
+                useAnchorLabel: 'Use ^ and $',
+                anchorTip: '^ matches the start of string, $ matches the end. ✓ Use for: validating entire strings, exact full matches. ✗ Avoid: finding matches in long text, matching partial strings.',
+                
+                footerRepo: 'GitHub Repository',
+                footerLicenseText: 'Licensed under MIT'
+            },
+            'ru': {
+                title: 'Генератор регулярных выражений',
+                inputTitle: 'Введите пример строки',
+                placeholder: 'Используйте {{...}} для переменного содержимого, например: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: 'Создать regex',
+                clearBtn: 'Очистить',
+                resultTitle: 'Созданное регулярное выражение',
+                copyBtn: 'Копировать',
+                copied: 'Скопировано!',
+                testTitle: 'Тест regex',
+                testPlaceholder: 'Введите тестовую строку...',
+                testBtn: 'Тест совпадения',
+                matchSuccess: '✓ Совпадение найдено',
+                matchFail: '✗ Совпадение не найдено',
+                patternExplanation: 'Объяснение шаблона:',
+                usageTitle: 'Использование:',
+                usageContent: 'Используйте {{...}} для переменного содержимого для автоматической генерации regex; используйте <{...}> для содержимого, которое не должно быть преобразовано.',
+                descLowercase: 'Строчные буквы',
+                contactLabel: 'Контакт:',
+                quantifierTip: 'Совет: {n} означает ровно n символов. {n,m} соответствует от n до m символов. {n,} соответствует не менее n символов. + соответствует одному или более (жадно), * соответствует нулю или более, ? соответствует нулю или одному.',
+                useAnchorLabel: 'Использовать ^ и $',
+                anchorTip: '^ соответствует началу строки, $ соответствует концу. ✓ Используйте для: проверки всей строки, точного совпадения. ✗ Избегайте: поиска в длинном тексте, частичного совпадения.',
+                
+                footerRepo: 'Репозиторий GitHub',
+                footerLicenseText: 'Лицензия MIT'
+            },
+            'ja': {
+                title: '正規表現ジェネレーター',
+                inputTitle: 'サンプル文字列を入力',
+                placeholder: '{{...}} で可変内容をマークします。例：AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: '正規表現を生成',
+                clearBtn: 'クリア',
+                resultTitle: '生成された正規表現',
+                copyBtn: 'コピー',
+                copied: 'コピーしました！',
+                testTitle: 'テスト',
+                testPlaceholder: 'テスト文字列を入力...',
+                testBtn: 'マッチテスト',
+                matchSuccess: '✓ マッチ成功',
+                matchFail: '✗ マッチ失敗',
+                patternExplanation: 'パターン説明：',
+                usageTitle: '使い方：',
+                usageContent: '{{...}} で可変内容を囲むと自動的に正規表現を生成します；<{...}> で変換されないリテラル内容を囲みます。',
+                descLowercase: '小文字',
+                contactLabel: '連絡先：',
+                quantifierTip: 'ヒント：{n} はちょうど n 文字を意味します。{n,m} は n から m 文字をマッチします。{n,} は少なくとも n 文字をマッチします。+ は 1 回以上（欲張り）、* は 0 回以上、? は 0 回または 1 回をマッチします。',
+                useAnchorLabel: '^ と $ を使用',
+                anchorTip: '^ は文字列の先頭、$ は末尾に一致します。✓ 使用場面：文字列全体の検証、完全一致。✗ 非推奨：長文からの検索、部分一致。',
+                
+                footerRepo: 'GitHub リポジトリ',
+                footerLicenseText: 'MIT ライセンス'
+            },
+            'ko': {
+                title: '정규식 생성기',
+                inputTitle: '예시 문자열 입력',
+                placeholder: '{{...}} 로 가변 콘텐츠를 표시합니다. 예: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: '정규식 생성',
+                clearBtn: '지우기',
+                resultTitle: '생성된 정규식',
+                copyBtn: '복사',
+                copied: '복사됨!',
+                testTitle: '정규식 테스트',
+                testPlaceholder: '테스트 문자열 입력...',
+                testBtn: '매치 테스트',
+                matchSuccess: '✓ 매치 성공',
+                matchFail: '✗ 매치 실패',
+                patternExplanation: '패턴 설명:',
+                usageTitle: '사용법:',
+                usageContent: '{{...}} 로 가변 콘텐츠를 감싸면 자동으로 정규식이 생성됩니다; <{...}> 로 변환되지 않은 리터럴 콘텐츠를 감쌉니다.',
+                descLowercase: '소문자',
+                contactLabel: '연락처:',
+                quantifierTip: '팁: {n} 은 정확히 n 개의 문자를 의미합니다. {n,m} 은 n 에서 m 개의 문자를 일치합니다. {n,} 은 최소 n 개의 문자를 일치합니다. + 는 1 회 이상 (게으름), * 는 0 회 이상, ? 는 0 회 또는 1 회를 일치합니다.',
+                useAnchorLabel: '^ 와 $ 사용',
+                anchorTip: '^ 는 문자열 시작, $ 는 끝과 일치합니다. ✓ 사용 상황: 전체 문자열 검증, 완전 일치. ✗ 비권장: 긴 텍스트 검색, 부분 일치.',
+                
+                footerRepo: 'GitHub 저장소',
+                footerLicenseText: 'MIT 라이선스'
+            },
+            'fr': {
+                title: 'Générateur d\'expressions régulières',
+                inputTitle: 'Saisir la chaîne d\'exemple',
+                placeholder: 'Utilisez {{...}} pour marquer le contenu variable, ex: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: 'Générer regex',
+                clearBtn: 'Effacer',
+                resultTitle: 'Expression régulière générée',
+                copyBtn: 'Copier',
+                copied: 'Copié!',
+                testTitle: 'Tester regex',
+                testPlaceholder: 'Saisir la chaîne de test...',
+                testBtn: 'Tester la correspondance',
+                matchSuccess: '✓ Correspondance réussie',
+                matchFail: '✗ Échec de la correspondance',
+                patternExplanation: 'Explication du motif:',
+                usageTitle: 'Utilisation:',
+                usageContent: 'Utilisez {{...}} pour envelopper le contenu variable pour générer automatiquement la regex; utilisez <{...}> pour envelopper le contenu littéral qui ne doit pas être converti.',
+                descLowercase: 'Lettres minuscules',
+                contactLabel: 'Contact:',
+                quantifierTip: 'Astuce: {n} signifie exactement n caractères. {n,m} correspond à n à m caractères. {n,} correspond à au moins n caractères. + correspond à un ou plus (gourmand), * correspond à zéro ou plus, ? correspond à zéro ou un.',
+                useAnchorLabel: 'Utiliser ^ et $',
+                anchorTip: '^ correspond au début de la chaîne, $ à la fin. ✓ À utiliser pour: valider une chaîne entière, correspondance exacte. ✗ À éviter: recherche dans un long texte, correspondance partielle.',
+                
+                footerRepo: 'Dépôt GitHub',
+                footerLicenseText: 'Licence MIT'
+            },
+            'de': {
+                title: 'Regex-Generator',
+                inputTitle: 'Beispielstring eingeben',
+                placeholder: 'Verwenden Sie {{...}} für variablen Inhalt, z.B.: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: 'Regex erstellen',
+                clearBtn: 'Löschen',
+                resultTitle: 'Generierter Regex',
+                copyBtn: 'Kopieren',
+                copied: 'Kopiert!',
+                testTitle: 'Regex testen',
+                testPlaceholder: 'Teststring eingeben...',
+                testBtn: 'Übereinstimmung testen',
+                matchSuccess: '✓ Übereinstimmung erfolgreich',
+                matchFail: '✗ Übereinstimmung fehlgeschlagen',
+                patternExplanation: 'Mustererklärung:',
+                usageTitle: 'Verwendung:',
+                usageContent: 'Verwenden Sie {{...}} für variablen Inhalt zur automatischen Regex-Generierung; verwenden Sie <{...}> für Literal-Inhalt, der nicht konvertiert werden soll.',
+                descLowercase: 'Kleinbuchstaben',
+                contactLabel: 'Kontakt:',
+                quantifierTip: 'Tipp: {n} bedeutet genau n Zeichen. {n,m} entspricht n bis m Zeichen. {n,} entspricht mindestens n Zeichen. + entspricht einem oder mehr (gierig), * entspricht null oder mehr, ? entspricht null oder einem.',
+                useAnchorLabel: '^ und $ verwenden',
+                anchorTip: '^ entspricht dem Anfang der Zeichenkette, $ dem Ende. ✓ Verwenden für: Validierung ganzer Zeichenketten, exakte Übereinstimmung. ✗ Nicht verwenden: Suche in langem Text, teilweise Übereinstimmung.',
+                
+                footerRepo: 'GitHub-Repository',
+                footerLicenseText: 'MIT-Lizenz'
+            },
+            'es': {
+                title: 'Generador de expresiones regulares',
+                inputTitle: 'Introducir cadena de ejemplo',
+                placeholder: 'Use {{...}} para marcar contenido variable, ej: AI_Trader_EA XAUUSDm,{{M5}}: qwen3.5-plus-1',
+                generateBtn: 'Generar regex',
+                clearBtn: 'Limpiar',
+                resultTitle: 'Regex generada',
+                copyBtn: 'Copiar',
+                copied: '¡Copiado!',
+                testTitle: 'Probar regex',
+                testPlaceholder: 'Introducir cadena de prueba...',
+                testBtn: 'Probar coincidencia',
+                matchSuccess: '✓ Coincidencia exitosa',
+                matchFail: '✗ Coincidencia fallida',
+                patternExplanation: 'Explicación del patrón:',
+                usageTitle: 'Uso:',
+                usageContent: 'Use {{...}} para envolver contenido variable para generar automáticamente la regex; use <{...}> para envolver contenido literal que no debe ser convertido.',
+                descLowercase: 'Letras minúsculas',
+                contactLabel: 'Contacto:',
+                quantifierTip: 'Consejo: {n} significa exactamente n caracteres. {n,m} coincide de n a m caracteres. {n,} coincide al menos n caracteres. + coincide uno o más (golfoso), * coincide cero o más, ? coincide cero o uno.',
+                useAnchorLabel: 'Usar ^ y $',
+                anchorTip: '^ coincide con el inicio de la cadena, $ con el final. ✓ Usar para: validar cadenas completas, coincidencia exacta. ✗ Evitar: búsqueda en texto largo, coincidencia parcial.',
+                
+                footerRepo: 'Repositorio GitHub',
+                footerLicenseText: 'Licencia MIT'
+            }
+        };
+
+        // 当前生成的正则
+        let currentRegex = '';
+        let currentPatterns = [];
+
+        // 模式描述翻译
+        const patternDescI18n = {
+            '制表符': { en: 'Tab', ru: 'Табуляция', ja: 'タブ', ko: '탭', fr: 'Tabulation', de: 'Tabulator', es: 'Tabulador' },
+            '时间（带毫秒）': { en: 'Time (with ms)', ru: 'Время (с мс)', ja: '時間（ミリ秒）', ko: '시간 (밀리초)', fr: 'Heure (avec ms)', de: 'Zeit (mit ms)', es: 'Hora (con ms)' },
+            '时间': { en: 'Time', ru: 'Время', ja: '時間', ko: '시간', fr: 'Heure', de: 'Zeit', es: 'Hora' },
+            '日期时间（带毫秒）': { en: 'DateTime (with ms)', ru: 'ДатаВремя (с мс)', ja: '日時（ミリ秒）', ko: '날짜시간 (밀리초)', fr: 'DateHeure (avec ms)', de: 'DatumZeit (mit ms)', es: 'FechaHora (con ms)' },
+            '日期时间': { en: 'DateTime', ru: 'ДатаВремя', ja: '日時', ko: '날짜시간', fr: 'DateHeure', de: 'DatumZeit', es: 'FechaHora' },
+            '日期': { en: 'Date', ru: 'Дата', ja: '日付', ko: '날짜', fr: 'Date', de: 'Datum', es: 'Fecha' },
+            'IP 地址': { en: 'IP Address', ru: 'IP адрес', ja: 'IP アドレス', ko: 'IP 주소', fr: 'Adresse IP', de: 'IP-Adresse', es: 'Dirección IP' },
+            '邮箱': { en: 'Email', ru: 'Email', ja: 'メール', ko: '이메일', fr: 'Email', de: 'E-Mail', es: 'Correo' },
+            'URL': { en: 'URL', ru: 'URL', ja: 'URL', ko: 'URL', fr: 'URL', de: 'URL', es: 'URL' },
+            '整数': { en: 'Integer', ru: 'Целое число', ja: '整数', ko: '정수', fr: 'Entier', de: 'Ganzzahl', es: 'Entero' },
+            '空格': { en: 'Space', ru: 'Пробел', ja: 'スペース', ko: '공백', fr: 'Espace', de: 'Leerzeichen', es: 'Espacio' },
+            '连续空格': { en: 'Multiple spaces', ru: 'Несколько пробелов', ja: '連続スペース', ko: '연속 공백', fr: 'Espaces multiples', de: 'Mehrere Leerzeichen', es: 'Espacios múltiples' },
+            '大写字母': { en: 'Uppercase letters', ru: 'Заглавные буквы', ja: '大文字', ko: '대문자', fr: 'Lettres majuscules', de: 'Großbuchstaben', es: 'Letras mayúsculas' },
+            '小写字母': { en: 'Lowercase letters', ru: 'Строчные буквы', ja: '小文字', ko: '소문자', fr: 'Lettres minuscules', de: 'Kleinbuchstaben', es: 'Letras minúsculas' },
+            '中文字符': { en: 'Chinese characters', ru: 'Китайские иероглифы', ja: '漢字', ko: '한자', fr: 'Caractères chinois', de: 'Chinesische Zeichen', es: 'Caracteres chinos' },
+            '日文平假名': { en: 'Hiragana', ru: 'Хирагана', ja: 'ひらがな', ko: '히라가나', fr: 'Hiragana', de: 'Hiragana', es: 'Hiragana' },
+            '日文片假名': { en: 'Katakana', ru: 'Катакана', ja: 'カタカナ', ko: '가타카나', fr: 'Katakana', de: 'Katakana', es: 'Katakana' },
+            '韩文字符': { en: 'Korean characters', ru: 'Корейские иероглифы', ja: 'ハングル', ko: '한글', fr: 'Caractères coréens', de: 'Koreanische Zeichen', es: 'Caracteres coreanos' },
+            '字母（含下划线）': { en: 'Letters (with underscore)', ru: 'Буквы (с подчеркиванием)', ja: 'アルファベット（アンダースコア含む）', ko: '알파벳 (밑줄 포함)', fr: 'Lettres (avec soulignement)', de: 'Buchstaben (mit Unterstrich)', es: 'Letras (con guion bajo)' },
+            '字母数字混合': { en: 'Alphanumeric', ru: 'Буквенно-цифровой', ja: '英数字', ko: '영숫자', fr: 'Alphanumérique', de: 'Alphanumerisch', es: 'Alfanumérico' },
+            '多语言混合': { en: 'Multilingual', ru: 'Многоязычный', ja: '多言語混合', ko: '다국어 혼합', fr: 'Multilingue', de: 'Mehrsprachig', es: 'Multilingüe' },
+            'CJK 字符': { en: 'CJK characters', ru: 'CJK иероглифы', ja: 'CJK 文字', ko: 'CJK 문자', fr: 'Caractères CJK', de: 'CJK-Zeichen', es: 'Caracteres CJK' },
+            '任意字符': { en: 'Any character', ru: 'Любой символ', ja: '任意の文字', ko: '임의의 문자', fr: 'N\'importe quel caractère', de: 'Beliebiges Zeichen', es: 'Cualquier carácter' }
+        };
+
+        // 获取翻译后的描述
+        function getPatternDesc(desc, lang) {
+            if (!patternDescI18n[desc]) return desc;
+            if (lang === 'zh-CN') return desc;
+            return patternDescI18n[desc][lang] || desc;
+        }
+
+        // 初始化语言
+        function initLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0];
+            const supportedLangs = ['zh', 'en', 'ru', 'ja', 'ko', 'fr', 'de', 'es'];
+            
+            let defaultLang = 'zh-CN';
+            if (supportedLangs.includes(langCode)) {
+                if (langCode === 'zh') defaultLang = 'zh-CN';
+                else defaultLang = langCode;
+            }
+            
+            document.getElementById('languageSelect').value = defaultLang;
+            applyLanguage(defaultLang);
+        }
+
+        // 应用语言
+        function applyLanguage(lang) {
+            const t = i18n[lang] || i18n['zh-CN'];
+            
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('inputTitle').textContent = t.inputTitle;
+            document.getElementById('inputText').placeholder = t.placeholder;
+            document.getElementById('generateBtn').textContent = t.generateBtn;
+            document.getElementById('clearBtn').textContent = t.clearBtn;
+            document.getElementById('resultTitle').textContent = t.resultTitle;
+            document.getElementById('copyBtn').textContent = t.copyBtn;
+            document.getElementById('testTitle').textContent = t.testTitle;
+            document.getElementById('testText').placeholder = t.testPlaceholder;
+            document.getElementById('testBtn').textContent = t.testBtn;
+            document.getElementById('usageTitle').textContent = t.usageTitle;
+            document.getElementById('usageContent').textContent = t.usageContent;
+            document.getElementById('useAnchorLabel').textContent = t.useAnchorLabel;
+            
+            // 页脚翻译
+            
+            const footerRepo = document.querySelector('[data-i18n="footerRepo"]');
+            const footerLicenseText = document.querySelector('[data-i18n="footerLicenseText"]');
+            const contactLabel = document.getElementById('contactLabel');
+            
+            
+            if (footerRepo) footerRepo.textContent = t.footerRepo;
+            if (footerLicenseText) footerLicenseText.textContent = t.footerLicenseText;
+            if (contactLabel) contactLabel.textContent = t.contactLabel;
+        }
+
+        // 语言切换事件
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            applyLanguage(this.value);
+        });
+
+        // 检测数字
+        function detectNumber(str) {
+            return /^\d+$/.test(str);
+        }
+
+        // 检测时间格式 HH:MM:SS
+        function detectTime(str) {
+            return /^\d{2}:\d{2}:\d{2}$/.test(str);
+        }
+
+        // 检测时间带毫秒 HH:MM:SS.mmm
+        function detectTimeWithMs(str) {
+            return /^\d{2}:\d{2}:\d{2}\.\d{3}$/.test(str);
+        }
+
+        // 检测日期 YYYY-MM-DD
+        function detectDate(str) {
+            return /^\d{4}-\d{2}-\d{2}$/.test(str);
+        }
+
+        // 检测日期时间 YYYY-MM-DD HH:MM:SS
+        function detectDateTime(str) {
+            return /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(str);
+        }
+
+        // 检测日期时间带毫秒
+        function detectDateTimeWithMs(str) {
+            return /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}$/.test(str);
+        }
+
+        // 检测 IP 地址
+        function detectIP(str) {
+            return /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(str);
+        }
+
+        // 检测邮箱
+        function detectEmail(str) {
+            return /^[\w.-]+@[\w.-]+\.\w+$/.test(str);
+        }
+
+        // 检测 URL
+        function detectURL(str) {
+            return /^https?:\/\/\S+$/.test(str);
+        }
+
+        // 检测制表符
+        function detectTab(str) {
+            return str === '\t';
+        }
+
+        // 检测连续空格
+        function detectMultipleSpaces(str) {
+            return /^ {2,}$/.test(str);
+        }
+
+        // 检测单个空格
+        function detectSingleSpace(str) {
+            return str === ' ';
+        }
+
+        // 检测大写字母串
+        function detectUpperCase(str) {
+            return /^[A-Z]+$/.test(str);
+        }
+
+        // 检测小写字母串
+        function detectLowerCase(str) {
+            return /^[a-z]+$/.test(str);
+        }
+
+        // 检测混合字母（含下划线）
+        function detectMixedLetters(str) {
+            return /^[A-Za-z_]+$/.test(str);
+        }
+
+        // 检测字母数字混合
+        function detectAlphanumeric(str) {
+            return /^[A-Za-z0-9._-]+$/.test(str);
+        }
+
+        // 检测中文字符
+        function detectChinese(str) {
+            return /^[\u4e00-\u9fa5]+$/.test(str);
+        }
+
+        // 检测日文平假名
+        function detectHiragana(str) {
+            return /^[\u3040-\u309f]+$/.test(str);
+        }
+
+        // 检测日文片假名
+        function detectKatakana(str) {
+            return /^[\u30a0-\u30ff]+$/.test(str);
+        }
+
+        // 检测韩文字符
+        function detectKorean(str) {
+            return /^[\uac00-\ud7af]+$/.test(str);
+        }
+
+        // 检测 CJK 统一表意文字
+        function detectCJK(str) {
+            return /^[\u4e00-\u9fff]+$/.test(str);
+        }
+
+        // 检测混合多语言
+        function detectMultiLanguage(str) {
+            return /^[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7afA-Za-z]+$/.test(str);
+        }
+
+        // 推断正则
+        function inferRegex(content) {
+            const len = content.length;
+            // 按优先级检测各种模式
+            if (detectTab(content)) return { regex: '\\t', desc: '制表符' };
+            if (detectTimeWithMs(content)) return { regex: '\\d{2}:\\d{2}:\\d{2}\\.\\d{3}', desc: '时间（带毫秒）' };
+            if (detectTime(content)) return { regex: '\\d{2}:\\d{2}:\\d{2}', desc: '时间' };
+            if (detectDateTimeWithMs(content)) return { regex: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}', desc: '日期时间（带毫秒）' };
+            if (detectDateTime(content)) return { regex: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}', desc: '日期时间' };
+            if (detectDate(content)) return { regex: '\\d{4}-\\d{2}-\\d{2}', desc: '日期' };
+            if (detectIP(content)) return { regex: '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}', desc: 'IP 地址' };
+            if (detectEmail(content)) return { regex: '\\w+@\\w+\\.\\w+', desc: '邮箱' };
+            if (detectURL(content)) return { regex: 'https?://\\S+', desc: 'URL' };
+            if (detectNumber(content)) return { regex: `\\d{${len}}`, desc: '整数' };
+            if (detectSingleSpace(content)) return { regex: '\\s', desc: '空格' };
+            if (detectMultipleSpaces(content)) return { regex: `\\s{${len}}`, desc: '连续空格' };
+            if (detectUpperCase(content)) return { regex: `[A-Z]{${len}}`, desc: '大写字母' };
+            if (detectLowerCase(content)) return { regex: `[a-z]{${len}}`, desc: '小写字母' };
+            if (detectChinese(content)) return { regex: `[\\u4e00-\\u9fa5]{${len}}`, desc: '中文字符' };
+            if (detectHiragana(content)) return { regex: `[\\u3040-\\u309f]{${len}}`, desc: '日文平假名' };
+            if (detectKatakana(content)) return { regex: `[\\u30a0-\\u30ff]{${len}}`, desc: '日文片假名' };
+            if (detectKorean(content)) return { regex: `[\\uac00-\\ud7af]{${len}}`, desc: '韩文字符' };
+            if (detectMixedLetters(content)) return { regex: `[A-Za-z_]{${len}}`, desc: '字母（含下划线）' };
+            if (detectAlphanumeric(content)) return { regex: `[A-Za-z0-9._-]{${len}}`, desc: '字母数字混合' };
+            if (detectMultiLanguage(content)) return { regex: `[\\u4e00-\\u9fff\\u3040-\\u309f\\u30a0-\\u30ff\\uac00-\\ud7afA-Za-z0-9._-]{${len}}`, desc: '多语言混合' };
+            if (detectCJK(content)) return { regex: `[\\u4e00-\\u9fff]{${len}}`, desc: 'CJK 字符' };
+            
+            // 默认匹配任意字符
+            return { regex: `.{${len}}`, desc: '任意字符' };
+        }
+
+        // 生成正则
+        function generateRegex() {
+            const input = document.getElementById('inputText').value;
+            if (!input.trim()) {
+                alert('请输入示例字符串');
+                return;
+            }
+
+            currentPatterns = [];
+            let result = '';
+            let segments = [];
+
+            // 首先处理 <{...}> 标记的固定内容（不转换）
+            // 使用临时占位符替换 <{...}> 内容
+            const literalPattern = /<\{([^}]+)\}>/g;
+            const literalPlaceholders = [];
+            let placeholderIndex = 0;
+            let processedInput = input.replace(literalPattern, (match, content) => {
+                const placeholder = `__LITERAL_PLACEHOLDER_${placeholderIndex}__`;
+                // 对内容进行转义，以便直接添加到正则中
+                const escapedContent = escapeRegex(content);
+                literalPlaceholders.push({ placeholder, escapedContent });
+                placeholderIndex++;
+                return placeholder;
+            });
+
+            // 检查是否有 {{...}} 标记的可变内容
+            const variablePattern = /\{\{([^}]+)\}\}/g;
+            let lastIndex = 0;
+            let match;
+
+            while ((match = variablePattern.exec(processedInput)) !== null) {
+                // 添加标记前的固定内容
+                if (match.index > lastIndex) {
+                    const fixedContent = processedInput.substring(lastIndex, match.index);
+                    segments.push({ type: 'fixed', content: fixedContent });
+                }
+
+                // 添加可变内容
+                const variableContent = match[1];
+                const inferred = inferRegex(variableContent);
+                segments.push({ type: 'variable', content: variableContent, regex: inferred.regex, desc: inferred.desc });
+                currentPatterns.push(inferred);
+
+                lastIndex = match.index + match[0].length;
+            }
+
+            // 添加剩余内容
+            if (lastIndex < processedInput.length) {
+                const fixedContent = processedInput.substring(lastIndex);
+                segments.push({ type: 'fixed', content: fixedContent });
+            }
+
+            // 如果没有可变内容标记，则对整个字符串进行分析
+            if (segments.length === 0) {
+                segments.push({ type: 'fixed', content: processedInput });
+            }
+
+            // 处理固定内容
+            const useAnchor = document.getElementById('useAnchor').checked;
+            result = useAnchor ? '^' : '';
+            for (const segment of segments) {
+                if (segment.type === 'variable') {
+                    result += segment.regex;
+                } else {
+                    // 对固定内容进行处理，还原占位符
+                    result += processFixedContentWithPlaceholders(segment.content, literalPlaceholders);
+                }
+            }
+            if (useAnchor) {
+                result += '$';
+            }
+
+            currentRegex = result;
+            displayResult(result);
+        }
+
+        // 转义正则特殊字符
+        function escapeRegex(str) {
+            return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+        }
+
+        // 处理固定内容（支持占位符还原）
+        function processFixedContentWithPlaceholders(content, placeholders) {
+            if (placeholders.length === 0) {
+                return processFixedContent(content);
+            }
+            
+            // 有占位符时，需要分段处理
+            let result = '';
+            let lastIndex = 0;
+            
+            // 按占位符位置分割并处理
+            for (const ph of placeholders) {
+                const placeholderRegex = new RegExp(ph.placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                const match = content.substring(lastIndex).match(placeholderRegex);
+                
+                if (match) {
+                    // 处理占位符前的内容
+                    const beforePlaceholder = content.substring(lastIndex, lastIndex + match.index);
+                    if (beforePlaceholder) {
+                        result += processFixedContent(beforePlaceholder);
+                    }
+                    
+                    // 添加转义后的占位符内容（不转换）
+                    result += ph.escapedContent;
+                    
+                    lastIndex = lastIndex + match.index + match[0].length;
+                }
+            }
+            
+            // 处理剩余内容
+            if (lastIndex < content.length) {
+                const remaining = content.substring(lastIndex);
+                if (remaining) {
+                    result += processFixedContent(remaining);
+                }
+            }
+            
+            return result;
+        }
+
+        // 处理固定内容
+        function processFixedContent(content) {
+            let result = '';
+            let i = 0;
+
+            while (i < content.length) {
+                const char = content[i];
+
+                // 检查制表符
+                if (char === '\t') {
+                    result += '\\t';
+                    currentPatterns.push({ regex: '\\t', desc: '制表符' });
+                    i++;
+                    continue;
+                }
+
+                // 检查连续空格
+                if (char === ' ') {
+                    let spaceCount = 0;
+                    while (i < content.length && content[i] === ' ') {
+                        spaceCount++;
+                        i++;
+                    }
+                    if (spaceCount > 1) {
+                        result += '\\s+';
+                        currentPatterns.push({ regex: '\\s+', desc: '连续空格' });
+                    } else {
+                        result += '\\s';
+                        currentPatterns.push({ regex: '\\s', desc: '空格' });
+                    }
+                    continue;
+                }
+
+                // 检查特殊字符需要转义
+                if (['.', '*', '+', '?', '^', '$', '[', ']', '(', ')', '{', '}', '|', '\\'].includes(char)) {
+                    result += '\\' + char;
+                    i++;
+                    continue;
+                }
+
+                // 尝试检测更长的模式
+                let foundPattern = false;
+
+                // 检测时间带毫秒
+                const timeMsMatch = content.substring(i).match(/^\d{2}:\d{2}:\d{2}\.\d{3}/);
+                if (timeMsMatch) {
+                    result += '\\d{2}:\\d{2}:\\d{2}\\.\\d{3}';
+                    currentPatterns.push({ regex: '\\d{2}:\\d{2}:\\d{2}\\.\\d{3}', desc: '时间（带毫秒）' });
+                    i += timeMsMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测时间
+                const timeMatch = content.substring(i).match(/^\d{2}:\d{2}:\d{2}/);
+                if (timeMatch) {
+                    result += '\\d{2}:\\d{2}:\\d{2}';
+                    currentPatterns.push({ regex: '\\d{2}:\\d{2}:\\d{2}', desc: '时间' });
+                    i += timeMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测日期时间带毫秒
+                const dateTimeMsMatch = content.substring(i).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}/);
+                if (dateTimeMsMatch) {
+                    result += '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}';
+                    currentPatterns.push({ regex: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}', desc: '日期时间（带毫秒）' });
+                    i += dateTimeMsMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测日期时间
+                const dateTimeMatch = content.substring(i).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/);
+                if (dateTimeMatch) {
+                    result += '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}';
+                    currentPatterns.push({ regex: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}', desc: '日期时间' });
+                    i += dateTimeMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测日期
+                const dateMatch = content.substring(i).match(/^\d{4}-\d{2}-\d{2}/);
+                if (dateMatch) {
+                    result += '\\d{4}-\\d{2}-\\d{2}';
+                    currentPatterns.push({ regex: '\\d{4}-\\d{2}-\\d{2}', desc: '日期' });
+                    i += dateMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测 IP 地址
+                const ipMatch = content.substring(i).match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/);
+                if (ipMatch) {
+                    result += '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}';
+                    currentPatterns.push({ regex: '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}', desc: 'IP 地址' });
+                    i += ipMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测邮箱
+                const emailMatch = content.substring(i).match(/^[\w.-]+@[\w.-]+\.\w+/);
+                if (emailMatch) {
+                    result += '\\w+@\\w+\\.\\w+';
+                    currentPatterns.push({ regex: '\\w+@\\w+\\.\\w+', desc: '邮箱' });
+                    i += emailMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测 URL
+                const urlMatch = content.substring(i).match(/^https?:\/\/\S+/);
+                if (urlMatch) {
+                    result += 'https?:\\/\\/\\S+';
+                    currentPatterns.push({ regex: 'https?://\\S+', desc: 'URL' });
+                    i += urlMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测连续数字
+                const numMatch = content.substring(i).match(/^\d+/);
+                if (numMatch) {
+                    result += '\\d+';
+                    currentPatterns.push({ regex: '\\d+', desc: '整数' });
+                    i += numMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测连续大写字母
+                const upperMatch = content.substring(i).match(/^[A-Z]+/);
+                if (upperMatch) {
+                    result += '[A-Z]+';
+                    currentPatterns.push({ regex: '[A-Z]+', desc: '大写字母' });
+                    i += upperMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测连续小写字母
+                const lowerMatch = content.substring(i).match(/^[a-z]+/);
+                if (lowerMatch) {
+                    result += '[a-z]+';
+                    currentPatterns.push({ regex: '[a-z]+', desc: '小写字母' });
+                    i += lowerMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测中文字符
+                const chineseMatch = content.substring(i).match(/^[\u4e00-\u9fa5]+/);
+                if (chineseMatch) {
+                    result += '[\\u4e00-\\u9fa5]+';
+                    currentPatterns.push({ regex: '[\\u4e00-\\u9fa5]+', desc: '中文字符' });
+                    i += chineseMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测日文平假名
+                const hiraganaMatch = content.substring(i).match(/^[\u3040-\u309f]+/);
+                if (hiraganaMatch) {
+                    result += '[\\u3040-\\u309f]+';
+                    currentPatterns.push({ regex: '[\\u3040-\\u309f]+', desc: '日文平假名' });
+                    i += hiraganaMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测日文片假名
+                const katakanaMatch = content.substring(i).match(/^[\u30a0-\u30ff]+/);
+                if (katakanaMatch) {
+                    result += '[\\u30a0-\\u30ff]+';
+                    currentPatterns.push({ regex: '[\\u30a0-\\u30ff]+', desc: '日文片假名' });
+                    i += katakanaMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 检测韩文字符
+                const koreanMatch = content.substring(i).match(/^[\uac00-\ud7af]+/);
+                if (koreanMatch) {
+                    result += '[\\uac00-\\ud7af]+';
+                    currentPatterns.push({ regex: '[\\uac00-\\ud7af]+', desc: '韩文字符' });
+                    i += koreanMatch[0].length;
+                    foundPattern = true;
+                    continue;
+                }
+
+                // 默认：转义普通字符
+                result += char;
+                i++;
+            }
+
+            return result;
+        }
+
+        // 显示结果
+        function displayResult(regex) {
+            document.getElementById('resultBox').value = regex;
+            currentRegex = regex;
+
+            // 显示模式说明
+            const patternList = document.getElementById('patternList');
+            const lang = document.getElementById('languageSelect').value;
+            const t = i18n[lang] || i18n['zh-CN'];
+
+            // 去重
+            const uniquePatterns = [];
+            const seen = new Set();
+            for (const p of currentPatterns) {
+                if (!seen.has(p.regex)) {
+                    seen.add(p.regex);
+                    uniquePatterns.push(p);
+                }
+            }
+
+            if (uniquePatterns.length > 0) {
+                let html = `<div style="margin-top:15px;color:#808080;">${t.patternExplanation}</div>`;
+                for (const p of uniquePatterns) {
+                    const translatedDesc = getPatternDesc(p.desc, lang);
+                    html += `
+                        <div class="pattern-item">
+                            <span class="pattern-regex">${p.regex}</span>
+                            <span class="pattern-desc">${translatedDesc}</span>
+                        </div>
+                    `;
+                }
+                // 添加量词提示
+                html += `<div style="margin-top:15px;color:#808080;font-size:12px;">${t.quantifierTip}</div>`;
+                // 添加 ^ 使用说明
+                html += `<div style="margin-top:8px;color:#808080;font-size:12px;">${t.anchorTip}</div>`;
+                patternList.innerHTML = html;
+            } else {
+                patternList.innerHTML = '';
+            }
+        }
+
+        // 测试正则
+        function testRegex() {
+            if (!currentRegex) {
+                alert('请先生成正则表达式');
+                return;
+            }
+
+            const testText = document.getElementById('testText').value;
+            if (!testText.trim()) {
+                alert('请输入测试字符串');
+                return;
+            }
+
+            const resultDiv = document.getElementById('matchResult');
+            const lang = document.getElementById('languageSelect').value;
+            const t = i18n[lang] || i18n['zh-CN'];
+
+            try {
+                const regex = new RegExp(currentRegex);
+                const isMatch = regex.test(testText);
+
+                if (isMatch) {
+                    resultDiv.className = 'match-result match-success';
+                    resultDiv.textContent = t.matchSuccess;
+                } else {
+                    resultDiv.className = 'match-result match-fail';
+                    resultDiv.textContent = t.matchFail;
+                }
+            } catch (e) {
+                resultDiv.className = 'match-result match-fail';
+                resultDiv.textContent = '正则表达式错误：' + e.message;
+            }
+        }
+
+        // 复制正则
+        function copyRegex() {
+            const resultBox = document.getElementById('resultBox');
+            const regexToCopy = resultBox.value.trim();
+            if (!regexToCopy) {
+                alert('请先生成正则表达式');
+                return;
+            }
+
+            const lang = document.getElementById('languageSelect').value;
+            const t = i18n[lang] || i18n['zh-CN'];
+
+            navigator.clipboard.writeText(regexToCopy).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = t.copied;
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                alert('复制失败：' + err);
+            });
+        }
+
+        // 清空
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('testText').value = '';
+            document.getElementById('resultBox').value = '';
+            document.getElementById('patternList').innerHTML = '';
+            document.getElementById('matchResult').innerHTML = '';
+            currentRegex = '';
+            currentPatterns = [];
+        }
+
+        // 页面加载时初始化
+        window.onload = function() {
+            initLanguage();
+        };
+    </script>
+</body>
+</html>

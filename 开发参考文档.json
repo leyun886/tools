@@ -1,0 +1,310 @@
+{
+"seo": {
+    "description": "SEO 配置信息，用于搜索引擎优化",
+    "siteUrl": "https://tool.autogo.top",
+    "defaultLocale": "zh_CN",
+    "supportedLocales": ["zh-CN", "en", "ru", "ja", "ko", "fr", "de", "es"],
+    "pages": {
+      "index": {
+        "canonical": "https://tool.autogo.top/",
+        "translations": {
+          "zh-CN": {
+            "title": "Tools Navigator - 在线工具集 | Log 文件浏览器 | 正则表达式生成器",
+            "description": "免费在线工具集 - 提供 Log 文件浏览器和正则表达式生成器。Log 文件浏览器支持 40+ 种编码、语法高亮、正则过滤；正则表达式生成器可自动生成正则模式。纯本地运行，保护隐私。",
+            "keywords": "工具集，Log 文件查看器，日志查看器，正则表达式生成器，regex generator，log viewer，在线工具，编码转换，语法高亮，正则过滤"
+          },
+          "en": {
+            "title": "Tools Navigator - Online Tools | Log File Browser | Regex Generator",
+            "description": "Free online tools - Log File Browser with 40+ encodings, syntax highlighting, regex filtering; Regex Generator automatically generates patterns. Pure local运行，privacy protected.",
+            "keywords": "tools，log viewer, log file browser, regex generator, online tools, encoding converter, syntax highlighting, regex filter, utf-8, gbk"
+          },
+          "ru": {
+            "title": "Tools Navigator - Онлайн инструменты | Браузер логов | Генератор regex",
+            "description": "Бесплатные онлайн инструменты - Браузер логов с поддержкой 40+ кодировок, подсветкой синтаксиса, regex фильтрацией; Генератор регулярных выражений. Локальная работа, защита приватности.",
+            "keywords": "инструменты，браузер логов, log viewer, генератор regex, онлайн инструменты, кодировки, utf-8, gbk, подсветка синтаксиса"
+          },
+          "ja": {
+            "title": "Tools Navigator - オンラインツール | ログファイルブラウザ | 正規表現ジェネレーター",
+            "description": "無料オンラインツール - 40+ 種エンコーディング対応のログファイルブラウザ、シンタックスハイライト、正規表現フィルター；正規表現ジェネレーター。ローカル実行、プライバシー保護。",
+            "keywords": "ツール，ログビューア，ログファイルブラウザ，正規表現ジェネレーター，オンラインツール，エンコーディング，utf-8, gbk"
+          },
+          "ko": {
+            "title": "Tools Navigator - 온라인 도구 | 로그 파일 브라우저 | 정규식 생성기",
+            "description": "무료 온라인 도구 - 40+ 인코딩 지원 로그 파일 브라우저，구문 강조，정규식 필터링; 정규식 생성기 자동 생성. 로컬 실행，개인정보 보호.",
+            "keywords": "도구，로그 뷰어，로그 파일 브라우저，정규식 생성기，온라인 도구，인코딩，utf-8, gbk"
+          },
+          "fr": {
+            "title": "Tools Navigator - Outils en ligne | Navigateur de logs | Générateur regex",
+            "description": "Outils en ligne gratuits - Navigateur de logs avec 40+ encodages, coloration syntaxique, filtrage regex; Générateur d'expressions régulières. Exécution locale, vie privée protégée.",
+            "keywords": "outils，navigateur logs, log viewer, générateur regex, outils en ligne, encodage, utf-8, gbk, coloration syntaxique"
+          },
+          "de": {
+            "title": "Tools Navigator - Online-Tools | Log-Datei-Browser | Regex-Generator",
+            "description": "Kostenlose Online-Tools - Log-Datei-Browser mit 40+ Encodings, Syntax-Highlighting, Regex-Filterung; Regex-Generator erzeugt automatisch Muster. Lokale Ausführung, Datenschutz.",
+            "keywords": "Tools, Log-Browser, Log-Datei-Browser, Regex-Generator, Online-Tools, Encodings, utf-8, gbk, Syntax-Highlighting"
+          },
+          "es": {
+            "title": "Tools Navigator - Herramientas en línea | Navegador de logs | Generador regex",
+            "description": "Herramientas en línea gratuitas - Navegador de logs con 40+ codificaciones, resaltado de sintaxis, filtrado regex; Generador de expresiones regulares. Ejecución local, privacidad protegida.",
+            "keywords": "herramientas，navegador logs, log viewer, generador regex, herramientas en línea, codificación, utf-8, gbk, resaltado"
+          }
+        }
+      },
+      "log_viewer": {
+        "canonical": "https://tool.autogo.top/log_viewer/",
+        "translations": {
+          "zh-CN": {
+            "title": "Log 文件浏览器 - 在线日志查看工具 | 支持 UTF-8/GBK 等 40+ 编码",
+            "description": "免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，自动滚动。纯本地运行，日志文件不上传服务器，保护隐私。",
+            "keywords": "log 文件查看器，日志查看器，log viewer，日志文件浏览器，utf-8 查看器，gbk 查看器，编码转换，语法高亮，正则过滤，在线日志工具"
+          },
+          "en": {
+            "title": "Log File Browser - Online Log Viewer | UTF-8/GBK/40+ Encodings",
+            "description": "Free Log File Browser - Support 40+ encodings (UTF-8, GBK, Big5), syntax highlighting, regex filter, line folding, auto-scroll. Pure local运行，logs not uploaded, privacy protected.",
+            "keywords": "log viewer, log file viewer, online log viewer, utf-8 viewer, gbk viewer, encoding converter, syntax highlighting, regex filter, log reader"
+          },
+          "ru": {
+            "title": "Браузер логов - Онлайн просмотрщик | UTF-8/GBK/40+ кодировок",
+            "description": "Бесплатный браузер логов - Поддержка 40+ кодировок (UTF-8, GBK, Big5), подсветка синтаксиса, regex фильтр, сворачивание строк. Локальная работа, логи не загружаются.",
+            "keywords": "просмотрщик логов, log viewer, онлайн просмотрщик, utf-8, gbk, кодировки, подсветка синтаксиса, regex фильтр"
+          },
+          "ja": {
+            "title": "ログファイルブラウザ - オンラインビューア | UTF-8/GBK/40+ エンコーディング",
+            "description": "無料ログファイルブラウザ - 40+ エンコーディング対応（UTF-8、GBK、Big5）、シンタックスハイライト、正規表現フィルター、行折りたたみ。ローカル実行、ログアップロードなし。",
+            "keywords": "ログビューア，ログファイルビューア，オンライン，utf-8, gbk, エンコーディング，シンタックスハイライト，正規表現フィルター"
+          },
+          "ko": {
+            "title": "로그 파일 브라우저 - 온라인 뷰어 | UTF-8/GBK/40+ 인코딩",
+            "description": "무료 로그 파일 브라우저 - 40+ 인코딩 지원 (UTF-8, GBK, Big5), 구문 강조，정규식 필터，행 접기. 로컬 실행，로그 업로드 없음.",
+            "keywords": "로그 뷰어，로그 파일 뷰어，온라인，utf-8, gbk, 인코딩，구문 강조，정규식 필터"
+          },
+          "fr": {
+            "title": "Navigateur de logs - Visionneuse en ligne | UTF-8/GBK/40+ encodages",
+            "description": "Navigateur de logs gratuit - Support 40+ encodages (UTF-8, GBK, Big5), coloration syntaxique, filtrage regex, pliage de lignes. Exécution locale, logs non uploadés.",
+            "keywords": "visionneuse logs, log viewer, en ligne, utf-8, gbk, encodage, coloration syntaxique, filtrage regex"
+          },
+          "de": {
+            "title": "Log-Datei-Browser - Online-Betrachter | UTF-8/GBK/40+ Encodings",
+            "description": "Kostenloser Log-Datei-Browser - 40+ Encodings (UTF-8, GBK, Big5), Syntax-Highlighting, Regex-Filterung, Zeilen-Faltung. Lokale Ausführung, Logs nicht hochgeladen.",
+            "keywords": "Log-Betrachter, log viewer, online, utf-8, gbk, Encoding, Syntax-Highlighting, Regex-Filter"
+          },
+          "es": {
+            "title": "Navegador de logs - Visor en línea | UTF-8/GBK/40+ codificaciones",
+            "description": "Navegador de logs gratuito - Soporta 40+ codificaciones (UTF-8, GBK, Big5), resaltado de sintaxis, filtrado regex, plegado de líneas. Ejecución local, logs no subidos.",
+            "keywords": "visor logs, log viewer, en línea, utf-8, gbk, codificación, resaltado sintaxis, filtrado regex"
+          }
+        }
+      },
+      "regex_generator": {
+        "canonical": "https://tool.autogo.top/regex_generator/",
+        "translations": {
+          "zh-CN": {
+            "title": "正则表达式生成器 - 自动生成 Regex | 在线正则工具",
+            "description": "免费正则表达式生成器 - 通过示例字符串自动生成正则表达式。支持多语言界面，实时测试匹配，模式说明。无需编写复杂正则，输入示例即可生成。",
+            "keywords": "正则表达式生成器，regex generator，自动生成正则，在线正则工具，正则表达式测试，正则匹配，正则生成器"
+          },
+          "en": {
+            "title": "Regex Generator - Auto Generate Regular Expressions | Online Regex Tool",
+            "description": "Free Regex Generator - Automatically generate regex patterns from example strings. Multi-language UI, real-time testing, pattern explanation. No need to write complex regex.",
+            "keywords": "regex generator, regular expression generator, auto regex, online regex tool, regex tester, regex matcher, pattern generator"
+          },
+          "ru": {
+            "title": "Генератор regex - Автоматическое создание | Онлайн инструмент",
+            "description": "Бесплатный генератор regex - Автоматически создает регулярные выражения из примеров. Многоязычный интерфейс, тестирование в реальном времени, объяснение шаблонов.",
+            "keywords": "генератор regex, генератор регулярных выражений, авто regex, онлайн regex, тестер regex, создание шаблонов"
+          },
+          "ja": {
+            "title": "正規表現ジェネレーター - 自動生成 | オンライン正規表現ツール",
+            "description": "無料正規表現ジェネレーター - サンプル文字列から自動的に正規表現を生成。多言語 UI、リアルタイムテスト、パターン説明。複雑な正規表現を書く必要なし。",
+            "keywords": "正規表現ジェネレーター，regex generator，自動生成，オンライン，正規表現テスト，パターン生成"
+          },
+          "ko": {
+            "title": "정규식 생성기 - 자동 생성 | 온라인 정규식 도구",
+            "description": "무료 정규식 생성기 - 예시 문자열에서 자동으로 정규식 생성. 다국어 UI, 실시간 테스트，패턴 설명. 복잡한 정규식 작성 불필요.",
+            "keywords": "정규식 생성기, regex generator, 자동 생성，온라인，정규식 테스트，패턴 생성"
+          },
+          "fr": {
+            "title": "Générateur regex - Génération automatique | Outil regex en ligne",
+            "description": "Générateur regex gratuit - Génère automatiquement des expressions régulières à partir d'exemples. Interface multi-langues, test en temps réel, explication des motifs.",
+            "keywords": "générateur regex, générateur expressions régulières, auto regex, outil regex en ligne, testeur regex, création motifs"
+          },
+          "de": {
+            "title": "Regex-Generator - Automatische Erstellung | Online-Regex-Tool",
+            "description": "Kostenloser Regex-Generator - Erstellt automatisch reguläre Ausdrücke aus Beispielen. Mehrsprachige UI, Echtzeit-Testing, Mustererklärung. Kein komplexes Regex-Schreiben nötig.",
+            "keywords": "Regex-Generator, Generator regulärer Ausdrücke, Auto-Regex, Online-Regex-Tool, Regex-Tester, Mustererstellung"
+          },
+          "es": {
+            "title": "Generador regex - Generación automática | Herramienta regex en línea",
+            "description": "Generador regex gratuito - Genera automáticamente expresiones regulares desde ejemplos. Interfaz multi-idioma, test en tiempo real, explicación de patrones.",
+            "keywords": "generador regex, generador expresiones regulares, auto regex, herramienta regex en línea, testeador regex, creación patrones"
+          }
+        }
+      }
+    },
+    "metaTags": {
+      "author": "main@autogo.top",
+      "robots": "index, follow",
+      "ogType": "website"
+    }
+  },
+      "log_viewer": {
+        "title": "Log 文件浏览器 - 在线日志查看工具 | 支持 UTF-8/GBK 等 40+ 编码",
+        "description": "免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，自动滚动。纯本地运行，日志文件不上传服务器，保护隐私。",
+        "keywords": "log 文件查看器，日志查看器，log viewer，日志文件浏览器，utf-8 查看器，gbk 查看器，编码转换，语法高亮，正则过滤，在线日志工具",
+        "canonical": "https://autogo.top/log_viewer/"
+      },
+      "regex_generator": {
+        "title": "正则表达式生成器 - 自动生成 Regex | 在线正则工具",
+        "description": "免费正则表达式生成器 - 通过示例字符串自动生成正则表达式。支持多语言界面，实时测试匹配，模式说明。无需编写复杂正则，输入示例即可生成。",
+        "keywords": "正则表达式生成器，regex generator，自动生成正则，在线正则工具，正则表达式测试，正则匹配，正则生成器",
+        "canonical": "https://autogo.top/regex_generator/"
+      }
+    },
+    "metaTags": {
+      "author": "main@autogo.top",
+      "robots": "index, follow",
+      "ogType": "website"
+    }
+  },
+  "languages": [
+    { "code": "zh-CN", "name": "简体中文", "nativeName": "简体中文" },
+    { "code": "en", "name": "English", "nativeName": "English" },
+    { "code": "ru", "name": "Russian", "nativeName": "Русский" },
+    { "code": "ja", "name": "Japanese", "nativeName": "日本語" },
+    { "code": "ko", "name": "Korean", "nativeName": "한국어" },
+    { "code": "fr", "name": "French", "nativeName": "Français" },
+    { "code": "de", "name": "German", "nativeName": "Deutsch" },
+    { "code": "es", "name": "Spanish", "nativeName": "Español" }
+  ],
+  "mail": "main@autogo.top",
+  "analytics": {
+    "provider": "Cloudflare Web Analytics",
+    "token": "952de367ac0b4b6cbdf40ccd98b69859",
+    "script": "https://static.cloudflareinsights.com/beacon.min.js",
+    "code": "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"952de367ac0b4b6cbdf40ccd98b69859\"}'></script><!-- End Cloudflare Web Analytics -->"
+  },
+  "encodingGroups": {
+    "description": "编码选择器的分组翻译键",
+    "keys": ["encUnicode", "encChinese", "encJapanese", "encKorean", "encWestern", "encOther"],
+    "translations": {
+      "zh-CN": { "encUnicode": "Unicode", "encChinese": "中文", "encJapanese": "日文", "encKorean": "韩文", "encWestern": "西欧", "encOther": "其他" },
+      "en": { "encUnicode": "Unicode", "encChinese": "Chinese", "encJapanese": "Japanese", "encKorean": "Korean", "encWestern": "Western European", "encOther": "Other" },
+      "ru": { "encUnicode": "Unicode", "encChinese": "Китайские", "encJapanese": "Японские", "encKorean": "Корейские", "encWestern": "Западно-европейские", "encOther": "Другие" },
+      "ja": { "encUnicode": "Unicode", "encChinese": "中国語", "encJapanese": "日本語", "encKorean": "韓国語", "encWestern": "西欧", "encOther": "その他" },
+      "ko": { "encUnicode": "Unicode", "encChinese": "중국어", "encJapanese": "일본어", "encKorean": "한국어", "encWestern": "서유럽", "encOther": "기타" },
+      "fr": { "encUnicode": "Unicode", "encChinese": "Chinois", "encJapanese": "Japonais", "encKorean": "Coréen", "encWestern": "Européen occidental", "encOther": "Autre" },
+      "de": { "encUnicode": "Unicode", "encChinese": "Chinesisch", "encJapanese": "Japanisch", "encKorean": "Koreanisch", "encWestern": "Westeuropäisch", "encOther": "Sonstige" },
+      "es": { "encUnicode": "Unicode", "encChinese": "Chino", "encJapanese": "Japonés", "encKorean": "Coreano", "encWestern": "Europeo occidental", "encOther": "Otros" }
+    }
+  },
+  "pageStyle": {
+    "theme": "dark",
+    "colors": {
+      "primary": "#4a9eff",
+      "primaryHover": "#3a8eef",
+      "background": "#1e1e1e",
+      "cardBackground": "#252526",
+      "cardHover": "#2a2d2e",
+      "text": "#d4d4d4",
+      "textSecondary": "#808080",
+      "border": "#454545",
+      "scrollbarBackground": "#1e1e1e",
+      "scrollbarThumb": "#424242"
+    },
+    "fontFamily": "'Segoe UI', 'Microsoft YaHei', sans-serif",
+    "borderRadius": "12px",
+    "cardMinWidth": "280px"
+  },
+  "modules": {
+    "index": {
+      "name": "导航主页",
+      "path": "./index.html",
+      "description": "工具集导航页面，提供多语言支持和工具卡片展示",
+      "features": [
+        "多语言切换（8 种语言）",
+        "工具卡片网格布局",
+        "语言偏好本地存储",
+        "响应式设计",
+        "深色主题"
+      ],
+      "components": [
+        "header - 标题和语言选择器",
+        "welcome-section - 欢迎区域",
+        "tools-grid - 工具卡片网格",
+        "footer - 页脚和邮箱链接"
+      ]
+    },
+    "log_viewer": {
+      "name": "Log 文件浏览器",
+      "path": "./log_viewer/index.html",
+      "description": "快速、强大的日志文件查看工具",
+      "features": [
+        "多编码支持（UTF-8, GBK, Big5 等）",
+        "语法高亮",
+        "正则表达式过滤",
+        "行号显示",
+        "文件拖拽上传",
+        "关键词搜索",
+        "自动滚动",
+        "深色主题"
+      ]
+    },
+    "regex_generator": {
+      "name": "正则表达式生成器",
+      "path": "./regex_generator/index.html",
+      "description": "通过示例字符串自动生成正则表达式",
+      "features": [
+        "示例字符串输入",
+        "自动正则匹配",
+        "多语言支持",
+        "正则表达式测试",
+        "结果导出"
+      ]
+    }
+  },
+  "footer": {
+    "description": "页脚多语言翻译",
+    "translations": {
+      "zh-CN": {
+        "footerText": "© 2026 Tools Navigator. All rights reserved.",
+        "footerRepo": "GitHub 仓库",
+        "footerLicenseText": "MIT 许可"
+      },
+      "en": {
+        "footerText": "© 2026 Tools Navigator. All rights reserved.",
+        "footerRepo": "GitHub Repository",
+        "footerLicenseText": "Licensed under MIT"
+      },
+      "ru": {
+        "footerText": "© 2026 Tools Navigator. Все права защищены.",
+        "footerRepo": "Репозиторий GitHub",
+        "footerLicenseText": "Лицензия MIT"
+      },
+      "ja": {
+        "footerText": "© 2026 Tools Navigator. All rights reserved.",
+        "footerRepo": "GitHub リポジトリ",
+        "footerLicenseText": "MIT ライセンス"
+      },
+      "ko": {
+        "footerText": "© 2026 Tools Navigator. All rights reserved.",
+        "footerRepo": "GitHub 저장소",
+        "footerLicenseText": "MIT 라이선스"
+      },
+      "fr": {
+        "footerText": "© 2026 Tools Navigator. Tous droits réservés.",
+        "footerRepo": "Dépôt GitHub",
+        "footerLicenseText": "Licence MIT"
+      },
+      "de": {
+        "footerText": "© 2026 Tools Navigator. Alle Rechte vorbehalten.",
+        "footerRepo": "GitHub-Repository",
+        "footerLicenseText": "MIT-Lizenz"
+      },
+      "es": {
+        "footerText": "© 2026 Tools Navigator. Todos los derechos reservados.",
+        "footerRepo": "Repositorio GitHub",
+        "footerLicenseText": "Licencia MIT"
+      }
+    }
+  }
+}

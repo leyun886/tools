@@ -416,6 +416,51 @@
             color: #dcdcaa;
         }
 
+        /* JSON 格式化按钮 */
+        .json-toggle-btn {
+            display: inline-block;
+            padding: 1px 4px;
+            text-align: center;
+            background-color: #4ec9b0;
+            color: #1e1e1e;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 10px;
+            user-select: none;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .json-toggle-btn:hover {
+            background-color: #4ec9b0;
+            opacity: 0.8;
+        }
+
+        .json-content {
+            display: none;
+            padding: 8px;
+            margin-top: 4px;
+            background-color: #2d2d30;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .json-content.expanded {
+            display: block;
+        }
+
+        .json-raw-content {
+            display: none;
+        }
+
+        .json-raw-content.expanded {
+            display: inline;
+        }
+
         /* 搜索高亮 */
         .search-highlight {
             background-color: #613214;
@@ -1213,7 +1258,18 @@
                 privacyNote: '您可以放心使用本工具处理敏感日志数据',
                 
                 footerRepo: 'GitHub 仓库',
-                footerLicenseText: 'MIT 许可'
+                footerLicenseText: 'MIT 许可',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: '点击格式化 JSON',
+                jsonRestoreTitle: '点击恢复原样',
+                jsonFormatFailed: 'JSON 格式化失败：',
+                // 错误提示
+                readFileFailed: '读取文件失败：',
+                importInvalid: '导入失败：无效的 JSON 文件',
+                invalidRegex: '正则表达式无效：',
+                fillRuleName: '请填写规则名称和正则表达式',
+                switchEncodingFailed: '切换编码失败：'
             },
             'en': {
                 // 介绍页
@@ -1297,7 +1353,18 @@
                 privacyNote: 'You can use this tool with confidence to process sensitive log data',
                 
                 footerRepo: 'GitHub Repository',
-                footerLicenseText: 'Licensed under MIT'
+                footerLicenseText: 'Licensed under MIT',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'Click to format JSON',
+                jsonRestoreTitle: 'Click to restore',
+                jsonFormatFailed: 'JSON format failed: ',
+                // 错误提示
+                readFileFailed: 'Failed to read file: ',
+                importInvalid: 'Import failed: Invalid JSON file',
+                invalidRegex: 'Invalid regex: ',
+                fillRuleName: 'Please fill in rule name and regex pattern',
+                switchEncodingFailed: 'Failed to switch encoding: '
             },
             'ru': {
                 // 介绍页
@@ -1381,7 +1448,18 @@
                 privacyNote: 'Вы можете безопасно использовать этот инструмент для обработки конфиденциальных данных',
                 
                 footerRepo: 'Репозиторий GitHub',
-                footerLicenseText: 'Лицензия MIT'
+                footerLicenseText: 'Лицензия MIT',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'Нажмите для форматирования JSON',
+                jsonRestoreTitle: 'Нажмите для восстановления',
+                jsonFormatFailed: 'Ошибка форматирования JSON: ',
+                // 错误提示
+                readFileFailed: 'Ошибка чтения файла: ',
+                importInvalid: 'Импорт не удался: Неверный JSON файл',
+                invalidRegex: 'Неверный regex: ',
+                fillRuleName: 'Заполните имя правила и regex шаблон',
+                switchEncodingFailed: 'Ошибка смены кодировки: '
             },
             'ja': {
                 // 介绍页
@@ -1465,7 +1543,18 @@
                 privacyNote: '機密性の高いログデータの処理も安心してご利用いただけます',
                 
                 footerRepo: 'GitHub リポジトリ',
-                footerLicenseText: 'MIT ライセンス'
+                footerLicenseText: 'MIT ライセンス',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'JSON をフォーマットするにはクリック',
+                jsonRestoreTitle: '元に戻すにはクリック',
+                jsonFormatFailed: 'JSON フォーマット失敗：',
+                // 错误提示
+                readFileFailed: 'ファイルの読み込みに失敗しました：',
+                importInvalid: 'インポート失敗：無効な JSON ファイル',
+                invalidRegex: '無効な正規表現：',
+                fillRuleName: 'ルール名と正規表現パターンを入力してください',
+                switchEncodingFailed: 'エンコーディングの切り替えに失敗しました：'
             },
             'ko': {
                 // 介绍页
@@ -1549,7 +1638,18 @@
                 privacyNote: '민감한 로그 데이터를 처리할 때도 안심하고 사용할 수 있습니다',
                 
                 footerRepo: 'GitHub 저장소',
-                footerLicenseText: 'MIT 라이선스'
+                footerLicenseText: 'MIT 라이선스',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'JSON 서식 지정을 위해 클릭',
+                jsonRestoreTitle: '복원하려면 클릭',
+                jsonFormatFailed: 'JSON 서식 지정 실패: ',
+                // 错误提示
+                readFileFailed: '파일 읽기 실패: ',
+                importInvalid: '가져오기 실패: 잘못된 JSON 파일',
+                invalidRegex: '잘못된 정규식: ',
+                fillRuleName: '규칙 이름과 정규식 패턴을 입력하십시오',
+                switchEncodingFailed: '인코딩 전환 실패: '
             },
             'fr': {
                 // 介绍页
@@ -1633,7 +1733,18 @@
                 privacyNote: 'Vous pouvez utiliser cet outil en toute confiance pour traiter des données log sensibles',
                 
                 footerRepo: 'Dépôt GitHub',
-                footerLicenseText: 'Licence MIT'
+                footerLicenseText: 'Licence MIT',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'Cliquez pour formater le JSON',
+                jsonRestoreTitle: 'Cliquez pour restaurer',
+                jsonFormatFailed: 'Échec du formatage JSON : ',
+                // 错误提示
+                readFileFailed: 'Échec de la lecture du fichier : ',
+                importInvalid: 'Échec de l\'importation : Fichier JSON invalide',
+                invalidRegex: 'Regex invalide : ',
+                fillRuleName: 'Veuillez remplir le nom de la règle et le motif regex',
+                switchEncodingFailed: 'Échec du changement d\'encodage : '
             },
             'de': {
                 // 介绍页
@@ -1717,7 +1828,18 @@
                 privacyNote: 'Sie können dieses Tool vertrauensvoll zur Verarbeitung sensibler Log-Daten verwenden',
                 
                 footerRepo: 'GitHub-Repository',
-                footerLicenseText: 'MIT-Lizenz'
+                footerLicenseText: 'MIT-Lizenz',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'Klicken zum Formatieren',
+                jsonRestoreTitle: 'Klicken zum Wiederherstellen',
+                jsonFormatFailed: 'JSON-Formatierung fehlgeschlagen: ',
+                // 错误提示
+                readFileFailed: 'Fehler beim Lesen der Datei: ',
+                importInvalid: 'Import fehlgeschlagen: Ungültige JSON-Datei',
+                invalidRegex: 'Ungültiger Regex: ',
+                fillRuleName: 'Bitte Regelnamen und Regex-Muster ausfüllen',
+                switchEncodingFailed: 'Wechsel der Kodierung fehlgeschlagen: '
             },
             'es': {
                 // 介绍页
@@ -1801,7 +1923,18 @@
                 privacyNote: 'Puede usar esta herramienta con confianza para procesar datos de log sensibles',
                 
                 footerRepo: 'Repositorio GitHub',
-                footerLicenseText: 'Licencia MIT'
+                footerLicenseText: 'Licencia MIT',
+                // JSON 格式化
+                jsonFormatBtn: 'JSON',
+                jsonFormatTitle: 'Clic para formatear JSON',
+                jsonRestoreTitle: 'Clic para restaurar',
+                jsonFormatFailed: 'Error al formatear JSON: ',
+                // 错误提示
+                readFileFailed: 'Error al leer el archivo: ',
+                importInvalid: 'Error al importar: Archivo JSON inválido',
+                invalidRegex: 'Regex inválido: ',
+                fillRuleName: 'Por favor complete el nombre de la regla y el patrón regex',
+                switchEncodingFailed: 'Error al cambiar la codificación: '
             }
         };
 
@@ -1996,37 +2129,70 @@
                 return 'utf-32le';
             }
 
-            // 启发式检测
-            const encodings = ['utf-8', 'gbk', 'gb18030', 'big5', 'shift_jis', 'iso-8859-1'];
+            // 启发式检测 - 优先检测中文编码
+            const encodings = ['gbk', 'gb18030', 'big5', 'utf-8', 'shift_jis', 'iso-8859-1'];
+            
+            let bestEncoding = 'utf-8';
+            let bestScore = 0;
             
             for (const encoding of encodings) {
                 try {
                     const decoder = new TextDecoder(encoding);
-                    const text = decoder.decode(bytes.slice(0, Math.min(10000, bytes.length)));
+                    const text = decoder.decode(bytes.slice(0, Math.min(50000, bytes.length)));
                     
                     // 检查是否有无效字符
                     if (text.includes('\uFFFD')) {
                         continue;
                     }
                     
+                    let score = 0;
+                    
                     // 对于中文编码，检查是否有合理的中文字符
-                    if (encoding === 'gbk' || encoding === 'gb18030') {
+                    if (encoding === 'gbk' || encoding === 'gb18030' || encoding === 'big5') {
                         const chineseChars = text.match(/[\u4e00-\u9fff]/g);
-                        if (chineseChars && chineseChars.length > 0) {
-                            return encoding;
+                        if (chineseChars && chineseChars.length > 10) {
+                            score = chineseChars.length;
+                            if (score > bestScore) {
+                                bestScore = score;
+                                bestEncoding = encoding;
+                            }
                         }
                     }
                     
-                    // UTF-8 是最常见的，如果没有问题就返回
-                    if (encoding === 'utf-8') {
-                        return encoding;
+                    // 对于日文
+                    if (encoding === 'shift_jis') {
+                        const japaneseChars = text.match(/[\u3040-\u309f\u30a0-\u30ff]/g);
+                        if (japaneseChars && japaneseChars.length > 10) {
+                            score = japaneseChars.length;
+                            if (score > bestScore) {
+                                bestScore = score;
+                                bestEncoding = encoding;
+                            }
+                        }
+                    }
+                    
+                    // 对于韩文
+                    if (encoding === 'euc-kr' || encoding === 'johab') {
+                        const koreanChars = text.match(/[\uac00-\ud7af]/g);
+                        if (koreanChars && koreanChars.length > 10) {
+                            score = koreanChars.length;
+                            if (score > bestScore) {
+                                bestScore = score;
+                                bestEncoding = encoding;
+                            }
+                        }
+                    }
+                    
+                    // UTF-8 作为默认
+                    if (encoding === 'utf-8' && bestScore === 0) {
+                        bestEncoding = 'utf-8';
                     }
                 } catch (e) {
                     continue;
                 }
             }
 
-            return 'utf-8';
+            return bestEncoding;
         }
 
         function getEncodingForDecoder(encoding) {
@@ -2087,7 +2253,7 @@
                 
             } catch (error) {
                 console.error('读取文件失败:', error);
-                alert('读取文件失败：' + error.message);
+                alert(t('readFileFailed') + error.message);
             } finally {
                 showLoading(false);
             }
@@ -2150,6 +2316,11 @@
             
             elements.logLines.appendChild(fragment);
             updateStatus();
+            
+            // 如果开启了自动滚动，滚动到底部
+            if (state.autoScroll) {
+                scrollToBottom();
+            }
         }
         
         // 创建日志行
@@ -2172,7 +2343,37 @@
             // 内容
             const textCell = document.createElement('div');
             textCell.className = 'log-line-text';
-            textCell.innerHTML = applyHighlight(line, originalIndex);
+            
+            // 检测 JSON 内容
+            const jsonInfo = detectJsonContent(line);
+            
+            if (jsonInfo.found) {
+                // 添加 JSON 格式化按钮
+                const jsonToggle = document.createElement('span');
+                jsonToggle.className = 'json-toggle-btn';
+                jsonToggle.textContent = t('jsonFormatBtn');
+                jsonToggle.title = t('jsonFormatTitle');
+                
+                // 创建格式化后的 JSON 内容容器
+                const jsonContentDiv = document.createElement('div');
+                jsonContentDiv.className = 'json-content';
+                jsonContentDiv.id = 'json-content-' + originalIndex;
+                
+                // 创建包含原始内容和 JSON 按钮的容器
+                const rawContentSpan = document.createElement('span');
+                rawContentSpan.className = 'json-raw-content expanded';
+                rawContentSpan.id = 'json-raw-' + originalIndex;
+                rawContentSpan.innerHTML = applyHighlight(line, originalIndex);
+                
+                textCell.appendChild(jsonToggle);
+                textCell.appendChild(rawContentSpan);
+                textCell.appendChild(jsonContentDiv);
+                
+                // 绑定点击事件
+                jsonToggle.onclick = () => toggleJsonFormat(originalIndex, jsonInfo.jsonStr, jsonToggle);
+            } else {
+                textCell.innerHTML = applyHighlight(line, originalIndex);
+            }
             
             // 检查是否是堆栈跟踪行，添加折叠功能
             if (isStackTraceStart(line)) {
@@ -2180,7 +2381,12 @@
                 foldToggle.className = 'fold-toggle';
                 foldToggle.textContent = '▼';
                 foldToggle.onclick = () => toggleFold(row);
-                textCell.insertBefore(foldToggle, textCell.firstChild);
+                // 如果有 JSON 按钮，插入到 JSON 按钮之后
+                if (jsonInfo.found) {
+                    textCell.insertBefore(foldToggle, textCell.childNodes[2]);
+                } else {
+                    textCell.insertBefore(foldToggle, textCell.firstChild);
+                }
             }
             
             row.appendChild(numberCell);
@@ -2197,6 +2403,124 @@
                 /^\w+Error:/i
             ];
             return patterns.some(p => p.test(line));
+        }
+
+        // 检测行中的 JSON 内容
+        function detectJsonContent(line) {
+            // 首先尝试查找 JSON: 标记后的内容 - 匹配到行尾
+            const jsonMarkPattern = /JSON:\s*(\{.+?\}| \[.+?\])\s*`*$/.exec(line);
+            if (jsonMarkPattern && jsonMarkPattern[1]) {
+                let jsonStr = jsonMarkPattern[1].trim();
+                // 移除末尾的反引号
+                jsonStr = jsonStr.replace(/`+$/, '').trim();
+                
+                // 尝试直接解析
+                try {
+                    const parsed = JSON.parse(jsonStr);
+                    return { found: true, jsonStr: jsonStr, parsed: parsed };
+                } catch (e) {
+                    // 尝试处理字面量的 \n
+                    try {
+                        const parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
+                        return { found: true, jsonStr: jsonStr, parsed: parsed };
+                    } catch (e2) {
+                        // 尝试处理末尾缺失的 } 或 ]
+                        let fixedJson = jsonStr;
+                        const openBraces = (jsonStr.match(/\{/g) || []).length;
+                        const closeBraces = (jsonStr.match(/\}/g) || []).length;
+                        const openBrackets = (jsonStr.match(/\[/g) || []).length;
+                        const closeBrackets = (jsonStr.match(/\]/g) || []).length;
+                        
+                        if (openBraces > closeBraces) {
+                            fixedJson += '}'.repeat(openBraces - closeBraces);
+                        }
+                        if (openBrackets > closeBrackets) {
+                            fixedJson += ']'.repeat(openBrackets - closeBrackets);
+                        }
+                        
+                        try {
+                            const parsed = JSON.parse(fixedJson.replace(/\\n/g, '\n'));
+                            return { found: true, jsonStr: jsonStr, parsed: parsed };
+                        } catch (e3) {
+                            // 继续尝试其他方法
+                        }
+                    }
+                }
+            }
+            
+            // 尝试查找 JSON 对象或数组 - 从 { 或 [ 开始到行尾
+            const braceStart = line.indexOf('{');
+            const bracketStart = line.indexOf('[');
+            
+            if (braceStart !== -1 || bracketStart !== -1) {
+                const startPos = braceStart !== -1 ? braceStart : bracketStart;
+                const jsonCandidate = line.substring(startPos).trim();
+                
+                // 移除末尾的反引号
+                const cleanCandidate = jsonCandidate.replace(/`+$/, '').trim();
+                
+                // 尝试解析整个剩余部分
+                try {
+                    const parsed = JSON.parse(cleanCandidate);
+                    return { found: true, jsonStr: cleanCandidate, parsed: parsed };
+                } catch (e) {
+                    // 尝试处理字面量的 \n
+                    try {
+                        const parsed = JSON.parse(cleanCandidate.replace(/\\n/g, '\n'));
+                        return { found: true, jsonStr: cleanCandidate, parsed: parsed };
+                    } catch (e) {
+                        // 尝试找到匹配的结束括号
+                        for (let endPos = cleanCandidate.length; endPos > 0; endPos--) {
+                            const substr = cleanCandidate.substring(0, endPos).trim();
+                            try {
+                                const parsed = JSON.parse(substr.replace(/\\n/g, '\n'));
+                                return { found: true, jsonStr: substr, parsed: parsed };
+                            } catch (e) {
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return { found: false };
+        }
+
+        // 切换 JSON 格式化显示
+        function toggleJsonFormat(index, jsonStr, toggleBtn) {
+            const jsonContentDiv = document.getElementById('json-content-' + index);
+            const rawContentSpan = document.getElementById('json-raw-' + index);
+            
+            if (!jsonContentDiv || !rawContentSpan) return;
+            
+            if (jsonContentDiv.classList.contains('expanded')) {
+                // 收起
+                jsonContentDiv.classList.remove('expanded');
+                rawContentSpan.classList.add('expanded');
+                toggleBtn.textContent = t('jsonFormatBtn');
+                toggleBtn.title = t('jsonFormatTitle');
+            } else {
+                // 展开格式化的 JSON
+                try {
+                    // 尝试解析原始 JSON
+                    let parsed;
+                    try {
+                        parsed = JSON.parse(jsonStr);
+                    } catch (e) {
+                        // 如果失败，尝试处理字面量的 \n
+                        parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
+                    }
+                    const formatted = JSON.stringify(parsed, null, 2);
+                    jsonContentDiv.textContent = formatted;
+                    jsonContentDiv.classList.add('expanded');
+                    rawContentSpan.classList.remove('expanded');
+                    toggleBtn.textContent = '×';
+                    toggleBtn.title = t('jsonRestoreTitle');
+                } catch (e) {
+                    console.error('JSON 格式化失败:', e);
+                    alert(t('jsonFormatFailed') + e.message);
+                }
+            }
         }
 
         function toggleFold(row) {
@@ -2394,7 +2718,7 @@
                     state.highlightRules = rules;
                     renderRuleList();
                 } catch (err) {
-                    alert('导入失败：无效的 JSON 文件');
+                    alert(t('importInvalid'));
                 }
             };
             reader.readAsText(file);
@@ -2414,7 +2738,7 @@
                     state.filteredLines = state.lines.filter(item => regex.test(item.line));
                     state.isFiltered = true;
                 } catch (e) {
-                    alert('正则表达式无效：' + e.message);
+                    alert(t('invalidRegex') + e.message);
                     return;
                 }
             }
@@ -2487,6 +2811,11 @@
             if (row) {
                 row.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+        }
+        
+        // 滚动到底部
+        function scrollToBottom() {
+            elements.logContainer.scrollTop = elements.logContainer.scrollHeight;
         }
 
         // ==================== 导出功能 ====================
@@ -2612,7 +2941,7 @@
                     renderLog();
                 } catch (error) {
                     console.error('切换编码失败:', error);
-                    alert('切换编码失败：' + error.message);
+                    alert(t('switchEncodingFailed') + error.message);
                 } finally {
                     showLoading(false);
                 }
@@ -2640,7 +2969,7 @@
             elements.autoScroll.addEventListener('change', (e) => {
                 state.autoScroll = e.target.checked;
                 if (state.autoScroll) {
-                    elements.logContainer.scrollTop = elements.logContainer.scrollHeight;
+                    scrollToBottom();
                 }
             });
             
@@ -2659,14 +2988,14 @@
                 const color = elements.ruleColor.value;
                 
                 if (!name || !pattern) {
-                    alert('请填写规则名称和正则表达式');
+                    alert(t('fillRuleName'));
                     return;
                 }
                 
                 try {
                     new RegExp(pattern);
                 } catch (e) {
-                    alert('正则表达式无效：' + e.message);
+                    alert(t('invalidRegex') + e.message);
                     return;
                 }
                 
@@ -2724,7 +3053,7 @@
                         renderLog();
                         elements.repairModal.classList.remove('active');
                     } catch (e) {
-                        alert('正则表达式无效：' + e.message);
+                        alert(t('invalidRegex') + e.message);
                     }
                 } else {
                     state.repairPattern = null;

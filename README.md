@@ -4,6 +4,10 @@
 [![GitHub Stars](https://img.shields.io/github/stars/leyun886/tools)](https://github.com/leyun886/tools)
 [![GitHub Issues](https://img.shields.io/github/issues/leyun886/tools)](https://github.com/leyun886/tools/issues)
 
+**语言 / Language:** [简体中文](README.md) | [English](README.en.md)
+
+---
+
 一个轻量级、纯前端运行的在线工具集，保护您的隐私，所有操作均在本地完成。
 
 🌐 **在线访问**: [https://tool.autogo.top/](https://tool.autogo.top/)
@@ -16,8 +20,9 @@
 - **语法高亮**：自定义高亮规则，支持预设模板
 - **正则过滤**：快速筛选包含特定模式的日志行
 - **行折叠与修复**：处理多行日志，自动合并
-- **自动滚动**：实时监控日志文件
+- **自动滚动**：开启后会自动滚动到底部
 - **导出功能**：导出过滤后的日志
+- **JSON 格式化**：自动检测日志中的 JSON 内容，点击按钮即可格式化显示
 
 ### 🔤 正则表达式生成器
 通过示例字符串自动生成正则表达式：
@@ -45,6 +50,8 @@
 4. 使用搜索框快速定位内容
 5. 使用正则过滤筛选日志
 6. 可自定义语法高亮规则
+7. **自动滚动**：勾选"自动滚动"复选框，每次内容变化时会自动滚动到底部
+8. **JSON 格式化**：当日志行包含 JSON 内容时，行首会显示 `JSON` 按钮，点击即可格式化显示，再次点击恢复原样
 
 ### 正则表达式生成器
 

@@ -2423,12 +2423,15 @@
                 // 尝试直接解析
                 try {
                     const parsed = JSON.parse(jsonStr);
-                    return { found: true, jsonStr: jsonStr, parsed: parsed };
+                    // 检查是否需要修复编码
+                    const fixedParsed = fixMixedEncoding(parsed);
+                    return { found: true, jsonStr: jsonStr, parsed: fixedParsed };
                 } catch (e) {
                     // 尝试处理字面量的 \n
                     try {
                         const parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
-                        return { found: true, jsonStr: jsonStr, parsed: parsed };
+                        const fixedParsed = fixMixedEncoding(parsed);
+                        return { found: true, jsonStr: jsonStr, parsed: fixedParsed };
                     } catch (e2) {
                         // 尝试处理末尾缺失的 } 或 ]
                         let fixedJson = jsonStr;
@@ -2446,7 +2449,8 @@
                         
                         try {
                             const parsed = JSON.parse(fixedJson.replace(/\\n/g, '\n'));
-                            return { found: true, jsonStr: jsonStr, parsed: parsed };
+                            const fixedParsed = fixMixedEncoding(parsed);
+                            return { found: true, jsonStr: jsonStr, parsed: fixedParsed };
                         } catch (e3) {
                             // 继续尝试其他方法
                         }
@@ -2468,19 +2472,22 @@
                 // 尝试解析整个剩余部分
                 try {
                     const parsed = JSON.parse(cleanCandidate);
-                    return { found: true, jsonStr: cleanCandidate, parsed: parsed };
+                    const fixedParsed = fixMixedEncoding(parsed);
+                    return { found: true, jsonStr: cleanCandidate, parsed: fixedParsed };
                 } catch (e) {
                     // 尝试处理字面量的 \n
                     try {
                         const parsed = JSON.parse(cleanCandidate.replace(/\\n/g, '\n'));
-                        return { found: true, jsonStr: cleanCandidate, parsed: parsed };
+                        const fixedParsed = fixMixedEncoding(parsed);
+                        return { found: true, jsonStr: cleanCandidate, parsed: fixedParsed };
                     } catch (e) {
                         // 尝试找到匹配的结束括号
                         for (let endPos = cleanCandidate.length; endPos > 0; endPos--) {
                             const substr = cleanCandidate.substring(0, endPos).trim();
                             try {
                                 const parsed = JSON.parse(substr.replace(/\\n/g, '\n'));
-                                return { found: true, jsonStr: substr, parsed: parsed };
+                                const fixedParsed = fixMixedEncoding(parsed);
+                                return { found: true, jsonStr: substr, parsed: fixedParsed };
                             } catch (e) {
                                 continue;
                             }
@@ -2490,6 +2497,81 @@
             }
             
             return { found: false };
+        }
+
+        // 修复混合编码问题 - 检测并修复 GBK/UTF-8 混用导致的乱码
+        function fixMixedEncoding(obj) {
+            if (typeof obj === 'string') {
+                // 检测是否包含典型的 UTF-8 被 GBK 解码的乱码字符
+                // 这些字符通常在 \u4E00-\u9FFF 范围外，但是是无效的组合
+                if (containsGarbledText(obj)) {
+                    // 尝试将字符串重新编码为 GBK 字节，然后用 UTF-8 解码
+                    try {
+                        // 将字符串转换为 GBK 字节
+                        const gbkBytes = stringToGBKBytes(obj);
+                        // 用 UTF-8 解码
+                        const utf8Str = gbkBytesToUtf8String(gbkBytes);
+                        if (utf8Str && !containsGarbledText(utf8Str)) {
+                            return utf8Str;
+                        }
+                    } catch (e) {
+                        // 忽略错误，返回原始字符串
+                    }
+                }
+                return obj;
+            } else if (Array.isArray(obj)) {
+                return obj.map(item => fixMixedEncoding(item));
+            } else if (obj !== null && typeof obj === 'object') {
+                const result = {};
+                for (const key in obj) {
+                    result[key] = fixMixedEncoding(obj[key]);
+                }
+                return result;
+            }
+            return obj;
+        }
+
+        // 检测字符串是否包含乱码
+        function containsGarbledText(str) {
+            // 检测典型的 UTF-8 被 GBK 解码的乱码模式
+            // 这些字符通常是：鎸佷粨鐩堝埄 等
+            const garbledPattern = /[\u9200-\u9240\u9280-\u92C0\u9300-\u9340\u9380-\u93C0\u9400-\u9440\u9480-\u94C0\u9500-\u9540\u9580-\u95C0\u9600-\u9640\u9680-\u96C0\u9700-\u9740\u9780-\u97C0\u9800-\u9840\u9880-\u98C0\u9900-\u9940\u9980-\u99C0\u9A00-\u9A40\u9A80-\u9AC0\u9B00-\u9B40\u9B80-\u9BC0\u9C00-\u9C40\u9C80-\u9CC0\u9D00-\u9D40\u9D80-\u9DC0\u9E00-\u9E40\u9E80-\u9EC0\u9F00-\u9F40\u9F80-\u9FC0]/;
+            
+            // 或者检测连续的非常见汉字（可能是乱码）
+            const uncommonChars = str.match(/[\u3400-\u4DBF\u9FA0-\u9FFF]/g);
+            if (uncommonChars && uncommonChars.length > 5) {
+                return true;
+            }
+            
+            return garbledPattern.test(str);
+        }
+
+        // 将字符串转换为 GBK 字节（简化版本，使用 TextEncoder 近似）
+        function stringToGBKBytes(str) {
+            // 由于浏览器没有原生 GBK 编码器，我们使用一个简化的方法
+            // 将每个字符的 Unicode 码点转换为字节
+            const bytes = [];
+            for (let i = 0; i < str.length; i++) {
+                const code = str.charCodeAt(i);
+                if (code < 0x80) {
+                    bytes.push(code);
+                } else if (code < 0x800) {
+                    bytes.push(0xC0 | (code >> 6));
+                    bytes.push(0x80 | (code & 0x3F));
+                } else {
+                    bytes.push(0xE0 | (code >> 12));
+                    bytes.push(0x80 | ((code >> 6) & 0x3F));
+                    bytes.push(0x80 | (code & 0x3F));
+                }
+            }
+            return new Uint8Array(bytes);
+        }
+
+        // 将 GBK 字节转换为 UTF-8 字符串
+        function gbkBytesToUtf8String(bytes) {
+            // 使用 TextDecoder 解码为 UTF-8
+            const decoder = new TextDecoder('utf-8');
+            return decoder.decode(bytes);
         }
 
         // 切换 JSON 格式化显示

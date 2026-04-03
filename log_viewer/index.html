@@ -730,6 +730,10 @@
             z-index: 100;
         }
 
+        .language-selector.hidden {
+            display: none;
+        }
+
         .language-selector select {
             padding: 0.4rem 0.6rem;
             background-color: var(--sidebar-bg);
@@ -2105,7 +2109,9 @@
             cancelExportBtn: document.getElementById('cancelExportBtn'),
             confirmExportBtn: document.getElementById('confirmExportBtn'),
             exportFilename: document.getElementById('exportFilename'),
-            exportEncoding: document.getElementById('exportEncoding')
+            exportEncoding: document.getElementById('exportEncoding'),
+            // 语言选择器
+            languageSelector: document.querySelector('.language-selector')
         };
 
         // ==================== 编码检测 ====================
@@ -2510,7 +2516,11 @@
                         // 如果失败，尝试处理字面量的 \n
                         parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
                     }
-                    const formatted = JSON.stringify(parsed, null, 2);
+                    // 使用自定义 replacer 函数保留中文字符
+                    const formatted = JSON.stringify(parsed, null, 2).replace(
+                        /\\u([\da-fA-F]{4})/g,
+                        (match, group) => String.fromCharCode(parseInt(group, 16))
+                    );
                     jsonContentDiv.textContent = formatted;
                     jsonContentDiv.classList.add('expanded');
                     rawContentSpan.classList.remove('expanded');
@@ -2883,11 +2893,19 @@
         function showLogViewer() {
             elements.introPage.style.display = 'none';
             elements.logViewer.classList.add('active');
+            // 隐藏语言选择器
+            if (elements.languageSelector) {
+                elements.languageSelector.classList.add('hidden');
+            }
         }
 
         function showIntroPage() {
             elements.logViewer.classList.remove('active');
             elements.introPage.style.display = 'flex';
+            // 显示语言选择器
+            if (elements.languageSelector) {
+                elements.languageSelector.classList.remove('hidden');
+            }
         }
 
         // ==================== 事件绑定 ====================

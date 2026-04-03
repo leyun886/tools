@@ -2245,9 +2245,6 @@
                     state.rawContent = state.rawContent.slice(1);
                 }
 
-                // 修复混合编码问题
-                state.rawContent = fixMixedEncodingInContent(state.rawContent, detectedEncoding, arrayBuffer);
-
                 // 应用行修复
                 processLines();
                 
@@ -2266,107 +2263,6 @@
             } finally {
                 showLoading(false);
             }
-        }
-
-        // 修复文件内容中的混合编码问题
-        function fixMixedEncodingInContent(content, primaryEncoding, arrayBuffer) {
-            // 如果主编码是 GBK，尝试检测并修复 UTF-8 编码的行
-            if (primaryEncoding === 'gbk' || primaryEncoding === 'gb2312' || primaryEncoding === 'gb18030') {
-                const lines = content.split('\n');
-                const fixedLines = lines.map(line => {
-                    if (containsGarbledText(line)) {
-                        // 尝试用 UTF-8 重新解码这行
-                        try {
-                            // 找到这行在原始字节中的位置
-                            const lineIndex = content.indexOf(line);
-                            if (lineIndex !== -1) {
-                                // 估算字节位置（GBK 中中文占 2 字节，英文占 1 字节）
-                                let bytePos = 0;
-                                for (let i = 0; i < lineIndex; i++) {
-                                    const char = content.charCodeAt(i);
-                                    if (char < 0x80) bytePos++;
-                                    else if (char < 0x800) bytePos += 2;
-                                    else bytePos += 3;
-                                }
-                                
-                                // 找到行尾
-                                let lineEnd = lineIndex + line.length;
-                                if (content.charCodeAt(lineEnd) === 0x0D) lineEnd++; // \r
-                                
-                                // 估算行的字节长度
-                                let lineByteLen = 0;
-                                for (let i = lineIndex; i < lineEnd; i++) {
-                                    const char = content.charCodeAt(i);
-                                    if (char < 0x80) lineByteLen++;
-                                    else if (char < 0x800) lineByteLen += 2;
-                                    else lineByteLen += 3;
-                                }
-                                
-                                // 尝试用 UTF-8 解码这行
-                                const lineBytes = new Uint8Array(arrayBuffer, bytePos, lineByteLen);
-                                const utf8Decoder = new TextDecoder('utf-8');
-                                const utf8Line = utf8Decoder.decode(lineBytes);
-                                
-                                if (utf8Line && !containsGarbledText(utf8Line)) {
-                                    return utf8Line;
-                                }
-                            }
-                        } catch (e) {
-                            // 忽略错误，返回原始行
-                        }
-                    }
-                    return line;
-                });
-                return fixedLines.join('\n');
-            }
-            
-            // 如果主编码是 UTF-8，尝试检测并修复 GBK 编码的行
-            if (primaryEncoding === 'utf-8' || primaryEncoding === 'utf-8-bom') {
-                const lines = content.split('\n');
-                const fixedLines = lines.map(line => {
-                    if (containsGarbledText(line)) {
-                        // 尝试用 GBK 重新解码这行
-                        try {
-                            const lineIndex = content.indexOf(line);
-                            if (lineIndex !== -1) {
-                                // 估算字节位置（UTF-8 中中文占 3 字节，英文占 1 字节）
-                                let bytePos = 0;
-                                for (let i = 0; i < lineIndex; i++) {
-                                    const char = content.charCodeAt(i);
-                                    if (char < 0x80) bytePos++;
-                                    else if (char < 0x800) bytePos += 2;
-                                    else bytePos += 3;
-                                }
-                                
-                                let lineEnd = lineIndex + line.length;
-                                if (content.charCodeAt(lineEnd) === 0x0D) lineEnd++;
-                                
-                                let lineByteLen = 0;
-                                for (let i = lineIndex; i < lineEnd; i++) {
-                                    const char = content.charCodeAt(i);
-                                    if (char < 0x80) lineByteLen++;
-                                    else if (char < 0x800) lineByteLen += 2;
-                                    else lineByteLen += 3;
-                                }
-                                
-                                const lineBytes = new Uint8Array(arrayBuffer, bytePos, lineByteLen);
-                                const gbkDecoder = new TextDecoder('gbk');
-                                const gbkLine = gbkDecoder.decode(lineBytes);
-                                
-                                if (gbkLine && !containsGarbledText(gbkLine)) {
-                                    return gbkLine;
-                                }
-                            }
-                        } catch (e) {
-                            // 忽略错误，返回原始行
-                        }
-                    }
-                    return line;
-                });
-                return fixedLines.join('\n');
-            }
-            
-            return content;
         }
 
         function processLines() {

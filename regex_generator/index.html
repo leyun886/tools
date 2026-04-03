@@ -262,6 +262,29 @@
             color: var(--error-color);
         }
 
+        .match-content {
+            margin-top: 10px;
+            padding: 12px;
+            background-color: rgba(78, 201, 176, 0.1);
+            border: 1px solid var(--success-color);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .match-content-title {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .match-content-item {
+            padding: 4px 8px;
+            background-color: var(--content-bg);
+            border-radius: 4px;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+
         .usage-tip {
             background-color: rgba(204, 167, 0, 0.1);
             border: 1px solid var(--warning-color);
@@ -390,6 +413,7 @@
                         <button class="btn-primary" id="testBtn" onclick="testRegex()">测试匹配</button>
                     </div>
                     <div id="matchResult"></div>
+                    <div id="matchContent" class="match-content" style="display: none;"></div>
                 </div>
             </div>
 
@@ -439,6 +463,12 @@
                 testBtn: '测试匹配',
                 matchSuccess: '✓ 匹配成功',
                 matchFail: '✗ 匹配失败',
+                matchContentTitle: '匹配内容：',
+                regexError: '正则表达式错误：',
+                pleaseInput: '请输入示例字符串',
+                pleaseGenerate: '请先生成正则表达式',
+                pleaseInputTest: '请输入测试字符串',
+                copyFailed: '复制失败：',
                 patternExplanation: '模式说明：',
                 usageTitle: '使用说明：',
                 usageContent: '使用 {{...}} 包裹可能变化的内容，系统会自动分析并生成正则表达式；使用 <{...}> 包裹需要保持原样的固定内容（不进行正则转换）。',
@@ -465,6 +495,12 @@
                 testBtn: 'Test Match',
                 matchSuccess: '✓ Match success',
                 matchFail: '✗ Match failed',
+                matchContentTitle: 'Matched Content:',
+                regexError: 'Regex error:',
+                pleaseInput: 'Please input example string',
+                pleaseGenerate: 'Please generate regex first',
+                pleaseInputTest: 'Please input test string',
+                copyFailed: 'Copy failed: ',
                 patternExplanation: 'Pattern explanation:',
                 usageTitle: 'Usage:',
                 usageContent: 'Use {{...}} to wrap variable content for automatic regex generation; use <{...}> to wrap literal content that should not be converted.',
@@ -491,6 +527,12 @@
                 testBtn: 'Тест совпадения',
                 matchSuccess: '✓ Совпадение найдено',
                 matchFail: '✗ Совпадение не найдено',
+                matchContentTitle: 'Содержимое:',
+                regexError: 'Ошибка regex:',
+                pleaseInput: 'Введите пример строки',
+                pleaseGenerate: 'Сначала создайте regex',
+                pleaseInputTest: 'Введите тестовую строку',
+                copyFailed: 'Ошибка копирования: ',
                 patternExplanation: 'Объяснение шаблона:',
                 usageTitle: 'Использование:',
                 usageContent: 'Используйте {{...}} для переменного содержимого для автоматической генерации regex; используйте <{...}> для содержимого, которое не должно быть преобразовано.',
@@ -517,6 +559,12 @@
                 testBtn: 'マッチテスト',
                 matchSuccess: '✓ マッチ成功',
                 matchFail: '✗ マッチ失敗',
+                matchContentTitle: 'マッチ内容：',
+                regexError: '正規表現エラー：',
+                pleaseInput: 'サンプル文字列を入力してください',
+                pleaseGenerate: 'まず正規表現を生成してください',
+                pleaseInputTest: 'テスト文字列を入力してください',
+                copyFailed: 'コピー失敗：',
                 patternExplanation: 'パターン説明：',
                 usageTitle: '使い方：',
                 usageContent: '{{...}} で可変内容を囲むと自動的に正規表現を生成します；<{...}> で変換されないリテラル内容を囲みます。',
@@ -543,6 +591,12 @@
                 testBtn: '매치 테스트',
                 matchSuccess: '✓ 매치 성공',
                 matchFail: '✗ 매치 실패',
+                matchContentTitle: '매치 내용:',
+                regexError: '정규식 오류:',
+                pleaseInput: '예시 문자열을 입력하세요',
+                pleaseGenerate: '먼저 정규식을 생성하세요',
+                pleaseInputTest: '테스트 문자열을 입력하세요',
+                copyFailed: '복사 실패：',
                 patternExplanation: '패턴 설명:',
                 usageTitle: '사용법:',
                 usageContent: '{{...}} 로 가변 콘텐츠를 감싸면 자동으로 정규식이 생성됩니다; <{...}> 로 변환되지 않은 리터럴 콘텐츠를 감쌉니다.',
@@ -569,6 +623,12 @@
                 testBtn: 'Tester la correspondance',
                 matchSuccess: '✓ Correspondance réussie',
                 matchFail: '✗ Échec de la correspondance',
+                matchContentTitle: 'Contenu correspondant:',
+                regexError: 'Erreur regex:',
+                pleaseInput: 'Veuillez saisir la chaîne d\'exemple',
+                pleaseGenerate: 'Veuillez d\'abord générer la regex',
+                pleaseInputTest: 'Veuillez saisir la chaîne de test',
+                copyFailed: 'Échec de la copie: ',
                 patternExplanation: 'Explication du motif:',
                 usageTitle: 'Utilisation:',
                 usageContent: 'Utilisez {{...}} pour envelopper le contenu variable pour générer automatiquement la regex; utilisez <{...}> pour envelopper le contenu littéral qui ne doit pas être converti.',
@@ -595,6 +655,12 @@
                 testBtn: 'Übereinstimmung testen',
                 matchSuccess: '✓ Übereinstimmung erfolgreich',
                 matchFail: '✗ Übereinstimmung fehlgeschlagen',
+                matchContentTitle: 'Übereinstimmung:',
+                regexError: 'Regex-Fehler:',
+                pleaseInput: 'Bitte Beispielstring eingeben',
+                pleaseGenerate: 'Bitte zuerst Regex erstellen',
+                pleaseInputTest: 'Bitte Teststring eingeben',
+                copyFailed: 'Kopieren fehlgeschlagen: ',
                 patternExplanation: 'Mustererklärung:',
                 usageTitle: 'Verwendung:',
                 usageContent: 'Verwenden Sie {{...}} für variablen Inhalt zur automatischen Regex-Generierung; verwenden Sie <{...}> für Literal-Inhalt, der nicht konvertiert werden soll.',
@@ -621,6 +687,12 @@
                 testBtn: 'Probar coincidencia',
                 matchSuccess: '✓ Coincidencia exitosa',
                 matchFail: '✗ Coincidencia fallida',
+                matchContentTitle: 'Contenido coincidente:',
+                regexError: 'Error de regex:',
+                pleaseInput: 'Introducir cadena de ejemplo',
+                pleaseGenerate: 'Primero genere la regex',
+                pleaseInputTest: 'Introducir cadena de prueba',
+                copyFailed: 'Error al copiar: ',
                 patternExplanation: 'Explicación del patrón:',
                 usageTitle: 'Uso:',
                 usageContent: 'Use {{...}} para envolver contenido variable para generar automáticamente la regex; use <{...}> para envolver contenido literal que no debe ser convertido.',
@@ -869,7 +941,9 @@
         function generateRegex() {
             const input = document.getElementById('inputText').value;
             if (!input.trim()) {
-                alert('请输入示例字符串');
+                const lang = document.getElementById('languageSelect').value;
+                const t = i18n[lang] || i18n['zh-CN'];
+                alert(t.pleaseInput || '请输入示例字符串');
                 return;
             }
 
@@ -1231,36 +1305,64 @@
 
         // 测试正则
         function testRegex() {
-            if (!currentRegex) {
-                alert('请先生成正则表达式');
+            const resultBox = document.getElementById('resultBox');
+            const regexStr = resultBox.value.trim();
+            if (!regexStr) {
+                const lang = document.getElementById('languageSelect').value;
+                const t = i18n[lang] || i18n['zh-CN'];
+                alert(t.pleaseGenerate || '请先生成正则表达式');
                 return;
             }
 
             const testText = document.getElementById('testText').value;
             if (!testText.trim()) {
-                alert('请输入测试字符串');
+                const lang = document.getElementById('languageSelect').value;
+                const t = i18n[lang] || i18n['zh-CN'];
+                alert(t.pleaseInputTest || '请输入测试字符串');
                 return;
             }
 
             const resultDiv = document.getElementById('matchResult');
+            const matchContentDiv = document.getElementById('matchContent');
             const lang = document.getElementById('languageSelect').value;
             const t = i18n[lang] || i18n['zh-CN'];
 
             try {
-                const regex = new RegExp(currentRegex);
-                const isMatch = regex.test(testText);
+                const regex = new RegExp(regexStr);
+                const matches = testText.match(regex);
 
-                if (isMatch) {
+                if (matches) {
                     resultDiv.className = 'match-result match-success';
                     resultDiv.textContent = t.matchSuccess;
+                    
+                    // 显示匹配内容
+                    let html = `<div class="match-content-title">${t.matchContentTitle || 'Matched Content:'}</div>`;
+                    for (let i = 0; i < matches.length; i++) {
+                        if (i === 0) {
+                            html += `<div class="match-content-item">${escapeHtml(matches[i])}</div>`;
+                        } else {
+                            html += `<div class="match-content-item"><strong>Group ${i}:</strong> ${escapeHtml(matches[i])}</div>`;
+                        }
+                    }
+                    matchContentDiv.innerHTML = html;
+                    matchContentDiv.style.display = 'block';
                 } else {
                     resultDiv.className = 'match-result match-fail';
                     resultDiv.textContent = t.matchFail;
+                    matchContentDiv.style.display = 'none';
                 }
             } catch (e) {
                 resultDiv.className = 'match-result match-fail';
-                resultDiv.textContent = '正则表达式错误：' + e.message;
+                resultDiv.textContent = `${t.regexError || 'Regex error:'} ${e.message}`;
+                matchContentDiv.style.display = 'none';
             }
+        }
+
+        // HTML 转义
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // 复制正则
@@ -1268,7 +1370,9 @@
             const resultBox = document.getElementById('resultBox');
             const regexToCopy = resultBox.value.trim();
             if (!regexToCopy) {
-                alert('请先生成正则表达式');
+                const lang = document.getElementById('languageSelect').value;
+                const t = i18n[lang] || i18n['zh-CN'];
+                alert(t.pleaseGenerate || '请先生成正则表达式');
                 return;
             }
 
@@ -1283,7 +1387,7 @@
                     copyBtn.textContent = originalText;
                 }, 2000);
             }).catch(err => {
-                alert('复制失败：' + err);
+                alert(t.copyFailed || '复制失败：' + err);
             });
         }
 
@@ -1294,6 +1398,7 @@
             document.getElementById('resultBox').value = '';
             document.getElementById('patternList').innerHTML = '';
             document.getElementById('matchResult').innerHTML = '';
+            document.getElementById('matchContent').style.display = 'none';
             currentRegex = '';
             currentPatterns = [];
         }

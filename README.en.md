@@ -20,7 +20,6 @@ Fast and powerful log file viewer with support for:
 - **Syntax highlighting**: Custom highlight rules with preset templates
 - **Regex filtering**: Quickly filter log lines containing specific patterns
 - **Line folding and repair**: Handle multi-line logs with automatic merging
-- **Auto scroll**: Automatically scrolls to the bottom when enabled
 - **Export function**: Export filtered log content
 - **JSON formatting**: Automatically detect JSON content in logs, click button to format and display
 
@@ -50,8 +49,7 @@ Automatically generate regular expressions from example strings:
 4. Use the search box to quickly locate content
 5. Use regex filtering to filter logs
 6. Customize syntax highlight rules
-7. **Auto scroll**: Check the "Auto Scroll" checkbox to automatically scroll to the bottom when content changes
-8. **JSON formatting**: When a log line contains JSON content, a `JSON` button will appear at the beginning of the line. Click to format and display, click again to restore
+7. **JSON formatting**: When a log line contains JSON content, a `JSON` button will appear at the beginning of the line. Click to format and display, click again to restore
 
 ### Regex Expression Generator
 

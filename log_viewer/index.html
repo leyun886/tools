@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log 文件浏览器 - 在线日志查看工具 | 支持 UTF-8/GBK 等 40+ 编码</title>
-    <meta name="description" content="免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，自动滚动。纯本地运行，日志文件不上传服务器，保护隐私。">
+    <meta name="description" content="免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，JSON 格式化。纯本地运行，日志文件不上传服务器，保护隐私。">
     <meta name="keywords" content="log 文件查看器，日志查看器，log viewer，日志文件浏览器，utf-8 查看器，gbk 查看器，编码转换，语法高亮，正则过滤，在线日志工具">
     <meta name="author" content="main@autogo.top">
     <meta name="description" lang="en" content="Free Log File Browser - Support 40+ encodings (UTF-8, GBK, Big5), syntax highlighting, regex filter, line folding. Local execution, logs not uploaded, privacy protected.">
@@ -861,10 +861,6 @@
                 <span class="feature-icon">📥</span>
                 <span class="feature-text" data-i18n="featureExport">过滤结果导出</span>
             </div>
-            <div class="feature">
-                <span class="feature-icon">⬇️</span>
-                <span class="feature-text" data-i18n="featureScroll">自动滚动到底部</span>
-            </div>
         </div>
 
         <button class="open-btn" id="openFileBtn">
@@ -1004,13 +1000,6 @@
                     <span data-i18n="regex">正则</span>
                 </label>
                 <button class="secondary" id="filterBtn" data-i18n="filterBtn" title="应用过滤">过滤</button>
-            </div>
-
-            <div class="toolbar-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="autoScroll">
-                    <span data-i18n="autoScroll">自动滚动</span>
-                </label>
             </div>
 
             <div class="toolbar-group">
@@ -1189,7 +1178,6 @@
                 featureSearch: '搜索与正则过滤',
                 featureFold: '行折叠与行修复',
                 featureExport: '过滤结果导出',
-                featureScroll: '自动滚动到底部',
                 openFile: '打开文件',
                 dropZone: '或将文件拖拽到此处打开',
                 // 编码组
@@ -1207,7 +1195,6 @@
                 filter: '正则过滤...',
                 regex: '正则',
                 filterBtn: '过滤',
-                autoScroll: '自动滚动',
                 repair: '🔧 行修复',
                 highlight: '🎨 高亮',
                 export: '📥 导出',
@@ -1284,7 +1271,6 @@
                 featureSearch: 'Search & regex filter',
                 featureFold: 'Line folding & repair',
                 featureExport: 'Export filtered results',
-                featureScroll: 'Auto scroll to bottom',
                 openFile: 'Open File',
                 dropZone: 'Or drop file here to open',
                 // 编码组
@@ -1302,7 +1288,6 @@
                 filter: 'Regex filter...',
                 regex: 'Regex',
                 filterBtn: 'Filter',
-                autoScroll: 'Auto Scroll',
                 repair: '🔧 Line Repair',
                 highlight: '🎨 Highlight',
                 export: '📥 Export',
@@ -1379,7 +1364,6 @@
                 featureSearch: 'Поиск и фильтр regex',
                 featureFold: 'Сворачивание строк',
                 featureExport: 'Экспорт фильтрованных',
-                featureScroll: 'Автопрокрутка вниз',
                 openFile: 'Открыть файл',
                 dropZone: 'Или перетащите файл сюда',
                 // 编码组
@@ -1397,7 +1381,6 @@
                 filter: 'Фильтр regex...',
                 regex: 'Regex',
                 filterBtn: 'Фильтр',
-                autoScroll: 'Автопрокрутка',
                 repair: '🔧 Исправление',
                 highlight: '🎨 Подсветка',
                 export: '📥 Экспорт',
@@ -1474,7 +1457,6 @@
                 featureSearch: '検索と正規表現フィルター',
                 featureFold: '行の折りたたみ',
                 featureExport: 'フィルター結果のエクスポート',
-                featureScroll: '自動スクロール',
                 openFile: 'ファイルを開く',
                 dropZone: 'またはファイルをここにドラッグ',
                 // 编码组
@@ -1492,7 +1474,6 @@
                 filter: '正規表現フィルター...',
                 regex: '正規表現',
                 filterBtn: 'フィルター',
-                autoScroll: '自動スクロール',
                 repair: '🔧 行修復',
                 highlight: '🎨 ハイライト',
                 export: '📥 エクスポート',
@@ -1569,7 +1550,6 @@
                 featureSearch: '검색 및 정규식 필터',
                 featureFold: '행 접기 및 복구',
                 featureExport: '필터 결과 내보내기',
-                featureScroll: '자동 스크롤',
                 openFile: '파일 열기',
                 dropZone: '또는 파일을 여기에 드래그',
                 // 编码组
@@ -1587,7 +1567,6 @@
                 filter: '정규식 필터...',
                 regex: '정규식',
                 filterBtn: '필터',
-                autoScroll: '자동 스크롤',
                 repair: '🔧 행 복구',
                 highlight: '🎨 강조',
                 export: '📥 내보내기',
@@ -1664,7 +1643,6 @@
                 featureSearch: 'Recherche et filtre regex',
                 featureFold: 'Pliage de lignes',
                 featureExport: 'Export des résultats filtrés',
-                featureScroll: 'Défilement automatique',
                 openFile: 'Ouvrir un fichier',
                 dropZone: 'Ou glissez un fichier ici',
                 // 编码组
@@ -1682,7 +1660,6 @@
                 filter: 'Filtre regex...',
                 regex: 'Regex',
                 filterBtn: 'Filtrer',
-                autoScroll: 'Défilement auto',
                 repair: '🔧 Réparation',
                 highlight: '🎨 Surbrillance',
                 export: '📥 Exporter',
@@ -1759,7 +1736,6 @@
                 featureSearch: 'Suche und Regex-Filter',
                 featureFold: 'Zeilen einklappen',
                 featureExport: 'Export gefilterter Ergebnisse',
-                featureScroll: 'Automatisches Scrollen',
                 openFile: 'Datei öffnen',
                 dropZone: 'Oder Datei hierher ziehen',
                 // 编码组
@@ -1777,7 +1753,6 @@
                 filter: 'Regex-Filter...',
                 regex: 'Regex',
                 filterBtn: 'Filter',
-                autoScroll: 'Auto-Scroll',
                 repair: '🔧 Reparatur',
                 highlight: '🎨 Hervorhebung',
                 export: '📥 Exportieren',
@@ -1854,7 +1829,6 @@
                 featureSearch: 'Búsqueda y filtro regex',
                 featureFold: 'Plegado de líneas',
                 featureExport: 'Exportar resultados filtrados',
-                featureScroll: 'Desplazamiento automático',
                 openFile: 'Abrir archivo',
                 dropZone: 'O arrastre un archivo aquí',
                 // 编码组
@@ -1872,7 +1846,6 @@
                 filter: 'Filtro regex...',
                 regex: 'Regex',
                 filterBtn: 'Filtrar',
-                autoScroll: 'Auto-scroll',
                 repair: '🔧 Reparación',
                 highlight: '🎨 Resaltado',
                 export: '📥 Exportar',
@@ -2004,7 +1977,6 @@
             lines: [],
             filteredLines: [],
             isFiltered: false,
-            autoScroll: false,
             repairPattern: null,
             highlightRules: [],
             searchTerm: '',
@@ -2074,7 +2046,6 @@
             filterInput: document.getElementById('filterInput'),
             regexFilter: document.getElementById('regexFilter'),
             filterBtn: document.getElementById('filterBtn'),
-            autoScroll: document.getElementById('autoScroll'),
             repairBtn: document.getElementById('repairBtn'),
             highlightBtn: document.getElementById('highlightBtn'),
             exportBtn: document.getElementById('exportBtn'),
@@ -2322,11 +2293,6 @@
             
             elements.logLines.appendChild(fragment);
             updateStatus();
-            
-            // 如果开启了自动滚动，滚动到底部
-            if (state.autoScroll) {
-                scrollToBottom();
-            }
         }
         
         // 创建日志行
@@ -2983,14 +2949,6 @@
                 }
             });
             
-            // 自动滚动
-            elements.autoScroll.addEventListener('change', (e) => {
-                state.autoScroll = e.target.checked;
-                if (state.autoScroll) {
-                    scrollToBottom();
-                }
-            });
-            
             // 高亮规则
             elements.highlightBtn.addEventListener('click', () => {
                 elements.highlightModal.classList.add('active');
@@ -3116,18 +3074,6 @@
                     applyTranslations();
                 });
             }
-            
-            // 滚动时暂停自动滚动
-            elements.logContainer.addEventListener('scroll', () => {
-                if (state.autoScroll) {
-                    const container = elements.logContainer;
-                    const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
-                    if (!isAtBottom) {
-                        state.autoScroll = false;
-                        elements.autoScroll.checked = false;
-                    }
-                }
-            });
         }
 
         // ==================== 初始化 ====================

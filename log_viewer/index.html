@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log 文件浏览器 - 在线日志查看工具 | 支持 UTF-8/GBK 等 40+ 编码</title>
-    <meta name="description" content="免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，JSON 格式化。纯本地运行，日志文件不上传服务器，保护隐私。">
+    <meta name="description" content="免费 Log 文件浏览器 - 支持 40+ 种编码格式（UTF-8、GBK、Big5 等），语法高亮，正则表达式过滤，行折叠，自动滚动。纯本地运行，日志文件不上传服务器，保护隐私。">
     <meta name="keywords" content="log 文件查看器，日志查看器，log viewer，日志文件浏览器，utf-8 查看器，gbk 查看器，编码转换，语法高亮，正则过滤，在线日志工具">
     <meta name="author" content="main@autogo.top">
     <meta name="description" lang="en" content="Free Log File Browser - Support 40+ encodings (UTF-8, GBK, Big5), syntax highlighting, regex filter, line folding. Local execution, logs not uploaded, privacy protected.">
@@ -416,51 +416,6 @@
             color: #dcdcaa;
         }
 
-        /* JSON 格式化按钮 */
-        .json-toggle-btn {
-            display: inline-block;
-            padding: 1px 4px;
-            text-align: center;
-            background-color: #4ec9b0;
-            color: #1e1e1e;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-right: 5px;
-            font-size: 10px;
-            user-select: none;
-            font-weight: bold;
-            line-height: 1.2;
-        }
-
-        .json-toggle-btn:hover {
-            background-color: #4ec9b0;
-            opacity: 0.8;
-        }
-
-        .json-content {
-            display: none;
-            padding: 8px;
-            margin-top: 4px;
-            background-color: #2d2d30;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-
-        .json-content.expanded {
-            display: block;
-        }
-
-        .json-raw-content {
-            display: none;
-        }
-
-        .json-raw-content.expanded {
-            display: inline;
-        }
-
         /* 搜索高亮 */
         .search-highlight {
             background-color: #613214;
@@ -582,6 +537,10 @@
         .rule-item input[type="text"] {
             flex: 1;
             min-width: 0;
+        }
+
+        .rule-item select {
+            flex-shrink: 0;
         }
 
         .rule-item input[type="color"] {
@@ -730,7 +689,7 @@
             z-index: 100;
         }
 
-        .language-selector.hidden {
+        .log-viewer.active ~ .language-selector {
             display: none;
         }
 
@@ -833,6 +792,7 @@
             font-size: 0.85rem;
         }
     </style>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "952de367ac0b4b6cbdf40ccd98b69859"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
     <!-- 介绍页 -->
@@ -860,6 +820,10 @@
             <div class="feature">
                 <span class="feature-icon">📥</span>
                 <span class="feature-text" data-i18n="featureExport">过滤结果导出</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⬇️</span>
+                <span class="feature-text" data-i18n="featureScroll">自动滚动到底部</span>
             </div>
         </div>
 
@@ -889,16 +853,16 @@
                 </div>
             </div>
         </footer>
-        <div class="privacy-notice" style="margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: var(--sidebar-bg); border-top: 1px solid var(--border-color); text-align: center; width: 100%;">
-            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 0.9rem;" data-i18n="privacyTitle">🔒 隐私与数据保护声明</h4>
-            <p style="color: #808080; font-size: 0.8rem; line-height: 1.6;">
+        <div class="privacy-notice" style="margin-top: 2rem; padding: 1rem 2rem; background-color: var(--sidebar-bg); border-radius: 8px; border: 1px solid var(--border-color); max-width: 600px; text-align: center;">
+            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem; font-size: 0.95rem;" data-i18n="privacyTitle">🔒 隐私与数据保护声明</h4>
+            <p style="color: #808080; font-size: 0.85rem; line-height: 1.6;">
                 <span data-i18n="privacyLine1">本工具为纯本地应用，所有操作均在您的浏览器中完成。</span><br>
-                • <span data-i18n-html="privacyLine2">您打开的日志文件<strong>不会上传到任何服务器</strong></span><br>
-                • <span data-i18n-html="privacyLine3">文件内容<strong>仅保存在内存中</strong>，刷新页面即清除</span><br>
-                • <span data-i18n-html="privacyLine4">高亮规则等用户偏好设置<strong>仅存储于本地 localStorage</strong></span><br>
-                • <span data-i18n-html="privacyLine5">我们<strong>不收集、不存储、不上传</strong>任何用户数据</span>
+                • <span data-i18n="privacyLine2">您打开的日志文件<strong>不会上传到任何服务器</strong></span><br>
+                • <span data-i18n="privacyLine3">文件内容<strong>仅保存在内存中</strong>，刷新页面即清除</span><br>
+                • <span data-i18n="privacyLine4">高亮规则等用户偏好设置<strong>仅存储于本地 localStorage</strong></span><br>
+                • <span data-i18n="privacyLine5">我们<strong>不收集、不存储、不上传</strong>任何用户数据</span>
             </p>
-            <p style="color: #666; font-size: 0.75rem; margin-top: 0.5rem;" data-i18n="privacyNote">
+            <p style="color: #666; font-size: 0.8rem; margin-top: 0.5rem;" data-i18n="privacyNote">
                 您可以放心使用本工具处理敏感日志数据
             </p>
         </div>
@@ -1003,13 +967,20 @@
             </div>
 
             <div class="toolbar-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="autoScroll">
+                    <span data-i18n="autoScroll">自动滚动</span>
+                </label>
+            </div>
+
+            <div class="toolbar-group">
                 <button class="secondary" id="repairBtn" data-i18n="repair" title="行修复设置">🔧 行修复</button>
                 <button class="secondary" id="highlightBtn" data-i18n="highlight" title="高亮规则设置">🎨 高亮</button>
                 <button class="secondary" id="exportBtn" data-i18n="export" title="导出日志">📥 导出</button>
             </div>
 
             <div class="toolbar-group">
-                <button class="secondary" id="regexGeneratorBtn" title="正则表达式生成器" onclick="openRegexGenerator()">🔮 生成正则</button>
+                <button class="secondary" id="regexGeneratorBtn" data-i18n="regexGenerator" title="regexGeneratorTitle" onclick="openRegexGenerator()">🔮 生成正则</button>
             </div>
         </div>
 
@@ -1060,6 +1031,14 @@
                     <div class="form-group">
                         <label data-i18n="rulePattern">正则表达式</label>
                         <input type="text" id="rulePattern" data-i18n="rulePattern" placeholder="例如：\\d{4}-\\d{2}-\\d{2}">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="ruleApplyTo">应用对象</label>
+                        <select id="ruleApplyTo" style="width: 100%; padding: 0.5rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-color); font-size: 0.9rem;">
+                            <option value="text" data-i18n="applyToText">文字</option>
+                            <option value="text-bg" data-i18n="applyToTextBg">文字背景</option>
+                            <option value="line-bg" data-i18n="applyToLineBg">行背景</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label data-i18n="ruleColor">颜色</label>
@@ -1178,6 +1157,7 @@
                 featureSearch: '搜索与正则过滤',
                 featureFold: '行折叠与行修复',
                 featureExport: '过滤结果导出',
+                featureScroll: '自动滚动到底部',
                 openFile: '打开文件',
                 dropZone: '或将文件拖拽到此处打开',
                 // 编码组
@@ -1195,9 +1175,12 @@
                 filter: '正则过滤...',
                 regex: '正则',
                 filterBtn: '过滤',
+                autoScroll: '自动滚动',
                 repair: '🔧 行修复',
                 highlight: '🎨 高亮',
                 export: '📥 导出',
+                regexGenerator: '🔮 生成正则',
+                regexGeneratorTitle: '正则表达式生成器',
                 // 状态栏
                 totalLines: '总行数：',
                 display: '显示：',
@@ -1207,6 +1190,10 @@
                 highlightTitle: '语法高亮规则',
                 ruleName: '规则名称',
                 rulePattern: '正则表达式',
+                ruleApplyTo: '应用对象',
+                applyToText: '文字',
+                applyToTextBg: '文字背景',
+                applyToLineBg: '行背景',
                 ruleColor: '颜色',
                 addRule: '添加规则',
                 exportRules: '导出规则',
@@ -1249,18 +1236,7 @@
                 privacyNote: '您可以放心使用本工具处理敏感日志数据',
                 
                 footerRepo: 'GitHub 仓库',
-                footerLicenseText: 'MIT 许可',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: '点击格式化 JSON',
-                jsonRestoreTitle: '点击恢复原样',
-                jsonFormatFailed: 'JSON 格式化失败：',
-                // 错误提示
-                readFileFailed: '读取文件失败：',
-                importInvalid: '导入失败：无效的 JSON 文件',
-                invalidRegex: '正则表达式无效：',
-                fillRuleName: '请填写规则名称和正则表达式',
-                switchEncodingFailed: '切换编码失败：'
+                footerLicenseText: 'MIT 许可'
             },
             'en': {
                 // 介绍页
@@ -1271,6 +1247,7 @@
                 featureSearch: 'Search & regex filter',
                 featureFold: 'Line folding & repair',
                 featureExport: 'Export filtered results',
+                featureScroll: 'Auto scroll to bottom',
                 openFile: 'Open File',
                 dropZone: 'Or drop file here to open',
                 // 编码组
@@ -1288,9 +1265,12 @@
                 filter: 'Regex filter...',
                 regex: 'Regex',
                 filterBtn: 'Filter',
+                autoScroll: 'Auto Scroll',
                 repair: '🔧 Line Repair',
                 highlight: '🎨 Highlight',
                 export: '📥 Export',
+                regexGenerator: '🔮 Regex Generator',
+                regexGeneratorTitle: 'Regex Expression Generator',
                 // 状态栏
                 totalLines: 'Total Lines: ',
                 display: 'Displaying: ',
@@ -1300,6 +1280,10 @@
                 highlightTitle: 'Syntax Highlight Rules',
                 ruleName: 'Rule Name',
                 rulePattern: 'Regex Pattern',
+                ruleApplyTo: 'Apply To',
+                applyToText: 'Text',
+                applyToTextBg: 'Text Background',
+                applyToLineBg: 'Line Background',
                 ruleColor: 'Color',
                 addRule: 'Add Rule',
                 exportRules: 'Export Rules',
@@ -1342,18 +1326,7 @@
                 privacyNote: 'You can use this tool with confidence to process sensitive log data',
                 
                 footerRepo: 'GitHub Repository',
-                footerLicenseText: 'Licensed under MIT',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'Click to format JSON',
-                jsonRestoreTitle: 'Click to restore',
-                jsonFormatFailed: 'JSON format failed: ',
-                // 错误提示
-                readFileFailed: 'Failed to read file: ',
-                importInvalid: 'Import failed: Invalid JSON file',
-                invalidRegex: 'Invalid regex: ',
-                fillRuleName: 'Please fill in rule name and regex pattern',
-                switchEncodingFailed: 'Failed to switch encoding: '
+                footerLicenseText: 'Licensed under MIT'
             },
             'ru': {
                 // 介绍页
@@ -1364,6 +1337,7 @@
                 featureSearch: 'Поиск и фильтр regex',
                 featureFold: 'Сворачивание строк',
                 featureExport: 'Экспорт фильтрованных',
+                featureScroll: 'Автопрокрутка вниз',
                 openFile: 'Открыть файл',
                 dropZone: 'Или перетащите файл сюда',
                 // 编码组
@@ -1381,9 +1355,12 @@
                 filter: 'Фильтр regex...',
                 regex: 'Regex',
                 filterBtn: 'Фильтр',
+                autoScroll: 'Автопрокрутка',
                 repair: '🔧 Исправление',
                 highlight: '🎨 Подсветка',
                 export: '📥 Экспорт',
+                regexGenerator: '🔮 Генератор Regex',
+                regexGeneratorTitle: 'Генератор регулярных выражений',
                 // 状态栏
                 totalLines: 'Всего строк: ',
                 display: 'Отображено: ',
@@ -1393,6 +1370,10 @@
                 highlightTitle: 'Правила подсветки',
                 ruleName: 'Имя правила',
                 rulePattern: 'Regex шаблон',
+                ruleApplyTo: 'Применить к',
+                applyToText: 'Текст',
+                applyToTextBg: 'Фон текста',
+                applyToLineBg: 'Фон строки',
                 ruleColor: 'Цвет',
                 addRule: 'Добавить',
                 exportRules: 'Экспорт',
@@ -1435,18 +1416,7 @@
                 privacyNote: 'Вы можете безопасно использовать этот инструмент для обработки конфиденциальных данных',
                 
                 footerRepo: 'Репозиторий GitHub',
-                footerLicenseText: 'Лицензия MIT',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'Нажмите для форматирования JSON',
-                jsonRestoreTitle: 'Нажмите для восстановления',
-                jsonFormatFailed: 'Ошибка форматирования JSON: ',
-                // 错误提示
-                readFileFailed: 'Ошибка чтения файла: ',
-                importInvalid: 'Импорт не удался: Неверный JSON файл',
-                invalidRegex: 'Неверный regex: ',
-                fillRuleName: 'Заполните имя правила и regex шаблон',
-                switchEncodingFailed: 'Ошибка смены кодировки: '
+                footerLicenseText: 'Лицензия MIT'
             },
             'ja': {
                 // 介绍页
@@ -1457,6 +1427,7 @@
                 featureSearch: '検索と正規表現フィルター',
                 featureFold: '行の折りたたみ',
                 featureExport: 'フィルター結果のエクスポート',
+                featureScroll: '自動スクロール',
                 openFile: 'ファイルを開く',
                 dropZone: 'またはファイルをここにドラッグ',
                 // 编码组
@@ -1474,9 +1445,12 @@
                 filter: '正規表現フィルター...',
                 regex: '正規表現',
                 filterBtn: 'フィルター',
+                autoScroll: '自動スクロール',
                 repair: '🔧 行修復',
                 highlight: '🎨 ハイライト',
                 export: '📥 エクスポート',
+                regexGenerator: '🔮 正規表現ジェネレーター',
+                regexGeneratorTitle: '正規表現ジェネレーター',
                 // 状态栏
                 totalLines: '総行数：',
                 display: '表示：',
@@ -1486,6 +1460,10 @@
                 highlightTitle: 'シンタックスハイライトルール',
                 ruleName: 'ルール名',
                 rulePattern: '正規表現パターン',
+                ruleApplyTo: '適用対象',
+                applyToText: '文字',
+                applyToTextBg: '文字背景',
+                applyToLineBg: '行背景',
                 ruleColor: '色',
                 addRule: 'ルールを追加',
                 exportRules: 'ルールをエクスポート',
@@ -1528,18 +1506,7 @@
                 privacyNote: '機密性の高いログデータの処理も安心してご利用いただけます',
                 
                 footerRepo: 'GitHub リポジトリ',
-                footerLicenseText: 'MIT ライセンス',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'JSON をフォーマットするにはクリック',
-                jsonRestoreTitle: '元に戻すにはクリック',
-                jsonFormatFailed: 'JSON フォーマット失敗：',
-                // 错误提示
-                readFileFailed: 'ファイルの読み込みに失敗しました：',
-                importInvalid: 'インポート失敗：無効な JSON ファイル',
-                invalidRegex: '無効な正規表現：',
-                fillRuleName: 'ルール名と正規表現パターンを入力してください',
-                switchEncodingFailed: 'エンコーディングの切り替えに失敗しました：'
+                footerLicenseText: 'MIT ライセンス'
             },
             'ko': {
                 // 介绍页
@@ -1550,6 +1517,7 @@
                 featureSearch: '검색 및 정규식 필터',
                 featureFold: '행 접기 및 복구',
                 featureExport: '필터 결과 내보내기',
+                featureScroll: '자동 스크롤',
                 openFile: '파일 열기',
                 dropZone: '또는 파일을 여기에 드래그',
                 // 编码组
@@ -1567,9 +1535,12 @@
                 filter: '정규식 필터...',
                 regex: '정규식',
                 filterBtn: '필터',
+                autoScroll: '자동 스크롤',
                 repair: '🔧 행 복구',
                 highlight: '🎨 강조',
                 export: '📥 내보내기',
+                regexGenerator: '🔮 정규식 생성기',
+                regexGeneratorTitle: '정규식 생성기',
                 // 状态栏
                 totalLines: '총 행:',
                 display: '표시:',
@@ -1579,6 +1550,10 @@
                 highlightTitle: '문법 강조 규칙',
                 ruleName: '규칙 이름',
                 rulePattern: '정규식 패턴',
+                ruleApplyTo: '적용 대상',
+                applyToText: '텍스트',
+                applyToTextBg: '텍스트 배경',
+                applyToLineBg: '행 배경',
                 ruleColor: '색상',
                 addRule: '규칙 추가',
                 exportRules: '규칙 내보내기',
@@ -1621,18 +1596,7 @@
                 privacyNote: '민감한 로그 데이터를 처리할 때도 안심하고 사용할 수 있습니다',
                 
                 footerRepo: 'GitHub 저장소',
-                footerLicenseText: 'MIT 라이선스',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'JSON 서식 지정을 위해 클릭',
-                jsonRestoreTitle: '복원하려면 클릭',
-                jsonFormatFailed: 'JSON 서식 지정 실패: ',
-                // 错误提示
-                readFileFailed: '파일 읽기 실패: ',
-                importInvalid: '가져오기 실패: 잘못된 JSON 파일',
-                invalidRegex: '잘못된 정규식: ',
-                fillRuleName: '규칙 이름과 정규식 패턴을 입력하십시오',
-                switchEncodingFailed: '인코딩 전환 실패: '
+                footerLicenseText: 'MIT 라이선스'
             },
             'fr': {
                 // 介绍页
@@ -1643,6 +1607,7 @@
                 featureSearch: 'Recherche et filtre regex',
                 featureFold: 'Pliage de lignes',
                 featureExport: 'Export des résultats filtrés',
+                featureScroll: 'Défilement automatique',
                 openFile: 'Ouvrir un fichier',
                 dropZone: 'Ou glissez un fichier ici',
                 // 编码组
@@ -1660,9 +1625,12 @@
                 filter: 'Filtre regex...',
                 regex: 'Regex',
                 filterBtn: 'Filtrer',
+                autoScroll: 'Défilement auto',
                 repair: '🔧 Réparation',
                 highlight: '🎨 Surbrillance',
                 export: '📥 Exporter',
+                regexGenerator: '🔮 Générateur Regex',
+                regexGeneratorTitle: 'Générateur d\'expressions régulières',
                 // 状态栏
                 totalLines: 'Total lignes: ',
                 display: 'Affichage: ',
@@ -1672,6 +1640,10 @@
                 highlightTitle: 'Règles de surbrillance',
                 ruleName: 'Nom de la règle',
                 rulePattern: 'Motif regex',
+                ruleApplyTo: 'Appliquer à',
+                applyToText: 'Texte',
+                applyToTextBg: 'Fond du texte',
+                applyToLineBg: 'Fond de ligne',
                 ruleColor: 'Couleur',
                 addRule: 'Ajouter',
                 exportRules: 'Exporter',
@@ -1714,18 +1686,7 @@
                 privacyNote: 'Vous pouvez utiliser cet outil en toute confiance pour traiter des données log sensibles',
                 
                 footerRepo: 'Dépôt GitHub',
-                footerLicenseText: 'Licence MIT',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'Cliquez pour formater le JSON',
-                jsonRestoreTitle: 'Cliquez pour restaurer',
-                jsonFormatFailed: 'Échec du formatage JSON : ',
-                // 错误提示
-                readFileFailed: 'Échec de la lecture du fichier : ',
-                importInvalid: 'Échec de l\'importation : Fichier JSON invalide',
-                invalidRegex: 'Regex invalide : ',
-                fillRuleName: 'Veuillez remplir le nom de la règle et le motif regex',
-                switchEncodingFailed: 'Échec du changement d\'encodage : '
+                footerLicenseText: 'Licence MIT'
             },
             'de': {
                 // 介绍页
@@ -1736,6 +1697,7 @@
                 featureSearch: 'Suche und Regex-Filter',
                 featureFold: 'Zeilen einklappen',
                 featureExport: 'Export gefilterter Ergebnisse',
+                featureScroll: 'Automatisches Scrollen',
                 openFile: 'Datei öffnen',
                 dropZone: 'Oder Datei hierher ziehen',
                 // 编码组
@@ -1753,9 +1715,12 @@
                 filter: 'Regex-Filter...',
                 regex: 'Regex',
                 filterBtn: 'Filter',
+                autoScroll: 'Auto-Scroll',
                 repair: '🔧 Reparatur',
                 highlight: '🎨 Hervorhebung',
                 export: '📥 Exportieren',
+                regexGenerator: '🔮 Regex-Generator',
+                regexGeneratorTitle: 'Generator für reguläre Ausdrücke',
                 // 状态栏
                 totalLines: 'Gesamtzeilen: ',
                 display: 'Anzeige: ',
@@ -1765,6 +1730,10 @@
                 highlightTitle: 'Syntaxhervorhebungsregeln',
                 ruleName: 'Regelname',
                 rulePattern: 'Regex-Muster',
+                ruleApplyTo: 'Anwenden auf',
+                applyToText: 'Text',
+                applyToTextBg: 'Texthintergrund',
+                applyToLineBg: 'Zeilenhintergrund',
                 ruleColor: 'Farbe',
                 addRule: 'Regel hinzufügen',
                 exportRules: 'Exportieren',
@@ -1807,18 +1776,7 @@
                 privacyNote: 'Sie können dieses Tool vertrauensvoll zur Verarbeitung sensibler Log-Daten verwenden',
                 
                 footerRepo: 'GitHub-Repository',
-                footerLicenseText: 'MIT-Lizenz',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'Klicken zum Formatieren',
-                jsonRestoreTitle: 'Klicken zum Wiederherstellen',
-                jsonFormatFailed: 'JSON-Formatierung fehlgeschlagen: ',
-                // 错误提示
-                readFileFailed: 'Fehler beim Lesen der Datei: ',
-                importInvalid: 'Import fehlgeschlagen: Ungültige JSON-Datei',
-                invalidRegex: 'Ungültiger Regex: ',
-                fillRuleName: 'Bitte Regelnamen und Regex-Muster ausfüllen',
-                switchEncodingFailed: 'Wechsel der Kodierung fehlgeschlagen: '
+                footerLicenseText: 'MIT-Lizenz'
             },
             'es': {
                 // 介绍页
@@ -1829,6 +1787,7 @@
                 featureSearch: 'Búsqueda y filtro regex',
                 featureFold: 'Plegado de líneas',
                 featureExport: 'Exportar resultados filtrados',
+                featureScroll: 'Desplazamiento automático',
                 openFile: 'Abrir archivo',
                 dropZone: 'O arrastre un archivo aquí',
                 // 编码组
@@ -1846,9 +1805,12 @@
                 filter: 'Filtro regex...',
                 regex: 'Regex',
                 filterBtn: 'Filtrar',
+                autoScroll: 'Auto-scroll',
                 repair: '🔧 Reparación',
                 highlight: '🎨 Resaltado',
                 export: '📥 Exportar',
+                regexGenerator: '🔮 Generador Regex',
+                regexGeneratorTitle: 'Generador de expresiones regulares',
                 // 状态栏
                 totalLines: 'Total líneas: ',
                 display: 'Mostrando: ',
@@ -1858,6 +1820,10 @@
                 highlightTitle: 'Reglas de resaltado',
                 ruleName: 'Nombre de regla',
                 rulePattern: 'Patrón regex',
+                ruleApplyTo: 'Aplicar a',
+                applyToText: 'Texto',
+                applyToTextBg: 'Fondo del texto',
+                applyToLineBg: 'Fondo de línea',
                 ruleColor: 'Color',
                 addRule: 'Añadir regla',
                 exportRules: 'Exportar',
@@ -1900,18 +1866,7 @@
                 privacyNote: 'Puede usar esta herramienta con confianza para procesar datos de log sensibles',
                 
                 footerRepo: 'Repositorio GitHub',
-                footerLicenseText: 'Licencia MIT',
-                // JSON 格式化
-                jsonFormatBtn: 'JSON',
-                jsonFormatTitle: 'Clic para formatear JSON',
-                jsonRestoreTitle: 'Clic para restaurar',
-                jsonFormatFailed: 'Error al formatear JSON: ',
-                // 错误提示
-                readFileFailed: 'Error al leer el archivo: ',
-                importInvalid: 'Error al importar: Archivo JSON inválido',
-                invalidRegex: 'Regex inválido: ',
-                fillRuleName: 'Por favor complete el nombre de la regla y el patrón regex',
-                switchEncodingFailed: 'Error al cambiar la codificación: '
+                footerLicenseText: 'Licencia MIT'
             }
         };
 
@@ -1938,15 +1893,6 @@
                     el.placeholder = translation;
                 } else {
                     el.textContent = translation;
-                }
-            });
-
-            // 翻译带有 data-i18n-html 属性的元素（支持 HTML 标签）
-            document.querySelectorAll('[data-i18n-html]').forEach(el => {
-                const key = el.getAttribute('data-i18n-html');
-                const translation = t(key);
-                if (translation) {
-                    el.innerHTML = translation;
                 }
             });
 
@@ -1977,6 +1923,7 @@
             lines: [],
             filteredLines: [],
             isFiltered: false,
+            autoScroll: false,
             repairPattern: null,
             highlightRules: [],
             searchTerm: '',
@@ -1987,43 +1934,43 @@
         // ==================== 预设高亮规则 ====================
         const PRESET_HIGHLIGHT_RULES = {
             default: [
-                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2}[T\\s]\\d{2}:\\d{2}:\\d{2}[.,]\\d+', color: '#569cd6', class: 'highlight-timestamp' },
-                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', class: 'highlight-error' },
-                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', class: 'highlight-warn' },
-                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', class: 'highlight-info' },
-                { name: 'DEBUG', pattern: '\\bDEBUG\\b', color: '#4ec9b0', class: 'highlight-debug' },
-                { name: 'TRACE', pattern: '\\bTRACE\\b', color: '#808080', class: 'highlight-trace' },
-                { name: 'FATAL', pattern: '\\bFATAL\\b', color: '#d75a5a', class: 'highlight-fatal' },
-                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', class: 'highlight-stack' },
-                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', class: 'highlight-thread' }
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2}[T\\s]\\d{2}:\\d{2}:\\d{2}[.,]\\d+', color: '#569cd6', applyTo: 'text', class: 'highlight-timestamp' },
+                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', applyTo: 'text', class: 'highlight-error' },
+                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', applyTo: 'text', class: 'highlight-warn' },
+                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', applyTo: 'text', class: 'highlight-info' },
+                { name: 'DEBUG', pattern: '\\bDEBUG\\b', color: '#4ec9b0', applyTo: 'text', class: 'highlight-debug' },
+                { name: 'TRACE', pattern: '\\bTRACE\\b', color: '#808080', applyTo: 'text', class: 'highlight-trace' },
+                { name: 'FATAL', pattern: '\\bFATAL\\b', color: '#d75a5a', applyTo: 'text', class: 'highlight-fatal' },
+                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', applyTo: 'text', class: 'highlight-stack' },
+                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', applyTo: 'text', class: 'highlight-thread' }
             ],
             springboot: [
-                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', class: 'highlight-timestamp' },
-                { name: '应用名', pattern: '\\[([\\w-]+)\\]', color: '#c586c0', class: 'highlight-thread' },
-                { name: '线程名', pattern: '\\[([\\w.-]+)\\]', color: '#dcdcaa', class: 'highlight-thread' },
-                { name: '类名', pattern: '([a-z][\\w.]*)\\.(java|kt|groovy):\\d+', color: '#4ec9b0', class: 'highlight-class' },
-                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', class: 'highlight-error' },
-                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', class: 'highlight-warn' },
-                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', class: 'highlight-info' }
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', applyTo: 'text', class: 'highlight-timestamp' },
+                { name: '应用名', pattern: '\\[([\\w-]+)\\]', color: '#c586c0', applyTo: 'text', class: 'highlight-thread' },
+                { name: '线程名', pattern: '\\[([\\w.-]+)\\]', color: '#dcdcaa', applyTo: 'text', class: 'highlight-thread' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\.(java|kt|groovy):\\d+', color: '#4ec9b0', applyTo: 'text', class: 'highlight-class' },
+                { name: 'ERROR', pattern: '\\bERROR\\b', color: '#f44747', applyTo: 'text', class: 'highlight-error' },
+                { name: 'WARN', pattern: '\\bWARN\\b', color: '#cca700', applyTo: 'text', class: 'highlight-warn' },
+                { name: 'INFO', pattern: '\\bINFO\\b', color: '#4ec9b0', applyTo: 'text', class: 'highlight-info' }
             ],
             log4j: [
-                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d+', color: '#569cd6', class: 'highlight-timestamp' },
-                { name: '日志级别', pattern: '\\b(FATAL|ERROR|WARN|INFO|DEBUG|TRACE)\\b', color: '#4ec9b0', class: 'highlight-info' },
-                { name: '类名', pattern: '([a-z][\\w.]*)\\s+-', color: '#4ec9b0', class: 'highlight-class' },
-                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', class: 'highlight-stack' }
+                { name: '时间戳', pattern: '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d+', color: '#569cd6', applyTo: 'text', class: 'highlight-timestamp' },
+                { name: '日志级别', pattern: '\\b(FATAL|ERROR|WARN|INFO|DEBUG|TRACE)\\b', color: '#4ec9b0', applyTo: 'text', class: 'highlight-info' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\s+-', color: '#4ec9b0', applyTo: 'text', class: 'highlight-class' },
+                { name: '异常堆栈', pattern: '^\\s*at\\s+', color: '#808080', applyTo: 'text', class: 'highlight-stack' }
             ],
             nginx: [
-                { name: 'IP 地址', pattern: '\\b(\\d{1,3}\\.){3}\\d{1,3}\\b', color: '#dcdcaa', class: 'highlight-ip' },
-                { name: '日期', pattern: '\\[\\d{2}/\\w{3}/\\d{4}:\\d{2}:\\d{2}:\\d{2}', color: '#569cd6', class: 'highlight-timestamp' },
-                { name: 'HTTP 方法', pattern: '\\b(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\b', color: '#569cd6', class: 'highlight-keyword' },
-                { name: '状态码', pattern: '\\b([1-5]\\d{2})\\b', color: '#b5cea8', class: 'highlight-number' },
-                { name: 'URL', pattern: '"(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+([^"]+)"', color: '#ce9178', class: 'highlight-string' }
+                { name: 'IP 地址', pattern: '\\b(\\d{1,3}\\.){3}\\d{1,3}\\b', color: '#dcdcaa', applyTo: 'text', class: 'highlight-ip' },
+                { name: '日期', pattern: '\\[\\d{2}/\\w{3}/\\d{4}:\\d{2}:\\d{2}:\\d{2}', color: '#569cd6', applyTo: 'text', class: 'highlight-timestamp' },
+                { name: 'HTTP 方法', pattern: '\\b(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\b', color: '#569cd6', applyTo: 'text', class: 'highlight-keyword' },
+                { name: '状态码', pattern: '\\b([1-5]\\d{2})\\b', color: '#b5cea8', applyTo: 'text', class: 'highlight-number' },
+                { name: 'URL', pattern: '"(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\s+([^"]+)"', color: '#ce9178', applyTo: 'text', class: 'highlight-string' }
             ],
             tomcat: [
-                { name: '时间戳', pattern: '\\d{2}-\\w{3}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', class: 'highlight-timestamp' },
-                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', class: 'highlight-thread' },
-                { name: '日志级别', pattern: '\\b(FINE|FINER|FINEST|INFO|WARNING|SEVERE)\\b', color: '#4ec9b0', class: 'highlight-info' },
-                { name: '类名', pattern: '([a-z][\\w.]*)\\s', color: '#4ec9b0', class: 'highlight-class' }
+                { name: '时间戳', pattern: '\\d{2}-\\w{3}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d+', color: '#569cd6', applyTo: 'text', class: 'highlight-timestamp' },
+                { name: '线程 ID', pattern: '\\[([^\\]]+)\\]', color: '#c586c0', applyTo: 'text', class: 'highlight-thread' },
+                { name: '日志级别', pattern: '\\b(FINE|FINER|FINEST|INFO|WARNING|SEVERE)\\b', color: '#4ec9b0', applyTo: 'text', class: 'highlight-info' },
+                { name: '类名', pattern: '([a-z][\\w.]*)\\s', color: '#4ec9b0', applyTo: 'text', class: 'highlight-class' }
             ]
         };
 
@@ -2046,6 +1993,7 @@
             filterInput: document.getElementById('filterInput'),
             regexFilter: document.getElementById('regexFilter'),
             filterBtn: document.getElementById('filterBtn'),
+            autoScroll: document.getElementById('autoScroll'),
             repairBtn: document.getElementById('repairBtn'),
             highlightBtn: document.getElementById('highlightBtn'),
             exportBtn: document.getElementById('exportBtn'),
@@ -2061,6 +2009,7 @@
             closeHighlightModal: document.getElementById('closeHighlightModal'),
             ruleName: document.getElementById('ruleName'),
             rulePattern: document.getElementById('rulePattern'),
+            ruleApplyTo: document.getElementById('ruleApplyTo'),
             ruleColor: document.getElementById('ruleColor'),
             addRuleBtn: document.getElementById('addRuleBtn'),
             ruleList: document.getElementById('ruleList'),
@@ -2080,9 +2029,7 @@
             cancelExportBtn: document.getElementById('cancelExportBtn'),
             confirmExportBtn: document.getElementById('confirmExportBtn'),
             exportFilename: document.getElementById('exportFilename'),
-            exportEncoding: document.getElementById('exportEncoding'),
-            // 语言选择器
-            languageSelector: document.querySelector('.language-selector')
+            exportEncoding: document.getElementById('exportEncoding')
         };
 
         // ==================== 编码检测 ====================
@@ -2106,8 +2053,20 @@
                 return 'utf-32le';
             }
 
+            // 用 UTF-8 先试一次，看是否有替换字符
+            try {
+                const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
+                const utf8Text = utf8Decoder.decode(bytes.slice(0, Math.min(50000, bytes.length)));
+                const utf8HasReplacement = utf8Text.includes('\uFFFD');
+                
+                // UTF-8 没有替换字符，可能是真正的 UTF-8
+                if (!utf8HasReplacement) {
+                    return 'utf-8';
+                }
+            } catch (e) {}
+
             // 启发式检测 - 优先检测中文编码
-            const encodings = ['gbk', 'gb18030', 'big5', 'utf-8', 'shift_jis', 'iso-8859-1'];
+            const encodings = ['gbk', 'gb18030', 'big5', 'shift_jis'];
             
             let bestEncoding = 'utf-8';
             let bestScore = 0;
@@ -2129,10 +2088,11 @@
                         const chineseChars = text.match(/[\u4e00-\u9fff]/g);
                         if (chineseChars && chineseChars.length > 10) {
                             score = chineseChars.length;
-                            if (score > bestScore) {
-                                bestScore = score;
-                                bestEncoding = encoding;
-                            }
+                        }
+                        // 也检查中文标点符号
+                        const chinesePunct = text.match(/[\u3000-\u303f\uff00-\uffef]/g);
+                        if (chinesePunct) {
+                            score += chinesePunct.length;
                         }
                     }
                     
@@ -2141,10 +2101,6 @@
                         const japaneseChars = text.match(/[\u3040-\u309f\u30a0-\u30ff]/g);
                         if (japaneseChars && japaneseChars.length > 10) {
                             score = japaneseChars.length;
-                            if (score > bestScore) {
-                                bestScore = score;
-                                bestEncoding = encoding;
-                            }
                         }
                     }
                     
@@ -2153,16 +2109,12 @@
                         const koreanChars = text.match(/[\uac00-\ud7af]/g);
                         if (koreanChars && koreanChars.length > 10) {
                             score = koreanChars.length;
-                            if (score > bestScore) {
-                                bestScore = score;
-                                bestEncoding = encoding;
-                            }
                         }
                     }
                     
-                    // UTF-8 作为默认
-                    if (encoding === 'utf-8' && bestScore === 0) {
-                        bestEncoding = 'utf-8';
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestEncoding = encoding;
                     }
                 } catch (e) {
                     continue;
@@ -2230,7 +2182,7 @@
                 
             } catch (error) {
                 console.error('读取文件失败:', error);
-                alert(t('readFileFailed') + error.message);
+                alert('读取文件失败：' + error.message);
             } finally {
                 showLoading(false);
             }
@@ -2312,39 +2264,15 @@
             numberCell.className = 'log-line-number';
             numberCell.textContent = originalIndex + 1;
             
-            // 内容
+            // 内容 - 处理新的高亮返回格式
+            const highlightResult = applyHighlight(line, originalIndex);
             const textCell = document.createElement('div');
             textCell.className = 'log-line-text';
+            textCell.innerHTML = highlightResult.html;
             
-            // 检测 JSON 内容
-            const jsonInfo = detectJsonContent(line);
-            
-            if (jsonInfo.found) {
-                // 添加 JSON 格式化按钮
-                const jsonToggle = document.createElement('span');
-                jsonToggle.className = 'json-toggle-btn';
-                jsonToggle.textContent = t('jsonFormatBtn');
-                jsonToggle.title = t('jsonFormatTitle');
-                
-                // 创建格式化后的 JSON 内容容器
-                const jsonContentDiv = document.createElement('div');
-                jsonContentDiv.className = 'json-content';
-                jsonContentDiv.id = 'json-content-' + originalIndex;
-                
-                // 创建包含原始内容和 JSON 按钮的容器
-                const rawContentSpan = document.createElement('span');
-                rawContentSpan.className = 'json-raw-content expanded';
-                rawContentSpan.id = 'json-raw-' + originalIndex;
-                rawContentSpan.innerHTML = applyHighlight(line, originalIndex);
-                
-                textCell.appendChild(jsonToggle);
-                textCell.appendChild(rawContentSpan);
-                textCell.appendChild(jsonContentDiv);
-                
-                // 绑定点击事件
-                jsonToggle.onclick = () => toggleJsonFormat(originalIndex, jsonInfo.jsonStr, jsonToggle);
-            } else {
-                textCell.innerHTML = applyHighlight(line, originalIndex);
+            // 应用行背景颜色
+            if (highlightResult.lineBgColor) {
+                textCell.style.backgroundColor = highlightResult.lineBgColor;
             }
             
             // 检查是否是堆栈跟踪行，添加折叠功能
@@ -2353,12 +2281,7 @@
                 foldToggle.className = 'fold-toggle';
                 foldToggle.textContent = '▼';
                 foldToggle.onclick = () => toggleFold(row);
-                // 如果有 JSON 按钮，插入到 JSON 按钮之后
-                if (jsonInfo.found) {
-                    textCell.insertBefore(foldToggle, textCell.childNodes[2]);
-                } else {
-                    textCell.insertBefore(foldToggle, textCell.firstChild);
-                }
+                textCell.insertBefore(foldToggle, textCell.firstChild);
             }
             
             row.appendChild(numberCell);
@@ -2375,128 +2298,6 @@
                 /^\w+Error:/i
             ];
             return patterns.some(p => p.test(line));
-        }
-
-        // 检测行中的 JSON 内容
-        function detectJsonContent(line) {
-            // 首先尝试查找 JSON: 标记后的内容 - 匹配到行尾
-            const jsonMarkPattern = /JSON:\s*(\{.+?\}| \[.+?\])\s*`*$/.exec(line);
-            if (jsonMarkPattern && jsonMarkPattern[1]) {
-                let jsonStr = jsonMarkPattern[1].trim();
-                // 移除末尾的反引号
-                jsonStr = jsonStr.replace(/`+$/, '').trim();
-                
-                // 尝试直接解析
-                try {
-                    const parsed = JSON.parse(jsonStr);
-                    return { found: true, jsonStr: jsonStr, parsed: parsed };
-                } catch (e) {
-                    // 尝试处理字面量的 \n
-                    try {
-                        const parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
-                        return { found: true, jsonStr: jsonStr, parsed: parsed };
-                    } catch (e2) {
-                        // 尝试处理末尾缺失的 } 或 ]
-                        let fixedJson = jsonStr;
-                        const openBraces = (jsonStr.match(/\{/g) || []).length;
-                        const closeBraces = (jsonStr.match(/\}/g) || []).length;
-                        const openBrackets = (jsonStr.match(/\[/g) || []).length;
-                        const closeBrackets = (jsonStr.match(/\]/g) || []).length;
-                        
-                        if (openBraces > closeBraces) {
-                            fixedJson += '}'.repeat(openBraces - closeBraces);
-                        }
-                        if (openBrackets > closeBrackets) {
-                            fixedJson += ']'.repeat(openBrackets - closeBrackets);
-                        }
-                        
-                        try {
-                            const parsed = JSON.parse(fixedJson.replace(/\\n/g, '\n'));
-                            return { found: true, jsonStr: jsonStr, parsed: parsed };
-                        } catch (e3) {
-                            // 继续尝试其他方法
-                        }
-                    }
-                }
-            }
-            
-            // 尝试查找 JSON 对象或数组 - 从 { 或 [ 开始到行尾
-            const braceStart = line.indexOf('{');
-            const bracketStart = line.indexOf('[');
-            
-            if (braceStart !== -1 || bracketStart !== -1) {
-                const startPos = braceStart !== -1 ? braceStart : bracketStart;
-                const jsonCandidate = line.substring(startPos).trim();
-                
-                // 移除末尾的反引号
-                const cleanCandidate = jsonCandidate.replace(/`+$/, '').trim();
-                
-                // 尝试解析整个剩余部分
-                try {
-                    const parsed = JSON.parse(cleanCandidate);
-                    return { found: true, jsonStr: cleanCandidate, parsed: parsed };
-                } catch (e) {
-                    // 尝试处理字面量的 \n
-                    try {
-                        const parsed = JSON.parse(cleanCandidate.replace(/\\n/g, '\n'));
-                        return { found: true, jsonStr: cleanCandidate, parsed: parsed };
-                    } catch (e) {
-                        // 尝试找到匹配的结束括号
-                        for (let endPos = cleanCandidate.length; endPos > 0; endPos--) {
-                            const substr = cleanCandidate.substring(0, endPos).trim();
-                            try {
-                                const parsed = JSON.parse(substr.replace(/\\n/g, '\n'));
-                                return { found: true, jsonStr: substr, parsed: parsed };
-                            } catch (e) {
-                                continue;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            return { found: false };
-        }
-
-        // 切换 JSON 格式化显示
-        function toggleJsonFormat(index, jsonStr, toggleBtn) {
-            const jsonContentDiv = document.getElementById('json-content-' + index);
-            const rawContentSpan = document.getElementById('json-raw-' + index);
-            
-            if (!jsonContentDiv || !rawContentSpan) return;
-            
-            if (jsonContentDiv.classList.contains('expanded')) {
-                // 收起
-                jsonContentDiv.classList.remove('expanded');
-                rawContentSpan.classList.add('expanded');
-                toggleBtn.textContent = t('jsonFormatBtn');
-                toggleBtn.title = t('jsonFormatTitle');
-            } else {
-                // 展开格式化的 JSON
-                try {
-                    // 尝试解析原始 JSON
-                    let parsed;
-                    try {
-                        parsed = JSON.parse(jsonStr);
-                    } catch (e) {
-                        // 如果失败，尝试处理字面量的 \n
-                        parsed = JSON.parse(jsonStr.replace(/\\n/g, '\n'));
-                    }
-                    // 使用自定义 replacer 函数保留中文字符
-                    const formatted = JSON.stringify(parsed, null, 2).replace(
-                        /\\u([\da-fA-F]{4})/g,
-                        (match, group) => String.fromCharCode(parseInt(group, 16))
-                    );
-                    jsonContentDiv.textContent = formatted;
-                    jsonContentDiv.classList.add('expanded');
-                    rawContentSpan.classList.remove('expanded');
-                    toggleBtn.textContent = '×';
-                    toggleBtn.title = t('jsonRestoreTitle');
-                } catch (e) {
-                    console.error('JSON 格式化失败:', e);
-                    alert(t('jsonFormatFailed') + e.message);
-                }
-            }
         }
 
         function toggleFold(row) {
@@ -2556,13 +2357,28 @@
         // ==================== 语法高亮 ====================
         function applyHighlight(text, originalIndex) {
             let result = escapeHtml(text);
+            let lineStyles = { bgColor: null, bgStyle: '' };
+            let textParts = [];
             
+            // 收集行级别的样式（行背景）
             // 应用自定义高亮规则
             for (const rule of state.highlightRules) {
                 try {
                     const regex = new RegExp(rule.pattern, 'g');
-                    const replacement = `<span style="color: ${rule.color}">$&</span>`;
-                    result = result.replace(regex, replacement);
+                    const applyTo = rule.applyTo || 'text';
+                    
+                    if (applyTo === 'line-bg') {
+                        // 行背景：检查整行是否匹配
+                        if (regex.test(text)) {
+                            lineStyles.bgColor = rule.color;
+                        }
+                    } else if (applyTo === 'text-bg') {
+                        // 文字背景：匹配文本并应用背景色
+                        result = result.replace(regex, `<span style="background-color: ${rule.color}">$&</span>`);
+                    } else {
+                        // 文字颜色（默认）
+                        result = result.replace(regex, `<span style="color: ${rule.color}">$&</span>`);
+                    }
                 } catch (e) {
                     console.error('高亮规则失败:', rule.name, e);
                 }
@@ -2588,7 +2404,11 @@
                 }
             }
             
-            return result;
+            // 返回带行背景样式的结果
+            if (lineStyles.bgColor) {
+                return { html: result, lineBgColor: lineStyles.bgColor };
+            }
+            return { html: result, lineBgColor: null };
         }
 
         function escapeHtml(text) {
@@ -2626,7 +2446,7 @@
                 const nameInput = document.createElement('input');
                 nameInput.type = 'text';
                 nameInput.value = rule.name;
-                nameInput.placeholder = '规则名称';
+                nameInput.placeholder = t('ruleName');
                 nameInput.onchange = (e) => {
                     state.highlightRules[index].name = e.target.value;
                 };
@@ -2634,21 +2454,52 @@
                 const patternInput = document.createElement('input');
                 patternInput.type = 'text';
                 patternInput.value = rule.pattern;
-                patternInput.placeholder = '正则表达式';
+                patternInput.placeholder = t('rulePattern');
                 patternInput.onchange = (e) => {
                     state.highlightRules[index].pattern = e.target.value;
+                };
+                
+                const applyToSelect = document.createElement('select');
+                applyToSelect.style.width = '100px';
+                applyToSelect.style.padding = '0.4rem';
+                applyToSelect.style.backgroundColor = 'var(--bg-color)';
+                applyToSelect.style.border = '1px solid var(--border-color)';
+                applyToSelect.style.borderRadius = '4px';
+                applyToSelect.style.color = 'var(--text-color)';
+                applyToSelect.style.fontSize = '0.85rem';
+                applyToSelect.value = rule.applyTo || 'text';
+                
+                const optText = document.createElement('option');
+                optText.value = 'text';
+                optText.textContent = t('applyToText');
+                
+                const optTextBg = document.createElement('option');
+                optTextBg.value = 'text-bg';
+                optTextBg.textContent = t('applyToTextBg');
+                
+                const optLineBg = document.createElement('option');
+                optLineBg.value = 'line-bg';
+                optLineBg.textContent = t('applyToLineBg');
+                
+                applyToSelect.appendChild(optText);
+                applyToSelect.appendChild(optTextBg);
+                applyToSelect.appendChild(optLineBg);
+                
+                applyToSelect.onchange = (e) => {
+                    state.highlightRules[index].applyTo = e.target.value;
                 };
                 
                 const colorInput = document.createElement('input');
                 colorInput.type = 'color';
                 colorInput.value = rule.color;
+                colorInput.title = t('ruleColor');
                 colorInput.onchange = (e) => {
                     state.highlightRules[index].color = e.target.value;
                 };
                 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete';
-                deleteBtn.textContent = '删除';
+                deleteBtn.textContent = t('delete');
                 deleteBtn.onclick = () => {
                     state.highlightRules.splice(index, 1);
                     renderRuleList();
@@ -2656,6 +2507,7 @@
                 
                 item.appendChild(nameInput);
                 item.appendChild(patternInput);
+                item.appendChild(applyToSelect);
                 item.appendChild(colorInput);
                 item.appendChild(deleteBtn);
                 elements.ruleList.appendChild(item);
@@ -2694,7 +2546,7 @@
                     state.highlightRules = rules;
                     renderRuleList();
                 } catch (err) {
-                    alert(t('importInvalid'));
+                    alert('导入失败：无效的 JSON 文件');
                 }
             };
             reader.readAsText(file);
@@ -2714,7 +2566,7 @@
                     state.filteredLines = state.lines.filter(item => regex.test(item.line));
                     state.isFiltered = true;
                 } catch (e) {
-                    alert(t('invalidRegex') + e.message);
+                    alert('正则表达式无效：' + e.message);
                     return;
                 }
             }
@@ -2788,11 +2640,6 @@
                 row.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
-        
-        // 滚动到底部
-        function scrollToBottom() {
-            elements.logContainer.scrollTop = elements.logContainer.scrollHeight;
-        }
 
         // ==================== 导出功能 ====================
         async function exportLog() {
@@ -2859,25 +2706,20 @@
         function showLogViewer() {
             elements.introPage.style.display = 'none';
             elements.logViewer.classList.add('active');
-            // 隐藏语言选择器
-            if (elements.languageSelector) {
-                elements.languageSelector.classList.add('hidden');
-            }
         }
 
         function showIntroPage() {
             elements.logViewer.classList.remove('active');
             elements.introPage.style.display = 'flex';
-            // 显示语言选择器
-            if (elements.languageSelector) {
-                elements.languageSelector.classList.remove('hidden');
-            }
         }
 
         // ==================== 事件绑定 ====================
         function initEventListeners() {
             // 打开文件
-            elements.openFileBtn.addEventListener('click', () => elements.fileInput.click());
+            elements.openFileBtn.addEventListener('click', () => {
+                elements.fileInput.value = '';
+                elements.fileInput.click();
+            });
             elements.fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
             
             // 拖拽
@@ -2900,6 +2742,7 @@
             // 返回和重新打开
             elements.backBtn.addEventListener('click', showIntroPage);
             elements.reopenBtn.addEventListener('click', () => {
+                elements.fileInput.value = '';
                 elements.fileInput.click();
             });
             
@@ -2925,7 +2768,7 @@
                     renderLog();
                 } catch (error) {
                     console.error('切换编码失败:', error);
-                    alert(t('switchEncodingFailed') + error.message);
+                    alert('切换编码失败：' + error.message);
                 } finally {
                     showLoading(false);
                 }
@@ -2949,6 +2792,14 @@
                 }
             });
             
+            // 自动滚动
+            elements.autoScroll.addEventListener('change', (e) => {
+                state.autoScroll = e.target.checked;
+                if (state.autoScroll) {
+                    elements.logContainer.scrollTop = elements.logContainer.scrollHeight;
+                }
+            });
+            
             // 高亮规则
             elements.highlightBtn.addEventListener('click', () => {
                 elements.highlightModal.classList.add('active');
@@ -2961,6 +2812,7 @@
             elements.addRuleBtn.addEventListener('click', () => {
                 const name = elements.ruleName.value.trim();
                 const pattern = elements.rulePattern.value.trim();
+                const applyTo = elements.ruleApplyTo.value;
                 const color = elements.ruleColor.value;
                 
                 if (!name || !pattern) {
@@ -2975,7 +2827,7 @@
                     return;
                 }
                 
-                state.highlightRules.push({ name, pattern, color });
+                state.highlightRules.push({ name, pattern, color, applyTo });
                 renderRuleList();
                 
                 elements.ruleName.value = '';
@@ -3029,7 +2881,7 @@
                         renderLog();
                         elements.repairModal.classList.remove('active');
                     } catch (e) {
-                        alert(t('invalidRegex') + e.message);
+                        alert('正则表达式无效：' + e.message);
                     }
                 } else {
                     state.repairPattern = null;
@@ -3072,8 +2924,24 @@
                 languageSelect.addEventListener('change', () => {
                     currentLanguage = languageSelect.value;
                     applyTranslations();
+                    // 更新规则列表的翻译
+                    if (elements.highlightModal.classList.contains('active')) {
+                        renderRuleList();
+                    }
                 });
             }
+            
+            // 滚动时暂停自动滚动
+            elements.logContainer.addEventListener('scroll', () => {
+                if (state.autoScroll) {
+                    const container = elements.logContainer;
+                    const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+                    if (!isAtBottom) {
+                        state.autoScroll = false;
+                        elements.autoScroll.checked = false;
+                    }
+                }
+            });
         }
 
         // ==================== 初始化 ====================
@@ -3128,7 +2996,7 @@
 
         // 打开正则表达式生成器
         function openRegexGenerator() {
-            window.open('/regex_generator/', '_blank');
+            window.open('https://tool.autogo.top/regex_generator/', '_blank');
         }
 
         init();
